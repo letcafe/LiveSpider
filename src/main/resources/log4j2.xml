@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 设置log4j2的自身log级别为warn -->
+<!-- OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<Configuration status="WARN">
+    <Appenders>
+
+        <!-- 输出日志的格式 -->
+        <!--
+            %d{yyyy-MM-dd HH:mm:ss, SSS} : 日志生产时间
+            %p : 日志输出格式
+            %c : logger的名称
+            %m : 日志内容，即 logger.info("message")
+            %n : 换行符
+            %C : Java类名
+            %L : 日志输出所在行数
+            %M : 日志输出所在方法名
+            hostName : 本地机器名
+            hostAddress : 本地ip地址 -->
+
+        <!-- 控制台输出 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss}] [%p] [%C:%L] - %m%n"/>
+        </Console>
+
+        <RollingFile name="RollingFileDebug" fileName="logs/LiveSpider/debug.log"
+                     filePattern="logs/LiveSpider/$${date:yyyy-MM}/debug-%d{yyyy-MM-dd}-%i.log">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <Filters>
+                <ThresholdFilter level="DEBUG"/>
+                <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!--最多保留20个日志文件-->
+            <DefaultRolloverStrategy max="20" min="1" />
+        </RollingFile>
+
+        <RollingFile name="RollingFileInfo" fileName="logs/LiveSpider/info.log"
+                     filePattern="logs/LiveSpider/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <ThresholdFilter level="INFO"/>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!--最多保留20个日志文件-->
+            <DefaultRolloverStrategy max="20" min="1" />
+        </RollingFile>
+
+        <RollingFile name="RollingFileWarn" fileName="logs/LiveSpider/warn.log"
+                     filePattern="logs/LiveSpider/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <ThresholdFilter level="WARN"/>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!--最多保留20个日志文件-->
+            <DefaultRolloverStrategy max="20" min="1" />
+        </RollingFile>
+
+        <RollingFile name="RollingFileError" fileName="logs/LiveSpider/error.log"
+                     filePattern="logs/LiveSpider/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="ERROR"/>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!--最多保留20个日志文件-->
+            <DefaultRolloverStrategy max="20" min="1" />
+        </RollingFile>
+
+        <RollingFile name="RollingFileFatal" fileName="logs/LiveSpider/fatal.log"
+                     filePattern="logs/LiveSpider/$${date:yyyy-MM}/fatal-%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="FATAL"/>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!--最多保留20个日志文件-->
+            <DefaultRolloverStrategy max="20" min="1" />
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <!--过滤掉simm.spring.restapi一些无用的DEBUG信息-->
+        <!--<logger name="org.springframework.core" level="INFO" />-->
+        <!-- 第三方日志系统 -->
+        <Root level="INFO">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileDebug"/>
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileWarn"/>
+            <appender-ref ref="RollingFileError"/>
+            <appender-ref ref="RollingFileFatal"/>
+        </Root>
+    </Loggers>
+</Configuration>

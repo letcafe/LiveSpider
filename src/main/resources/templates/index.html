@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>
+            产品编号
+        </td>
+        <td>
+            产品名称
+        </td>
+        <td>
+            产品价格
+        </td>
+        <td>
+            操作
+        </td>
+    </tr>
+    <tr th:each="product,iterStat:${bookList}">
+        <td th:text="${product.productId}"></td>
+        <td th:text="${product.productName}"></td>
+        <td th:text="${product.productPrice}"></td>
+        <td>
+            <a th:href="@{/alipay/goConfirm?productId=} + ${product.id }">购买</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    active: development
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+  mail:
+    protocol: smtp
+    host: smtp.qq.com
+    port: 465
+    username: gdycn@qq.com
+    password: etictvelkfbwbicf
+    default-encoding: UTF-8
+server:
+  port: 8080
+  servlet:
+    context-path: /
+logging:
+  config: classpath:log4j2.xml
