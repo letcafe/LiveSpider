@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.webjars.bower:stomp-websocket:2.3.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.bower/stomp-websocket/2.3.4/a952882dceb973fdab0fb94096b9953700f27769/stomp-websocket-2.3.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.bower/stomp-websocket/2.3.4/b04f3ee8f5e43fa3b162981b50bb72fe1acabb33/stomp-websocket-2.3.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

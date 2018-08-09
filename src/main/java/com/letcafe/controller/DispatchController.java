@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -34,5 +35,10 @@ public class DispatchController {
         //将抓取的数据插入数据库
         model.addAttribute("bookList", bookList);
         return "index";
+    }
+
+    @RequestMapping("tables/{var}")
+    public String tables(Model model, @PathVariable("var") String var){
+        return "tables/" + var;
     }
 }

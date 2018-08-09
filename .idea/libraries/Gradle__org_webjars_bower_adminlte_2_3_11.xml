@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.webjars.bower:adminlte:2.3.11">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.bower/adminlte/2.3.11/62884790fef08f1ba9b677916e632a50ccf73c41/adminlte-2.3.11.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.bower/adminlte/2.3.11/b04f3ee8f5e43fa3b162981b50bb72fe1acabb33/adminlte-2.3.11-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

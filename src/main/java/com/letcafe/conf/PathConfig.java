@@ -1,8 +1,10 @@
 package com.letcafe.conf;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+@Configuration
 public class PathConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -13,10 +15,10 @@ public class PathConfig implements WebMvcConfigurer {
          * 如果是/xxxx/** 引用静态资源 加不加/xxxx/ 均可，因为系统默认配置（/**）也会作用
          * 如果是/** 会覆盖默认配置，应用addResourceLocations添加所有会用到的静态资源地址，系统默认不会再起作用
          */
-//        registry.addResourceHandler("/**")
-//                .addResourceLocations("classpath:/META-INF/resources/")
-//                .addResourceLocations("classpath:/resources/")
-//                .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/META-INF/resources/")
+                .addResourceLocations("classpath:/resources/")
+                .addResourceLocations("classpath:/static/");
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/resources/static/")
                 .addResourceLocations("classpath:/resources/webjars/")

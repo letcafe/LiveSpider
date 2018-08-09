@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.webjars.bower:sockjs-client:1.1.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.bower/sockjs-client/1.1.5/133b8262fd8ee3017f76d4f921db9b13f2d18f6e/sockjs-client-1.1.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.bower/sockjs-client/1.1.5/b04f3ee8f5e43fa3b162981b50bb72fe1acabb33/sockjs-client-1.1.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
