@@ -9,9 +9,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class JdParse {
+public class JDParser implements Parser {
 
-    public static List<JDProduct> getData (String html) throws Exception{
+    @Override
+    public List<JDProduct> listData(String html){
         //获取的数据，存放在集合中
         List<JDProduct> data = new ArrayList<>();
         //采用Jsoup解析
@@ -34,4 +35,5 @@ public class JdParse {
         //返回数据
         return data;
     }
+
 }

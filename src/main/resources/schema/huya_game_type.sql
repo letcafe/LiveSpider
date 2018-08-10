@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS huya_game_type;
+
+CREATE TABLE huya_game_type
+(
+  id INT(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  gid VARCHAR(16) NOT NULL,
+  name VARCHAR(16) NOT NULL,
+  create_time DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  update_time DATETIME
+)

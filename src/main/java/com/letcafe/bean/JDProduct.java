@@ -23,6 +23,12 @@ public class JDProduct {
     public JDProduct() {
     }
 
+    public JDProduct(String productId, String productName, Double productPrice) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productPrice = productPrice;
+    }
+
     public Integer getId() {
         return id;
     }
