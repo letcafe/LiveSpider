@@ -5,11 +5,12 @@ import javax.persistence.*;
 @Entity
 @Table(name = "huya_game_type")
 public class HuYaGameType {
-    @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-    String gid;
-    String name;
+    private Integer id;
+    @Id
+    private String gid;
+    private String name;
 
     public HuYaGameType() {
     }

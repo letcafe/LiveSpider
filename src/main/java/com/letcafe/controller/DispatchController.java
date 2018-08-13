@@ -38,27 +38,7 @@ public class DispatchController {
         return "jdProduct";
     }
 
-    @RequestMapping("huYaLiveType")
-    public String huYaLiveType(Model model) throws Exception {
 
-        //初始化一个httpclient
-        HttpClient client = HttpClients.createDefault();
-        //我们要爬取的一个地址，这里可以从数据库中抽取数据，然后利用循环，可以爬取一个URL队列
-        String url="https://www.huya.com/g";
-        //抓取的数据
-        List<String> types = UrlFetcher.URLParser(client, url, new HuYaParser());
-        //循环输出抓取的数据
-        logger.info("types.size() = " + types.size());
-        //将抓取的数据插入数据库
-        model.addAttribute("types", types);
-        return "huyaLiveType";
-    }
-    private static int i = 0;
-
-    @Scheduled(fixedRate = 1000)
-    public void printStr(){
-        System.out.println("test:" + i++);
-    }
 
     @RequestMapping("tables/{var}")
     public String tables(Model model, @PathVariable("var") String var){

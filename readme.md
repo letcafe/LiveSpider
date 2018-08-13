@@ -25,3 +25,6 @@
 + 新增：Huya游戏列表(gid + name)
 + 新增：Spring @Scheduling定时任务(@EnableScheduling + @Scheduling)
 
+### 2018-08-13
++ Ing：数据库结构持续调整中...
+
