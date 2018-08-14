@@ -5,9 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "huya_game_type")
 public class HuYaGameType {
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
     @Id
     private String gid;
     private String name;
@@ -39,7 +36,6 @@ public class HuYaGameType {
     @Override
     public String toString() {
         return "HuYaGameType{" +
-                "id=" + id +
                 ", gid='" + gid + '\'' +
                 ", name='" + name + '\'' +
                 '}';

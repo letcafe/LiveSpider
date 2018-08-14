@@ -38,7 +38,6 @@ public class GameTypeGetter {
         //抓取的数据
         List<HuYaGameType> types = UrlFetcher.URLParser(client, url, new HuYaParser());
         //循环输出抓取的数据
-        logger.info("types.size() = " + types.size());
         huYaGameTypeService.saveOrUpdateList(types);
         //将抓取的数据插入数据库
         if (model != null) {
