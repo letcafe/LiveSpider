@@ -2,8 +2,11 @@ package com.letcafe.controller.huya;
 
 import com.letcafe.bean.HuYaGameType;
 import com.letcafe.bean.HuYaLiveInfo;
+import com.letcafe.bean.mongo.LiveInfoLog;
 import com.letcafe.parse.HuYaParser;
 import com.letcafe.service.HuYaGameTypeService;
+import com.letcafe.service.HuYaLiveInfoService;
+import com.letcafe.service.LiveInfoLogService;
 import com.letcafe.util.HttpUtils;
 import com.letcafe.util.JacksonUtil;
 import com.letcafe.util.UrlFetcher;
@@ -21,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Controller
@@ -30,18 +34,23 @@ public class LiveInfoGetter {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private HuYaGameTypeService huYaGameTypeService;
+    private HuYaLiveInfoService huYaLiveInfoService;
+    private LiveInfoLogService liveInfoLogService;
 
     @Autowired
-    public LiveInfoGetter(HuYaGameTypeService huYaGameTypeService) {
+    public LiveInfoGetter(HuYaGameTypeService huYaGameTypeService,
+                          HuYaLiveInfoService huYaLiveInfoService,
+                          LiveInfoLogService liveInfoLogService) {
         this.huYaGameTypeService = huYaGameTypeService;
+        this.huYaLiveInfoService = huYaLiveInfoService;
+        this.liveInfoLogService = liveInfoLogService;
     }
 
-    @Scheduled(fixedRate = 10000)
-    public String gameType(/*int gid*/) throws Exception {
+    private void updateHuYaLiveInfoById(int gid) throws Exception {
         //初始化一个httpclient
         HttpClient client = HttpClients.createDefault();
         //我们要爬取的一个地址，这里可以从数据库中抽取数据，然后利用循环，可以爬取一个URL队列
-        String url="https://www.huya.com/cache10min.php?m=Live&do=getProfileRecommendList&gid=1";
+        String url="https://www.huya.com/cache10min.php?m=Live&do=getProfileRecommendList&gid=" + gid;
         //抓取的数据
         HttpResponse response = HttpUtils.getRawHtml(client, url);
         //获取响应状态码
@@ -52,18 +61,65 @@ public class LiveInfoGetter {
             entity = EntityUtils.toString (response.getEntity(),"utf-8");
             JSONObject jsonObject = new JSONObject(entity);
             JSONArray jsonArray = jsonObject.getJSONArray("data");
-            System.out.println("[jsonArray.get(0)] = " + jsonArray.get(0));
-            HuYaLiveInfo huYaLiveInfo = JacksonUtil.readValue(jsonArray.get(0).toString(), HuYaLiveInfo.class);
-            if(huYaLiveInfo != null) {
-                System.out.println("[huYaLiveInfo] = " + huYaLiveInfo);
-            } else {
-                System.out.println("[huYaLiveInfo] = null");
+            for (int i = 0; i < jsonArray.length(); i ++) {
+                HuYaLiveInfo huYaLiveInfo = JacksonUtil.readValue(jsonArray.get(i).toString(), HuYaLiveInfo.class);
+                huYaLiveInfoService.saveOrUpdate(huYaLiveInfo);
             }
         }else {
             //否则，消耗掉实体
             EntityUtils.consume(response.getEntity());
         }
-        return entity;
+    }
+
+    private void addHuYaLiveInfoLog(int gid, long logCurrentTime) throws Exception {
+        HttpClient client = HttpClients.createDefault();
+        String url="https://www.huya.com/cache10min.php?m=Live&do=getProfileRecommendList&gid=" + gid;
+        HttpResponse response = HttpUtils.getRawHtml(client, url);
+        int StatusCode = response.getStatusLine().getStatusCode();
+        String entity = "";
+        //如果状态响应码为200，则获取html实体内容或者json文件
+        if(StatusCode == 200){
+            entity = EntityUtils.toString (response.getEntity(),"utf-8");
+            JSONObject jsonObject = new JSONObject(entity);
+            JSONArray jsonArray = jsonObject.getJSONArray("data");
+            for (int i = 0; i < jsonArray.length(); i ++) {
+                HuYaLiveInfo huya = JacksonUtil.readValue(jsonArray.get(i).toString(), HuYaLiveInfo.class);
+                LiveInfoLog liveInfoLog = new LiveInfoLog(
+                        huya.getUid(),
+                        huya.getSex(),
+                        huya.getActivityCount(),
+                        huya.getNick(),
+                        "" + huya.getGid(),
+                        huya.getAttendeeCount(),
+                        huya.getLiveHost(),
+                        huya.getGame(),
+                        new Timestamp(logCurrentTime));
+                liveInfoLogService.save(liveInfoLog);
+            }
+        }else {
+            EntityUtils.consume(response.getEntity());
+        }
+    }
+
+    // Every 10 minutes update all huya live information in MySQL
+    @Scheduled(cron = "0 2/5 * * * *")
+    public void updateAllHuYaLiveInfo() throws Exception {
+        long startTime = System.currentTimeMillis();
+        List<Integer> gidList = huYaGameTypeService.listAllGid();
+        for (Integer gid : gidList) {
+            updateHuYaLiveInfoById(gid);
+        }
+        long endTime = System.currentTimeMillis();
+        logger.info("saveOrUpdate all Live.[cost time] = " + (endTime - startTime) / 1000 + "s");
+    }
+
+    // Every 5 minutes update all huya log information in MySQL
+    @Scheduled(cron = "0 0/5 * * * *")
+    public void insertAll() throws Exception {
+        String currentTime = "" + System.currentTimeMillis();
+        long logCurrentTime = Long.valueOf(currentTime.substring(0, currentTime.length() - 3) + "000");
+        addHuYaLiveInfoLog(1, logCurrentTime);
+        logger.info("[log Time] = " + new Timestamp(logCurrentTime).toLocalDateTime() + ";[total mongo count] = " + liveInfoLogService.countAll());
     }
 
 }

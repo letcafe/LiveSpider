@@ -4,6 +4,13 @@
     <facet type="Spring" name="Spring">
       <configuration />
     </facet>
+    <facet type="web" name="Web Gradle : LiveSpider-1.0-SNAPSHOT.war">
+      <configuration>
+        <webroots>
+          <root url="file://C:\Users\letca\IdeaProjects\LiveSpider\src\main\webapp" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/../../out/production/classes" />
@@ -19,6 +26,7 @@
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-data-redis:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-jdbc:2.0.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-data-mongodb:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-log4j2:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-orm:5.0.4.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.hibernate:hibernate-core:5.2.12.Final" level="project" />
@@ -46,6 +54,8 @@
     <orderEntry type="library" name="Gradle: io.lettuce:lettuce-core:5.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: com.zaxxer:HikariCP:2.7.8" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-jdbc:5.0.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.mongodb:mongodb-driver:3.6.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.data:spring-data-mongodb:2.0.5.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-slf4j-impl:2.10.0" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-core:2.10.0" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:jul-to-slf4j:1.7.25" level="project" />
@@ -91,6 +101,8 @@
     <orderEntry type="library" name="Gradle: io.netty:netty-buffer:4.1.21.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-resolver:4.1.21.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-common:4.1.21.Final" level="project" />
+    <orderEntry type="library" name="Gradle: org.mongodb:mongodb-driver-core:3.6.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.mongodb:bson:3.6.3" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-api:2.10.0" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-jcl:5.0.4.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />

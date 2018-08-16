@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,29 +14,29 @@ import java.time.LocalDateTime;
 public class HuYaLiveInfo {
 
     @Id
-    private Integer uid;
-    private int sex;
+    private Long uid;
+    private Integer sex;
     @Column(name = "game_full_name")
     private String gameFullName;
     @Column(name = "game_host_name")
-    private int gameHostName;
+    private Integer gameHostName;
     @Column(name = "start_time")
     private LocalDateTime startTime;
     @Column(name = "activity_id")
     private Integer activityId;
-    private int level;
+    private Integer level;
     @Column(name = "total_count")
     private Integer totalCount;
     @Column(name = "room_name")
     private String roomName;
     @Column(name = "is_secret")
-    private int isSecret;
+    private Boolean isSecret;
     @Column(name = "camera_open")
-    private int cameraOpen;
+    private Boolean cameraOpen;
     @Column(name = "live_channel")
     private Long liveChannel;
     @Column(name = "buss_type")
-    private int bussType;
+    private Integer bussType;
     private String yyid;
     private String screenshot;
     @Column(name = "activity_count")
@@ -50,25 +49,25 @@ public class HuYaLiveInfo {
     @Column(name = "short_channel")
     private Integer shortChannel;
     private String avatar180;
-    private int gid;
+    private Integer gid;
     private Long channel;
     private String introduction;
     @Column(name = "profile_home_host")
     private String profileHomeHost;
     @Column(name = "live_source_type")
-    private int liveSourceType;
+    private Integer liveSourceType;
     @Column(name = "screen_type")
-    private int screenType;
+    private Integer screenType;
     @Column(name = "bit_rate")
-    private int bitRate;
+    private Integer bitRate;
     @Column(name = "game_type")
-    private int gameType;
+    private Integer gameType;
     @Column(name = "attendee_count")
     private Integer attendeeCount;
     @Column(name = "multi_stream_flag")
     private String multiStreamFlag;
     @Column(name = "codec_type")
-    private int codecType;
+    private Integer codecType;
     @Column(name = "live_compatible_flag")
     private String liveCompatibleFlag;
     @Column(name = "profile_room")
@@ -84,17 +83,17 @@ public class HuYaLiveInfo {
     private Integer user_count;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime live_time;
-    public void setUid(Integer uid) {
+    public void setUid(Long uid) {
         this.uid = uid;
     }
-    public Integer getUid() {
+    public Long getUid() {
         return uid;
     }
 
-    public void setSex(int sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
-    public int getSex() {
+    public Integer getSex() {
         return sex;
     }
 
@@ -105,10 +104,10 @@ public class HuYaLiveInfo {
         return gameFullName;
     }
 
-    public void setGameHostName(int gameHostName) {
+    public void setGameHostName(Integer gameHostName) {
         this.gameHostName = gameHostName;
     }
-    public int getGameHostName() {
+    public Integer getGameHostName() {
         return gameHostName;
     }
 
@@ -126,10 +125,10 @@ public class HuYaLiveInfo {
         return activityId;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
@@ -147,17 +146,17 @@ public class HuYaLiveInfo {
         return roomName;
     }
 
-    public void setIsSecret(int isSecret) {
+    public void setIsSecret(Boolean isSecret) {
         this.isSecret = isSecret;
     }
-    public int getIsSecret() {
+    public Boolean getIsSecret() {
         return isSecret;
     }
 
-    public void setCameraOpen(int cameraOpen) {
+    public void setCameraOpen(Boolean cameraOpen) {
         this.cameraOpen = cameraOpen;
     }
-    public int getCameraOpen() {
+    public Boolean getCameraOpen() {
         return cameraOpen;
     }
 
@@ -168,10 +167,10 @@ public class HuYaLiveInfo {
         return liveChannel;
     }
 
-    public void setBussType(int bussType) {
+    public void setBussType(Integer bussType) {
         this.bussType = bussType;
     }
-    public int getBussType() {
+    public Integer getBussType() {
         return bussType;
     }
 
@@ -231,10 +230,10 @@ public class HuYaLiveInfo {
         return avatar180;
     }
 
-    public void setGid(int gid) {
+    public void setGid(Integer gid) {
         this.gid = gid;
     }
-    public int getGid() {
+    public Integer getGid() {
         return gid;
     }
 
@@ -259,31 +258,31 @@ public class HuYaLiveInfo {
         return profileHomeHost;
     }
 
-    public void setLiveSourceType(int liveSourceType) {
+    public void setLiveSourceType(Integer liveSourceType) {
         this.liveSourceType = liveSourceType;
     }
-    public int getLiveSourceType() {
+    public Integer getLiveSourceType() {
         return liveSourceType;
     }
 
-    public void setScreenType(int screenType) {
+    public void setScreenType(Integer screenType) {
         this.screenType = screenType;
     }
-    public int getScreenType() {
+    public Integer getScreenType() {
         return screenType;
     }
 
-    public void setBitRate(int bitRate) {
+    public void setBitRate(Integer bitRate) {
         this.bitRate = bitRate;
     }
-    public int getBitRate() {
+    public Integer getBitRate() {
         return bitRate;
     }
 
-    public void setGameType(int gameType) {
+    public void setGameType(Integer gameType) {
         this.gameType = gameType;
     }
-    public int getGameType() {
+    public Integer getGameType() {
         return gameType;
     }
 
@@ -301,10 +300,10 @@ public class HuYaLiveInfo {
         return multiStreamFlag;
     }
 
-    public void setCodecType(int codecType) {
+    public void setCodecType(Integer codecType) {
         this.codecType = codecType;
     }
-    public int getCodecType() {
+    public Integer getCodecType() {
         return codecType;
     }
 

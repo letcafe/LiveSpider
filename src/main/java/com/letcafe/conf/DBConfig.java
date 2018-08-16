@@ -21,9 +21,9 @@ public class DBConfig {
         ds.setInitialSize(10);
         ds.setDefaultAutoCommit(true);
         ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://localhost:3306/live_spider?serverTimezone=GMT%2B8&useSSL=false&characterEncoding=utf-8");
-        ds.setUsername("root");
-        ds.setPassword("123456");
+        ds.setUrl("jdbc:mysql://localhost:3306/live_spider?serverTimezone=GMT%2B8&useSSL=false&useUnicode=true&character_set_server=utf8mb4&&characterEncoding=utf-8");
+        ds.setUsername("dongyuguo");
+        ds.setPassword("Gg@123456");
         return ds;
     }
 
@@ -36,7 +36,7 @@ public class DBConfig {
         ds.setInitialSize(10);
         ds.setDefaultAutoCommit(true);
         ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://localhost:3306/live_spider?serverTimezone=GMT%2B8&useSSL=false&characterEncoding=utf-8");
+        ds.setUrl("jdbc:mysql://localhost:3306/live_spider?serverTimezone=GMT%2B8&useSSL=false&useUnicode=true&character_set_server=utf8mb4&&characterEncoding=utf-8");
         ds.setUsername("name2");
         ds.setPassword("password2");
         return ds;

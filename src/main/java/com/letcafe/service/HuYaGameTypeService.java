@@ -9,4 +9,8 @@ public interface HuYaGameTypeService {
     void save(HuYaGameType huYaGameType);
 
     void saveOrUpdateList(List<HuYaGameType> huYaGameTypes);
+
+    List<HuYaGameType> listHuYaGameType();
+
+    List<Integer> listAllGid();
 }

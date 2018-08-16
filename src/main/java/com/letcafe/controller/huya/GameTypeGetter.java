@@ -31,22 +31,17 @@ public class GameTypeGetter {
 
     @RequestMapping("")
     public String gameType(Model model) throws Exception {
-        //初始化一个httpclient
         HttpClient client = HttpClients.createDefault();
-        //我们要爬取的一个地址，这里可以从数据库中抽取数据，然后利用循环，可以爬取一个URL队列
         String url="https://www.huya.com/g";
-        //抓取的数据
         List<HuYaGameType> types = UrlFetcher.URLParser(client, url, new HuYaParser());
-        //循环输出抓取的数据
         huYaGameTypeService.saveOrUpdateList(types);
-        //将抓取的数据插入数据库
         if (model != null) {
             model.addAttribute("types", types);
         }
         return "huyaLiveType";
     }
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(cron = "25/30 * * * * *")
     public void gameTypeScheduled() throws Exception {
         gameType(null);
     }

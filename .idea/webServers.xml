@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="70442686-c6da-4256-a2f1-7c54183eaafe" name="阿里云老师赞助学生服务器" url="http://59.110.231.87">
+        <fileTransfer host="59.110.231.87" port="22" rootFolder="/usr/local/apache-tomcat-9.0.6/webapps" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

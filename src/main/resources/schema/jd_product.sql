@@ -8,4 +8,4 @@ CREATE TABLE jd_product
   product_price DOUBLE DEFAULT 0.0,
   create_time DATETIME DEFAULT CURRENT_TIMESTAMP(),
   update_time DATETIME
-)
+) DEFAULT CHARSET UTF8MB4

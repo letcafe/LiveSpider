@@ -32,4 +32,14 @@ public class HuYaGameTypeServiceImpl implements HuYaGameTypeService{
             huYaGameTypeDao.saveOrUpdate(huYaGameType);
         }
     }
+
+    @Override
+    public List<HuYaGameType> listHuYaGameType() {
+        return huYaGameTypeDao.listHuYaGameType();
+    }
+
+    @Override
+    public List<Integer> listAllGid() {
+        return huYaGameTypeDao.listAllGid();
+    }
 }
