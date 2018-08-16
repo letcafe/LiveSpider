@@ -26,7 +26,7 @@
 + 新增：Spring @Scheduling定时任务(@EnableScheduling + @Scheduling)
 
 ### 2018-08-13
-+ Ing：数据库结构持续调整中...
++ ing：数据库结构持续调整中...
 + 新增：HuYa主播信息：bean<=>pojo正确映射
 
 ### 2018-08-16
@@ -34,9 +34,10 @@
 + 新增：(mysql)5分钟定时更新所有Live大类前20直播间信息（HuYaLiveInfo.java）
 + 新增：(mongodb)5分钟定时插入所有Live大类前20直播间日志留存（LiveInfoLog.java）
 
-### 2018-08-16(补充计划)
-#### Ing：HuYa模拟登录流程：重点在于获取oath_token：
+### 2018-08-16(to do plan)
+#### research result：HuYa模拟登录流程：重点在于获取oath_token：
 1. POST请求：https://www.huya.com/udb_web/authorizeURL.php?do=authorizeEmbedURL&callbackURL=https://www.huya.com/udb_web/udbport2.php?do=callback
 2. 响应中包含oauth_token字段（96 char）
 3. 带着token以POST请求如下路径：https://lgn.yy.com/lgn/oauth/x2/s/login_asyn.do?username=1656777876&pwdencrypt={huya固定编码后密码，可作常量不变，具体F12去获取}&oauth_token={上述步骤token}&denyCallbackURL=&UIStyle=xelogin&appid=5216&mxc=&vk=&isRemMe=1&mmc=&vv=&hiido=1
 + ![image](https://github.com/letcafe/LiveSpider/blob/master/picture/huya_oath.png)
+4. 拿到token后请为所欲为...
