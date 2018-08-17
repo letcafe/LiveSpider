@@ -7,11 +7,13 @@ import com.letcafe.util.UrlFetcher;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.junit.Test;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +48,7 @@ public class CookieResponseTest {
         if(StatusCode == 200){
             String entity = EntityUtils.toString (response.getEntity(),"utf-8");
             System.out.println(entity);
+
         }else {
             //否则，消耗掉实体
             EntityUtils.consume(response.getEntity());
@@ -77,4 +80,5 @@ public class CookieResponseTest {
         }
         return oAuthToken;
     }
+
 }

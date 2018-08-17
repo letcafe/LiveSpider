@@ -41,3 +41,8 @@
 3. 带着token以POST请求如下路径：https://lgn.yy.com/lgn/oauth/x2/s/login_asyn.do?username=1656777876&pwdencrypt={huya固定编码后密码，可作常量不变，具体F12去获取}&oauth_token={上述步骤token}&denyCallbackURL=&UIStyle=xelogin&appid=5216&mxc=&vk=&isRemMe=1&mmc=&vv=&hiido=1
 + ![image](https://github.com/letcafe/LiveSpider/blob/master/picture/huya_oath.png)
 4. 拿到token后请为所欲为...
+
+### 2018-08-17(to do plan)
+#### research result：HuYa模拟登录流程：重点在于获取oath_token：
++ 2018-08-16中的问题，对于常规Jsoup难以解决，使用Selenium解决：
++ Selenium gradle:http://mvnrepository.com/search?q=selenium
