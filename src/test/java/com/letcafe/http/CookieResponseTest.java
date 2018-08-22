@@ -1,19 +1,12 @@
 package com.letcafe.http;
 
-import com.letcafe.bean.HuYaGameType;
-import com.letcafe.parse.HuYaParser;
 import com.letcafe.util.HttpUtils;
-import com.letcafe.util.UrlFetcher;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.cookie.Cookie;
-import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

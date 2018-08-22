@@ -46,3 +46,9 @@
 #### research result：HuYa模拟登录流程：重点在于获取oath_token：
 + 2018-08-16中的问题，对于常规Jsoup难以解决，使用Selenium解决：
 + Selenium gradle:http://mvnrepository.com/search?q=selenium
+
+### 2018-08-22
++ 测试类：SeleniumStarterTest，结合chromedriver.exe实现模拟登陆操作（已实现，但需要基于GUI的浏览器/可考虑加入PhantomJS）
++ 测试类：CookieResponseTest，通过纯HttpClient解析WebFlow，实现部分基于Http的模拟（未完全实现）
++ 新增：成功获得所有用户任务数量，情况信息接口内容
++ 下一步：过滤出干净的数据或者找到Selenium做WebApi得到JSON
