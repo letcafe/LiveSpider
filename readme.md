@@ -52,3 +52,7 @@
 + 测试类：CookieResponseTest，通过纯HttpClient解析WebFlow，实现部分基于Http的模拟（未完全实现）
 + 新增：成功获得所有用户任务数量，情况信息接口内容
 + 下一步：过滤出干净的数据或者找到Selenium做WebApi得到JSON
+
+### 2018-08-23
++ 测试类：HuYaUserLevel及其相关POJO
++ 新增：完成对用户信息模型HuYaUserLevel的封装及操作，并定时爬取

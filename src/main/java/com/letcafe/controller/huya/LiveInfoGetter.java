@@ -1,15 +1,12 @@
 package com.letcafe.controller.huya;
 
-import com.letcafe.bean.HuYaGameType;
 import com.letcafe.bean.HuYaLiveInfo;
 import com.letcafe.bean.mongo.LiveInfoLog;
-import com.letcafe.parse.HuYaParser;
 import com.letcafe.service.HuYaGameTypeService;
 import com.letcafe.service.HuYaLiveInfoService;
 import com.letcafe.service.LiveInfoLogService;
 import com.letcafe.util.HttpUtils;
 import com.letcafe.util.JacksonUtil;
-import com.letcafe.util.UrlFetcher;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -21,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.sql.Timestamp;

@@ -81,7 +81,7 @@ public class HuYaLiveInfo {
     private String avatar;
     private String game;
     private Integer user_count;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime live_time;
     public void setUid(Long uid) {
         this.uid = uid;
