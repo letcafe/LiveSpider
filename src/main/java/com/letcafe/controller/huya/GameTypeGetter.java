@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/getter/huya/gameType")
 public class GameTypeGetter {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(GameTypeGetter.class);
 
     private HuYaGameTypeService huYaGameTypeService;
 

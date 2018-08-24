@@ -45,6 +45,7 @@
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-remote-driver:3.14.0" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpclient:4.5.6" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.commons:commons-dbcp2:2.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: redis.clients:jedis:2.9.0" level="project" />
     <orderEntry type="library" name="Gradle: org.webjars.bower:sockjs-client:1.1.5" level="project" />
     <orderEntry type="library" name="Gradle: org.webjars.bower:stomp-websocket:2.3.4" level="project" />
     <orderEntry type="library" name="Gradle: org.json:json:20180130" level="project" />

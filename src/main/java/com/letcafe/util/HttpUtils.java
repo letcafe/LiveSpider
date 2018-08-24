@@ -6,10 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.HttpVersion;
-import org.apache.http.NameValuePair;
+import org.apache.http.*;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -41,12 +38,28 @@ public abstract class HttpUtils {
         return response;
     }
 
-    public static HttpResponse doPost(String url, Map<String, String> map) throws UnsupportedEncodingException {
+    public static HttpResponse doGet(String url, Map<String, String> headerMap){
+        HttpClient client = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(url);
+        for (String key : headerMap.keySet()) {
+            httpGet.addHeader(key, headerMap.get(key));
+        }
+        HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1,
+                HttpStatus.SC_OK, "OK");
+        try {
+            response = client.execute(httpGet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    public static HttpResponse doPost(String url, Map<String, String> paramMap) throws UnsupportedEncodingException {
         HttpClient client = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
         HttpPost httpPost = new HttpPost(url);
-        if (map != null) {
+        if (paramMap != null) {
             List<NameValuePair> pairs = new ArrayList<>();
-            for (Map.Entry<String, String> entry : map.entrySet()) {
+            for (Map.Entry<String, String> entry : paramMap.entrySet()) {
                 pairs.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
             }
             httpPost.setEntity(new UrlEncodedFormEntity(pairs, "UTF-8"));

@@ -45,6 +45,9 @@ dependencies {
     // DBCP db pool
     compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.2.0'
 
+    // Jedis
+    compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
+
     // sockjs-client
     compile group: 'org.webjars.bower', name: 'sockjs-client', version: '1.1.5'
     compile group: 'org.webjars.bower', name: 'stomp-websocket', version: '2.3.4'

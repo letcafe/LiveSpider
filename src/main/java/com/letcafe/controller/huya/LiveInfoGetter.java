@@ -27,7 +27,7 @@ import java.util.List;
 @RequestMapping("/getter/huya/liveInfo")
 public class LiveInfoGetter {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(LiveInfoGetter.class);
 
     private HuYaGameTypeService huYaGameTypeService;
     private HuYaLiveInfoService huYaLiveInfoService;

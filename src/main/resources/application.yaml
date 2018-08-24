@@ -4,6 +4,10 @@ spring:
 #      database: LiveSpider
 #      host: localhost
 #      port: 27017
+  redis:
+    host: localhost
+    port: 6379
+    password: redisServer
   profiles:
     active: development
   thymeleaf:

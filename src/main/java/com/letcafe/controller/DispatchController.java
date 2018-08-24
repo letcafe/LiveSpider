@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/")
 public class DispatchController {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(DispatchController.class);
 
     @RequestMapping("jdProduct")
     public String index(Model model) throws Exception {
