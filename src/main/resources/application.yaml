@@ -1,15 +1,16 @@
 spring:
-#  data:
-#    mongodb:
-#      database: LiveSpider
-#      host: localhost
-#      port: 27017
+  profiles:
+#    active: development
+    active: production
+  data:
+    mongodb:
+      database: LiveSpider
+      host: localhost
+      port: 27017
   redis:
     host: localhost
     port: 6379
     password: redisServer
-  profiles:
-    active: development
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html

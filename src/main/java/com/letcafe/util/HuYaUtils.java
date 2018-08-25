@@ -54,7 +54,7 @@ public class HuYaUtils {
             WebDriverWait switchToPersonalPageWait = new WebDriverWait(webDriver, 20, 500);
             switchToPersonalPageWait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector(".icon-filter li"), 0));
         } catch (Exception ex) {
-            logger.warn("try to get E_acct,E_passwd,loginBtn failed,over time");
+            logger.warn("try to get webdriver cookie failed,over time");
             webDriver.close();
             return null;
         }

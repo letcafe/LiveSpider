@@ -29,7 +29,7 @@ public class HuYaUserLevelServiceImpl implements HuYaUserLevelService {
 
     @Override
     public void saveLoginCookie(String cookieKey, String cookieValue) {
-        redisDao.setKeyValueWithExpireTime(cookieKey, cookieValue, 6 * 24 * 3600 * 1000);
+        redisDao.setKeyValueWithExpireTime(cookieKey, cookieValue, 7 * 24 * 3600 * 1000);
     }
 
     @Override
