@@ -33,5 +33,5 @@ logging:
 
 huya:
   YY_ID: 1656777876
-  PASSWORD: gdy19941231
+  PASSWORD: ***
   COOKIE_IN_REDIS: loginCookie_1656777876
