@@ -3,6 +3,7 @@ package com.letcafe.util;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +54,7 @@ public abstract class HttpUtils {
         }
         return response;
     }
+
 
     public static HttpResponse doPost(String url, Map<String, String> paramMap) throws UnsupportedEncodingException {
         HttpClient client = HttpClients.custom().setDefaultCookieStore(cookieStore).build();

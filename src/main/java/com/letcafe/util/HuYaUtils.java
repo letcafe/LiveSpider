@@ -13,22 +13,39 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.*;
 
+@Component
+@ConfigurationProperties(prefix = "huya")
 public class HuYaUtils {
     private static final Logger logger = LoggerFactory.getLogger(HuYaUtils.class);
-    private static final String chromeDriverDestination = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe";
+    public static final String chromeDriverDestination = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe";
+    // init my login param
+    public static String YY_ID;
+    public static String PASSWORD;
+    public static String COOKIE_IN_REDIS;
 
 
-    private static Set<Cookie> getAllLoginCookie(String username, String password){
+    public static WebDriver getActiveHuYaLoginWebDriver(boolean isOpenGUI, boolean isShowPic){
         System.setProperty("webdriver.chrome.driver", chromeDriverDestination);
         ChromeOptions options = new ChromeOptions();
 
         // start chrome without GUI
-        options.addArguments("--headless");
+        if (! isOpenGUI) {
+            options.addArguments("--headless");
+        }
 
+        if (! isShowPic) {
+            Map<String, Object> prefs = new HashMap<>();
+            prefs.put("profile.managed_default_content_settings.images", 2);
+            options.addArguments("--disable-images");
+            options.setExperimentalOption("prefs", prefs);
+        }
         ChromeDriverService chromeDriverService = ChromeDriverService.createDefaultService();
         WebDriver webDriver = new ChromeDriver(chromeDriverService, options);
         webDriver.get("https://i.huya.com/");
@@ -44,8 +61,8 @@ public class HuYaUtils {
             passwordInput = webDriver.findElement(By.className("E_passwd"));
             loginBtn = webDriver.findElement(By.cssSelector("#m_commonLogin .form_item .E_login"));
             // please set your own yyid and password
-            usernameInput.sendKeys(username);
-            passwordInput.sendKeys(password);
+            usernameInput.sendKeys(YY_ID);
+            passwordInput.sendKeys(PASSWORD);
             logger.info("username and password has been set");
 
             loginBtn.click();
@@ -58,43 +75,18 @@ public class HuYaUtils {
             webDriver.close();
             return null;
         }
+        return webDriver;
+    }
 
+    public static Set<Cookie> getAllLoginCookie(){
+        WebDriver webDriver = getActiveHuYaLoginWebDriver(false, false);
+        if(webDriver == null) {
+            return null;
+        }
         // if success get cookies
         Set<Cookie> cookies = webDriver.manage().getCookies();
         webDriver.close();
         return cookies;
-    }
-
-    /**
-     * ensure one can get api call cookie String"yyuid=xxx;udb_oar=xxx;"
-     * @param username user login name
-     * @param password user login password
-     * @return header cookie string
-     */
-    public static String getLoginCookie(String username, String password) {
-        Set<Cookie> cookies = null;
-        while (cookies == null) {
-            cookies = getAllLoginCookie(username, password);
-        }
-
-        Cookie yyuid = null;
-        Cookie udb_oar = null;
-
-        // use httpUtil to get api response,get yyuid and udb_oar then call api
-        for (Cookie cookie : cookies) {
-            if ("yyuid".equals(cookie.getName())) {
-                yyuid = cookie;
-            }
-            if ("udb_oar".equals(cookie.getName())) {
-                udb_oar = cookie;
-            }
-        }
-        if (yyuid == null || udb_oar == null) {
-            logger.info("yyuid or udb_oar is empty,get cookie failed");
-            return "";
-        }
-
-        return yyuid.getName() + "=" + yyuid.getValue() + ";" + udb_oar.getName() + "=" + udb_oar.getValue();
     }
 
     /**
@@ -124,5 +116,60 @@ public class HuYaUtils {
         for (Cookie cookie : cookies) {
             logger.info(cookie.getName() + "=>" + cookie.getValue() + ",expire time = " + cookie.getExpiry());
         }
+    }
+
+    /**
+     * transfer Cookie Set to String
+     * @return header cookie string
+     */
+    public static String cookieToString(Set<Cookie> cookies) {
+        while (cookies == null) {
+            cookies = getAllLoginCookie();
+        }
+
+        StringBuilder loginCookieString = new StringBuilder();
+
+        // use httpUtil to get api response,get yyuid and udb_oar then call api
+        for (Cookie cookie : cookies) {
+            loginCookieString.append(cookie.getName()).append("=").append(cookie.getValue()).append(";");
+        }
+        return loginCookieString.toString();
+    }
+
+    /**
+     * transfer String to Cookie Set
+     * @return header cookie set
+     */
+    public static Set<Cookie> stringToCookies(String cookieString) {
+        Set<Cookie> cookies = new HashSet<>();
+        List<String> cookieList = new ArrayList<>();
+        String[] cookieArray = cookieString.split(";");
+        Collections.addAll(cookieList, cookieArray);
+        for (String cookie : cookieList) {
+            String[] cookieKV = cookie.split("=");
+            String cookieKey = cookieKV[0];
+            String cookieValue;
+            // sometimes cookie value is null, it may cause indexOutOfBoundsException, So do as follow
+            if (cookieKV.length == 2) {
+                cookieValue = cookieKV[1];
+            } else {
+                cookieValue = "";
+            }
+            cookies.add(new Cookie(cookieKey, cookieValue));
+        }
+        return cookies;
+    }
+
+
+    public static void setYyId(String yyId) {
+        YY_ID = yyId;
+    }
+
+    public static void setPASSWORD(String PASSWORD) {
+        HuYaUtils.PASSWORD = PASSWORD;
+    }
+
+    public static void setCookieInRedis(String cookieInRedis) {
+        COOKIE_IN_REDIS = cookieInRedis;
     }
 }

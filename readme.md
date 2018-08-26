@@ -1,6 +1,6 @@
 # LiveSpider
 ## Developer information
-##### Maintainer: LetCafe
+##### Maintainer: letcafe
 ##### Email: letcafe@outlook.com
 ## Developing environment
 + Web Container：Spring embed tomcat
@@ -15,6 +15,14 @@
 ## Deploy notice
 + Visit url：http://localhost:8080/index
 + Support: Intellij IDEA
+
+## 定时任务：
++ 0 2/5 * * * * => LiveInfoGetter.updateAllHuYaLiveInfo => 每5分钟更新直播间信息
++ 0 0 0 ? * SUN,WED => UserLevelAndTaskGetter.setUserLoginCookie => 每周日、周三零点更新登录Cookie
++ 0 0/5 * * * * => LiveInfoGetter.insertAll => 向MongoDB中存入LOL的直播信息日志
++ 0 0 6 * * * => TaskAutoWorker.watchNumberedLive => 每天6点完成观看10名主播的任务
++ 0 0 0/4 * * * => UserLevelAndTaskGetter.setUserTaskStatus => 每隔4小时获取用户经验状态
++ 25/30 * * * * * => GameTypeGetter.gameTypeScheduled => 每个30s更新一次游戏列表
 
 ## Developing log
 ### 2018-08-05 
@@ -62,3 +70,11 @@
 + 集成Redis：单机缓存6天的cookie信息
 + 新增：根据Redis的Cookie值,更新用户等级信息
 + 下一步：进一步封装cookie
+
+### 2018-08-27
++ 更新：独立出登录成功后的login web driver为一方法，并新增可选参数，是否显示界面，是否加载图片
++ 更新：完成每天早上6点，自动点开10项直播功能
++ 更新：调整代码结构，使其变得更加清晰
++ 更新：使用@ConfigurationProperties，读取yaml关键信息
++ 更新：在日志开头添加入已完成定时功能
++ 下一步：将后台展示到前端，以便知道完成哪些工作（因为感觉开始有点难以维护了）

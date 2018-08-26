@@ -20,7 +20,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -33,6 +35,9 @@ public class LiveInfoGetter {
     private HuYaLiveInfoService huYaLiveInfoService;
     private LiveInfoLogService liveInfoLogService;
 
+    public LiveInfoGetter() {
+    }
+
     @Autowired
     public LiveInfoGetter(HuYaGameTypeService huYaGameTypeService,
                           HuYaLiveInfoService huYaLiveInfoService,
@@ -42,7 +47,8 @@ public class LiveInfoGetter {
         this.liveInfoLogService = liveInfoLogService;
     }
 
-    private void updateHuYaLiveInfoById(int gid) throws Exception {
+    public List<HuYaLiveInfo> listHuYaLiveList(int gid) throws IOException {
+        List<HuYaLiveInfo> huYaLiveInfoList = new ArrayList<>(20);
         //初始化一个httpclient
         HttpClient client = HttpClients.createDefault();
         //我们要爬取的一个地址，这里可以从数据库中抽取数据，然后利用循环，可以爬取一个URL队列
@@ -59,11 +65,19 @@ public class LiveInfoGetter {
             JSONArray jsonArray = jsonObject.getJSONArray("data");
             for (int i = 0; i < jsonArray.length(); i ++) {
                 HuYaLiveInfo huYaLiveInfo = JacksonUtil.readValue(jsonArray.get(i).toString(), HuYaLiveInfo.class);
-                huYaLiveInfoService.saveOrUpdate(huYaLiveInfo);
+                huYaLiveInfoList.add(huYaLiveInfo);
             }
         }else {
             //否则，消耗掉实体
             EntityUtils.consume(response.getEntity());
+        }
+        return huYaLiveInfoList;
+    }
+
+    private void updateHuYaLiveInfoById(int gid) throws Exception {
+        List<HuYaLiveInfo> liveList = this.listHuYaLiveList(gid);
+        for (HuYaLiveInfo liveInfo : liveList) {
+            huYaLiveInfoService.saveOrUpdate(liveInfo);
         }
     }
 

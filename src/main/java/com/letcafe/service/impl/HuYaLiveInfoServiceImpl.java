@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -22,5 +23,10 @@ public class HuYaLiveInfoServiceImpl implements HuYaLiveInfoService {
     @Override
     public void saveOrUpdate(HuYaLiveInfo huYaLiveInfo) {
         huYaLiveInfoDao.saveOrUpdate(huYaLiveInfo);
+    }
+
+    @Override
+    public List<HuYaLiveInfo> listNumberedOrderByLiveTimeDesc(int number) {
+        return huYaLiveInfoDao.listNumberedOrderByLiveTimeDesc(number);
     }
 }

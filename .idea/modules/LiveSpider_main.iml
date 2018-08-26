@@ -7,7 +7,7 @@
     <facet type="web" name="Web Gradle : LiveSpider-1.0-SNAPSHOT.war">
       <configuration>
         <webroots>
-          <root url="file://C:\Users\letca\IdeaProjects\LiveSpider\src\main\webapp" relative="/" />
+          <root url="file://E:\IDEA_proj\LiveSpider\src\main\webapp" relative="/" />
         </webroots>
       </configuration>
     </facet>
@@ -49,6 +49,7 @@
     <orderEntry type="library" name="Gradle: org.webjars.bower:sockjs-client:1.1.5" level="project" />
     <orderEntry type="library" name="Gradle: org.webjars.bower:stomp-websocket:2.3.4" level="project" />
     <orderEntry type="library" name="Gradle: org.json:json:20180130" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-configuration-processor:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-json:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.hibernate.validator:hibernate-validator:6.0.7.Final" level="project" />
