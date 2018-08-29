@@ -21,6 +21,7 @@ import java.util.List;
 public class GameTypeGetter {
 
     private final Logger logger = LoggerFactory.getLogger(GameTypeGetter.class);
+    private static int logShowInt = 0;
 
     private HuYaGameTypeService huYaGameTypeService;
 
@@ -29,21 +30,17 @@ public class GameTypeGetter {
         this.huYaGameTypeService = huYaGameTypeService;
     }
 
-    @RequestMapping("")
-    public String gameType(Model model) throws Exception {
+    @Scheduled(cron = "25/30 * * * * *")
+    public void gameTypeScheduled() throws Exception {
         HttpClient client = HttpClients.createDefault();
         String url="https://www.huya.com/g";
         List<HuYaGameType> types = UrlFetcher.URLParser(client, url, new HuYaParser());
         huYaGameTypeService.saveOrUpdateList(types);
-        if (model != null) {
-            model.addAttribute("types", types);
+        // every 20 count = 1 hour,put down one log
+        if (++ logShowInt == 20) {
+            logger.info("game type updated, fetch total = " + types.size());
+            logShowInt = 0;
         }
-        return "huyaLiveType";
-    }
-
-    @Scheduled(cron = "25/30 * * * * *")
-    public void gameTypeScheduled() throws Exception {
-        gameType(null);
     }
 
 }

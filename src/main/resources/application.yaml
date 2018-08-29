@@ -1,16 +1,7 @@
 spring:
   profiles:
-    active: development
-#    active: production
-  data:
-    mongodb:
-      database: LiveSpider
-      host: localhost
-      port: 27017
-  redis:
-    host: localhost
-    port: 6379
-    password: redisServer
+#    active: dev
+    active: prod
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
@@ -30,8 +21,7 @@ server:
     context-path: /LiveSpider
 logging:
   config: classpath:log4j2.xml
-
 huya:
   YY_ID: 1656777876
-  PASSWORD: ***
+  PASSWORD: gdy19941231
   COOKIE_IN_REDIS: loginCookie_1656777876

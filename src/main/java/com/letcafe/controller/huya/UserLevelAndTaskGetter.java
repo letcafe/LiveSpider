@@ -39,7 +39,7 @@ public class UserLevelAndTaskGetter {
         String cookieInRedis = huYaUserLevelService.getLoginCookie(HuYaUtils.COOKIE_IN_REDIS);
         while (cookieInRedis == null) {
             // simulate login and get user task json
-            Set<Cookie> cookies = HuYaUtils.getAllLoginCookie();
+            Set<Cookie> cookies = huYaUserLevelService.getAllLoginCookie();
             cookieInRedis = HuYaUtils.cookieToString(cookies);
             huYaUserLevelService.saveLoginCookie(HuYaUtils.COOKIE_IN_REDIS, cookieInRedis);
         }
@@ -58,7 +58,6 @@ public class UserLevelAndTaskGetter {
         if(StatusCode == 200){
             entity = EntityUtils.toString (response.getEntity(),"utf-8");
             entity = entity.substring(entity.indexOf("{"), entity.lastIndexOf("}") + 1);
-            logger.info("parse huyaNavUserCard = " + entity);
             JSONObject rawJson = new JSONObject(entity);
 
             JSONObject huyaNavUserCard = rawJson.getJSONObject("data");
@@ -67,6 +66,7 @@ public class UserLevelAndTaskGetter {
             //parse json data, and get its data-level, then make it into obj
             String levelData = userLevel.toString();
             HuYaUserLevel huYaUserLevel = JacksonUtil.readValue(levelData, HuYaUserLevel.class);
+            logger.info("set user task info to mysql,entity.length() = " + entity.length());
             if(huYaUserLevel != null) {
                 huYaUserLevel.setYyId(HuYaUtils.YY_ID);
                 huYaUserLevelService.save(huYaUserLevel);

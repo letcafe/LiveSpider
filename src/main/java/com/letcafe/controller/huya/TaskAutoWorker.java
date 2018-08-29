@@ -4,11 +4,7 @@ package com.letcafe.controller.huya;
 import com.letcafe.bean.HuYaLiveInfo;
 import com.letcafe.service.HuYaLiveInfoService;
 import com.letcafe.service.HuYaUserLevelService;
-import com.letcafe.util.HuYaUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import java.io.IOException;
 import java.util.List;
 
-import static com.letcafe.util.HuYaUtils.getActiveHuYaLoginWebDriver;
+
 
 @Controller
 public class TaskAutoWorker {
@@ -35,27 +31,33 @@ public class TaskAutoWorker {
     }
 
     // do watch live work:watch 10 live one day
-    @Scheduled(cron = "0 0 6 * * *")
-    public void watchNumberedLive() throws IOException, InterruptedException {
-        WebDriver webDriver = getActiveHuYaLoginWebDriver(false, false);
+//    @Scheduled(fixedRate = 300 * 1000)
+    @Scheduled(cron = "0 0 6/3 * * *")
+    public void watchNumberedLive() throws IOException {
+        WebDriver webDriver = huYaUserLevelService.getActiveHuYaLoginWebDriver(false, false);
         if (webDriver == null) {
+            logger.error("web driver is null");
             return;
         }
 
         LiveInfoGetter liveInfoGetter = new LiveInfoGetter();
-        // take LOL for example, get LOL live list
-        List<HuYaLiveInfo> liveInfoList = liveInfoGetter.listHuYaLiveList(74);
-
-        // use 2 more (10 < 10 + 2) for some accident url
-        for (int i = 0; i < 12; i ++) {
-            String watchUrl = "https://www.huya.com/" + liveInfoList.get(i).getProfileRoom();
-            webDriver.get(watchUrl);
-
-            WebDriverWait switchToPersonalPageWait = new WebDriverWait(webDriver, 3, 500);
-            switchToPersonalPageWait.until(ExpectedConditions.urlToBe(watchUrl));
-
-            logger.info("[Task:watch 10 live one day] watch url = " + watchUrl);
+        // take LOL for example, get LOL live list, if come across exception,log then recursive
+        List<HuYaLiveInfo> liveInfoList = liveInfoGetter.listHuYaLiveList(1);
+        try {
+            // use 2 more (10 < 10 + 2) for some accident url
+            for (int i = 0; i < 12; i ++) {
+                String watchUrl = "https://www.huya.com/" + liveInfoList.get(i).getProfileRoom();
+                webDriver.get(watchUrl);
+                Thread.sleep(5000);
+                logger.info("[Task:watch 10 live one day] No." + (i + 1) + " watch url = " + watchUrl);
+            }
+            logger.info("[Task:watch 10 live one day] ended");
+        } catch (Exception ex) {
+            logger.error("watch 10 failed");
+            watchNumberedLive();
+        } finally {
+            webDriver.quit();
+            logger.info("webdirver quit");
         }
-        logger.info("[Task:watch 10 live one day] ended");
     }
 }

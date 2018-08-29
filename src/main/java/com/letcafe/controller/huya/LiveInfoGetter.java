@@ -111,8 +111,8 @@ public class LiveInfoGetter {
         }
     }
 
-    // Every 10 minutes update all huya live information in MySQL
-    @Scheduled(cron = "0 2/5 * * * *")
+    // Every 30 minutes update all huya live information in MySQL
+    @Scheduled(cron = "0 20/30 * * * *")
     public void updateAllHuYaLiveInfo() throws Exception {
         long startTime = System.currentTimeMillis();
         List<Integer> gidList = huYaGameTypeService.listAllGid();
@@ -123,8 +123,8 @@ public class LiveInfoGetter {
         logger.info("saveOrUpdate all Live.[cost time] = " + (endTime - startTime) / 1000 + "s");
     }
 
-    // Every 5 minutes update all huya log information in MySQL
-    @Scheduled(cron = "0 0/5 * * * *")
+    // Every 30 minutes update all huya log information in MySQL
+    @Scheduled(cron = "0 20/30 * * * *")
     public void insertAll() throws Exception {
         String currentTime = "" + System.currentTimeMillis();
         long logCurrentTime = Long.valueOf(currentTime.substring(0, currentTime.length() - 3) + "000");

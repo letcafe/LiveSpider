@@ -12,12 +12,12 @@ public class DBConfig {
 
     //DB config
     //MySQL ConnectionFactory
-    @Profile("development")
+    @Profile("dev")
     @Bean
     public DataSource mysqlDataSourceDevelopment() {
         BasicDataSource ds = new BasicDataSource();
         ds.setMaxIdle(6);
-        ds.setMinIdle(4);
+        ds.setMinIdle(2);
         ds.setInitialSize(10);
         ds.setDefaultAutoCommit(true);
         ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
@@ -27,7 +27,7 @@ public class DBConfig {
         return ds;
     }
 
-    @Profile("production")
+    @Profile("prod")
     @Bean
     public DataSource mysqlDataSourceProduction() {
         BasicDataSource ds = new BasicDataSource();

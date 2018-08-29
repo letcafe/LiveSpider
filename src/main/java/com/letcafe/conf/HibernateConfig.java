@@ -16,7 +16,6 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan
 public class HibernateConfig implements TransactionManagementConfigurer{
     @Autowired
     private SessionFactory sessionFactory;

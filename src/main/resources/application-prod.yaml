@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      database: LiveSpider
+      host: localhost
+      port: 27017
+  redis:
+    host: localhost
+    port: 6379
+    password: redisServer
+huya:
+  CHROME_DRIVER_LOCATION: /usr/bin/chromedriver
+  SYSTEM_IS_OPEN_GUI: false

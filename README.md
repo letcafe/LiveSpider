@@ -17,9 +17,9 @@
 + Support: Intellij IDEA
 
 ## 定时任务：
-+ 0 2/5 * * * * => LiveInfoGetter.updateAllHuYaLiveInfo => 每5分钟更新直播间信息
++ 0 20/30 * * * * => LiveInfoGetter.updateAllHuYaLiveInfo => 每30分钟更新直播间信息
 + 0 0 0 ? * SUN,WED => UserLevelAndTaskGetter.setUserLoginCookie => 每周日、周三零点更新登录Cookie
-+ 0 0/5 * * * * => LiveInfoGetter.insertAll => 向MongoDB中存入LOL的直播信息日志
++ 0 20/15 * * * * => LiveInfoGetter.insertAll => 每30分钟向MongoDB中存入LOL的直播信息日志
 + 0 0 6 * * * => TaskAutoWorker.watchNumberedLive => 每天6点完成观看10名主播的任务
 + 0 0 0/4 * * * => UserLevelAndTaskGetter.setUserTaskStatus => 每隔4小时获取用户经验状态
 + 25/30 * * * * * => GameTypeGetter.gameTypeScheduled => 每个30s更新一次游戏列表
@@ -78,3 +78,13 @@
 + 更新：使用@ConfigurationProperties，读取yaml关键信息
 + 更新：在日志开头添加入已完成定时功能
 + 下一步：将后台展示到前端，以便知道完成哪些工作（因为感觉开始有点难以维护了）
+
+### 2018-08-28
++ 更新：修复了所有BUG，并且在无GUI的CentOS7中成功部署（不需要装Xvfb,只需--headless和--no-sandbox）
++ 经验：无GUI装Selenium+Chrome，可先用Python测试，所有上JAVA（Linux自带Py好上手测试环境）
++ 调整：配置文件布局进行修改，方便以后扩充，明确Util与Service职责，进行分离
++ 下一步：已完成所有功能测试，正确运行，进入下一步自动化完成任务的开发
+
+### 2018-08-29
++ 更新：huya登录转变为优先使用虎牙APP扫描二维码，通过i.huya.com，然后点击注册，再点击登录，转回原登录流程
++ 修复：修复任务过多，而分配Scheduled池不足，出现长时间停滞卡顿的BUG

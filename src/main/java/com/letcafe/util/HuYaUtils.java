@@ -13,7 +13,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -24,70 +23,12 @@ import java.util.*;
 @ConfigurationProperties(prefix = "huya")
 public class HuYaUtils {
     private static final Logger logger = LoggerFactory.getLogger(HuYaUtils.class);
-    public static final String chromeDriverDestination = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe";
     // init my login param
     public static String YY_ID;
     public static String PASSWORD;
     public static String COOKIE_IN_REDIS;
-
-
-    public static WebDriver getActiveHuYaLoginWebDriver(boolean isOpenGUI, boolean isShowPic){
-        System.setProperty("webdriver.chrome.driver", chromeDriverDestination);
-        ChromeOptions options = new ChromeOptions();
-
-        // start chrome without GUI
-        if (! isOpenGUI) {
-            options.addArguments("--headless");
-        }
-
-        if (! isShowPic) {
-            Map<String, Object> prefs = new HashMap<>();
-            prefs.put("profile.managed_default_content_settings.images", 2);
-            options.addArguments("--disable-images");
-            options.setExperimentalOption("prefs", prefs);
-        }
-        ChromeDriverService chromeDriverService = ChromeDriverService.createDefaultService();
-        WebDriver webDriver = new ChromeDriver(chromeDriverService, options);
-        webDriver.get("https://i.huya.com/");
-
-        // set huya login iframe and switch to it,then wait time to get its login form
-        WebDriverWait loginFrameWait = new WebDriverWait(webDriver, 20, 500);
-        loginFrameWait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("udbsdk_frm_normal"));
-        logger.info("set huya login iframe and switch to it,then wait time to get its login form");
-
-        WebElement usernameInput, passwordInput, loginBtn;
-        try {
-            usernameInput = webDriver.findElement(By.className("E_acct"));
-            passwordInput = webDriver.findElement(By.className("E_passwd"));
-            loginBtn = webDriver.findElement(By.cssSelector("#m_commonLogin .form_item .E_login"));
-            // please set your own yyid and password
-            usernameInput.sendKeys(YY_ID);
-            passwordInput.sendKeys(PASSWORD);
-            logger.info("username and password has been set");
-
-            loginBtn.click();
-            logger.info("login btn has been clicked");
-
-            WebDriverWait switchToPersonalPageWait = new WebDriverWait(webDriver, 20, 500);
-            switchToPersonalPageWait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector(".icon-filter li"), 0));
-        } catch (Exception ex) {
-            logger.warn("try to get webdriver cookie failed,over time");
-            webDriver.close();
-            return null;
-        }
-        return webDriver;
-    }
-
-    public static Set<Cookie> getAllLoginCookie(){
-        WebDriver webDriver = getActiveHuYaLoginWebDriver(false, false);
-        if(webDriver == null) {
-            return null;
-        }
-        // if success get cookies
-        Set<Cookie> cookies = webDriver.manage().getCookies();
-        webDriver.close();
-        return cookies;
-    }
+    public static String CHROME_DRIVER_LOCATION;
+    public static Boolean SYSTEM_IS_OPEN_GUI;
 
     /**
      * ensure can get huya task information json string
@@ -123,10 +64,6 @@ public class HuYaUtils {
      * @return header cookie string
      */
     public static String cookieToString(Set<Cookie> cookies) {
-        while (cookies == null) {
-            cookies = getAllLoginCookie();
-        }
-
         StringBuilder loginCookieString = new StringBuilder();
 
         // use httpUtil to get api response,get yyuid and udb_oar then call api
@@ -171,5 +108,13 @@ public class HuYaUtils {
 
     public static void setCookieInRedis(String cookieInRedis) {
         COOKIE_IN_REDIS = cookieInRedis;
+    }
+
+    public static void setChromeDriverLocation(String chromeDriverLocation) {
+        CHROME_DRIVER_LOCATION = chromeDriverLocation;
+    }
+
+    public static void setSystemIsOpenGui(Boolean systemIsOpenGui) {
+        SYSTEM_IS_OPEN_GUI = systemIsOpenGui;
     }
 }
