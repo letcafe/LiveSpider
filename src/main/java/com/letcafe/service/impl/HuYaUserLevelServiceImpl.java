@@ -4,6 +4,7 @@ import com.letcafe.bean.HuYaUserLevel;
 import com.letcafe.dao.HuYaUserLevelDao;
 import com.letcafe.dao.RedisDao;
 import com.letcafe.service.HuYaUserLevelService;
+import com.letcafe.util.HuYaUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
@@ -80,22 +81,29 @@ public class HuYaUserLevelServiceImpl implements HuYaUserLevelService {
         webDriver.get("https://i.huya.com/");
 
         // set huya login iframe and switch to it,then wait time to get its login form
-        WebDriverWait loginFrameWait = new WebDriverWait(webDriver, 30, 500);
-        loginFrameWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".UDBSdkLgn-box")));
-        logger.info("set huya login iframe and switch to it,then wait time to get its login form");
+        WebDriverWait loginFrameWait = new WebDriverWait(webDriver, 10, 500);
 
-        loginFrameWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".UDBSdkLgn-switch a")));
-        WebElement registerBtn = webDriver.findElement(By.cssSelector(".UDBSdkLgn-switch a"));
-        registerBtn.click();
-        logger.info("register button now click");
-        loginFrameWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".UDBSdkLgn-head .login")));
-        WebElement loginBtn = webDriver.findElement(By.cssSelector(".UDBSdkLgn-head .login"));
-        logger.info("loginSwitch button now click");
-        loginBtn.click();
-
-        WebElement usernameInput, passwordInput, loginSubmit;
         try {
-            loginFrameWait.until(ExpectedConditions.visibilityOfElementLocated(By.className("E_acct")));
+            loginFrameWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".UDBSdkLgn-box")));
+            logger.info("set huya login iframe and switch to it,then wait time to get its login form");
+
+            loginFrameWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".UDBSdkLgn-switch > a")));
+            WebElement registerBtn = webDriver.findElement(By.cssSelector(".UDBSdkLgn-switch > a"));
+
+            //wait extra 3 second for register button be clickable
+            Thread.sleep(3 * 1000);
+            registerBtn.click();
+
+            logger.info("register button now click");
+            loginFrameWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".UDBSdkLgn-head > div > .login")));
+            WebElement loginBtn = webDriver.findElement(By.cssSelector(".UDBSdkLgn-head > div > .login"));
+            System.out.println("[getCookies().size()] = " + webDriver.manage().getCookies().size());
+
+            loginBtn.click();
+
+            WebElement usernameInput, passwordInput, loginSubmit;
+
+            loginFrameWait.until(ExpectedConditions.presenceOfElementLocated(By.className("E_acct")));
 
             usernameInput = webDriver.findElement(By.className("E_acct"));
             passwordInput = webDriver.findElement(By.className("E_passwd"));
@@ -108,10 +116,12 @@ public class HuYaUserLevelServiceImpl implements HuYaUserLevelService {
             loginSubmit.click();
             logger.info("login btn has been clicked");
 
-            Thread.sleep(5 * 1000);
-//            loginFrameWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".icon-filter li")));
+            // wait 3 second for next page cookie to set
+            Thread.sleep(3 * 1000);
+            System.out.println("[cookie string] = " + HuYaUtils.cookieToString(webDriver.manage().getCookies()));
         } catch (Exception ex) {
             logger.warn("try to get webdriver cookie failed,over time");
+            ex.printStackTrace(System.out);
             webDriver.quit();
             return null;
         }
@@ -125,7 +135,7 @@ public class HuYaUserLevelServiceImpl implements HuYaUserLevelService {
         }
         // if success get cookies
         Set<Cookie> cookies = webDriver.manage().getCookies();
-        webDriver.close();
+        webDriver.quit();
         return cookies;
     }
 }
