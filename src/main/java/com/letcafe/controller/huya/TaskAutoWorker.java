@@ -31,7 +31,8 @@ public class TaskAutoWorker {
     }
 
     // do watch live work:watch 10 live one day
-    @Scheduled(cron = "0 0 6/1 * * *")
+//    @Scheduled(fixedRate = 3 * 60 * 1000)
+    @Scheduled(cron = "0 0 * * * *")
     public void watchNumberedLive() throws IOException {
         WebDriver webDriver = huYaUserLevelService.getActiveHuYaLoginWebDriver(false, false);
         if (webDriver == null) {
@@ -46,6 +47,7 @@ public class TaskAutoWorker {
             for (int i = 0; i < 12; i ++) {
                 String watchUrl = "https://www.huya.com/" + liveInfoList.get(i).getProfileRoom();
                 webDriver.get(watchUrl);
+                Thread.sleep(5000);
                 logger.info("[Task:watch 10 live one day] No." + (i + 1) + " watch url = " + watchUrl);
             }
             logger.info("[Task:watch 10 live one day] ended");

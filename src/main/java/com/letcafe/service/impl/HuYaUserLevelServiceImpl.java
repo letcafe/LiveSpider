@@ -117,7 +117,7 @@ public class HuYaUserLevelServiceImpl implements HuYaUserLevelService {
             logger.info("login btn has been clicked");
 
             // wait 3 second for next page cookie to set
-            Thread.sleep(3 * 1000);
+            Thread.sleep(10 * 1000);
             System.out.println("[cookie string] = " + HuYaUtils.cookieToString(webDriver.manage().getCookies()));
         } catch (Exception ex) {
             logger.warn("try to get webdriver cookie failed,over time");
