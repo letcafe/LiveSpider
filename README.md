@@ -20,9 +20,10 @@
 + 0 20/30 * * * * => LiveInfoGetter.updateAllHuYaLiveInfo => 每30分钟更新直播间信息
 + 0 0 0 ? * SUN,WED => UserLevelAndTaskGetter.setUserLoginCookie => 每周日、周三零点更新登录Cookie
 + 0 20/15 * * * * => LiveInfoGetter.insertAll => 每30分钟向MongoDB中存入LOL的直播信息日志
-+ 0 0 6 * * * => TaskAutoWorker.watchNumberedLive => 每天6点完成观看10名主播的任务
 + 0 0 0/4 * * * => UserLevelAndTaskGetter.setUserTaskStatus => 每隔4小时获取用户经验状态
 + 25/30 * * * * * => GameTypeGetter.gameTypeScheduled => 每个30s更新一次游戏列表
++ 0 0 6 * * * => TaskAutoWorker.watchNumberedLive => 每天凌晨3：00完成观看10名主播的任务
++ 0 30 3 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天夜里凌晨3：30观看一小时直播以获得6个宝箱
 
 ## Developing log
 ### 2018-08-05 
@@ -90,3 +91,4 @@
 + 修复：修复任务过多，而分配Scheduled池不足，出现长时间停滞卡顿的BUG
 + 修复：观看十场直播任务，务必设置延迟，否则因为切换太快无法计入任务
 + 突破：经测试，有了Cookie + Selenium，在虎牙可以横着走
++ 调整：修正代码布局，明确流程，进一步封装模块

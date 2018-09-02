@@ -10,6 +10,14 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
+      <webServer id="5be81635-43f2-478b-aa10-9efe1cc9e6e9" name="Spider1" url="http://172.18.18.10">
+        <fileTransfer host="172.18.18.10" port="22" rootFolder="/home/tank/apache-tomcat-9.0.11/webapps" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>
