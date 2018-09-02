@@ -25,7 +25,7 @@ public class TaskAutoWorker {
     }
 
     // do watch live work:watch 10 live one day
-    @Scheduled(cron = "0 0 3 * * *")
+    @Scheduled(cron = "0 0 7 * * *")
     public void watchNumberedLive() throws IOException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
@@ -34,7 +34,7 @@ public class TaskAutoWorker {
         }
         LiveInfoGetter liveInfoGetter = new LiveInfoGetter();
         // take LOL for example, get LOL live list, if come across exception,log then recursive
-        List<HuYaLiveInfo> liveInfoList = liveInfoGetter.listHuYaLiveList(6);
+        List<HuYaLiveInfo> liveInfoList = liveInfoGetter.listHuYaLiveList(1);
         try {
             // use 2 more (10 < 10 + 2) for some accident url
             for (int i = 0; i < 12; i ++) {
@@ -54,7 +54,7 @@ public class TaskAutoWorker {
     }
 
     // do watch live work:watch 10 live one day
-    @Scheduled(cron = "0 30 3 * * *")
+    @Scheduled(cron = "0 0 3 * * *")
     public void watchLiveGetSixTreasure() throws IOException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {

@@ -16,6 +16,10 @@
 + Visit url：http://localhost:8080/index
 + Support: Intellij IDEA
 
+## 已知信息：
++ 任务每天在0点刷新
++ 6个百宝箱在早上6点刷新
+
 ## 定时任务：
 + 0 20/30 * * * * => LiveInfoGetter.updateAllHuYaLiveInfo => 每30分钟更新直播间信息
 + 0 0 0 ? * SUN,WED => UserLevelAndTaskGetter.setUserLoginCookie => 每周日、周三零点更新登录Cookie
@@ -23,7 +27,7 @@
 + 0 0 0/4 * * * => UserLevelAndTaskGetter.setUserTaskStatus => 每隔4小时获取用户经验状态
 + 25/30 * * * * * => GameTypeGetter.gameTypeScheduled => 每个30s更新一次游戏列表
 + 0 0 6 * * * => TaskAutoWorker.watchNumberedLive => 每天凌晨3：00完成观看10名主播的任务
-+ 0 30 3 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天夜里凌晨3：30观看一小时直播以获得6个宝箱
++ 0 30 3 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天早上7：00观看一小时直播以获得6个宝箱
 
 ## Developing log
 ### 2018-08-05 
