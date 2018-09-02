@@ -31,8 +31,8 @@ public class TaskAutoWorker {
     }
 
     // do watch live work:watch 10 live one day
-//    @Scheduled(fixedRate = 3 * 60 * 1000)
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(fixedRate = 5 * 60 * 1000)
+//    @Scheduled(cron = "0 0 * * * *")
     public void watchNumberedLive() throws IOException {
         WebDriver webDriver = huYaUserLevelService.getActiveHuYaLoginWebDriver(false, false);
         if (webDriver == null) {

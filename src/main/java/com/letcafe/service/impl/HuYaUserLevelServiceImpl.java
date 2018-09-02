@@ -81,7 +81,7 @@ public class HuYaUserLevelServiceImpl implements HuYaUserLevelService {
         webDriver.get("https://i.huya.com/");
 
         // set huya login iframe and switch to it,then wait time to get its login form
-        WebDriverWait loginFrameWait = new WebDriverWait(webDriver, 10, 500);
+        WebDriverWait loginFrameWait = new WebDriverWait(webDriver, 20, 500);
 
         try {
             loginFrameWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".UDBSdkLgn-box")));
