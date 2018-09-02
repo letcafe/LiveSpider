@@ -1,5 +1,5 @@
 # LiveSpider
-![image](https://github.com/letcafe/LiveSpider/blob/master/picture/huya_logo.png){:height="100" width="100"}
+<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/huya_logo.png" width="100px"></image>
 ## Developer information
 ##### Maintainer: letcafe
 ##### Email: letcafe@outlook.com
@@ -53,7 +53,7 @@
 1. POST请求：https://www.huya.com/udb_web/authorizeURL.php?do=authorizeEmbedURL&callbackURL=https://www.huya.com/udb_web/udbport2.php?do=callback
 2. 响应中包含oauth_token字段（96 char）
 3. 带着token以POST请求如下路径：https://lgn.yy.com/lgn/oauth/x2/s/login_asyn.do?username=1656777876&pwdencrypt={huya固定编码后密码，可作常量不变，具体F12去获取}&oauth_token={上述步骤token}&denyCallbackURL=&UIStyle=xelogin&appid=5216&mxc=&vk=&isRemMe=1&mmc=&vv=&hiido=1
-+ ![image](https://github.com/letcafe/LiveSpider/blob/master/picture/huya_oath.png)
+<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/huya_oath.png"></image>
 4. 拿到token后请为所欲为...
 
 ### 2018-08-17(to do plan)
