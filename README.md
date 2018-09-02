@@ -1,5 +1,5 @@
 # LiveSpider
-![image](https://github.com/letcafe/LiveSpider/blob/master/picture/huya_logo.png/auto-orient/strip%7CimageView2/2/w/150)
+![image](https://github.com/letcafe/LiveSpider/blob/master/picture?imageMogr2/huya_logo.png/auto-orient/strip%7CimageView2/2/w/150)
 ## Developer information
 ##### Maintainer: letcafe
 ##### Email: letcafe@outlook.com
