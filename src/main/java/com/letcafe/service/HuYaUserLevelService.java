@@ -9,11 +9,4 @@ import java.util.Set;
 public interface HuYaUserLevelService {
     void save(HuYaUserLevel huYaUserLevel);
 
-    void saveLoginCookie(String cookieKey, String cookieValue);
-
-    String getLoginCookie(String cookieRedisKey);
-
-    WebDriver getActiveHuYaLoginWebDriver(boolean isOpenGUI, boolean isShowPic);
-
-    Set<Cookie> getAllLoginCookie();
 }

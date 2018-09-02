@@ -1,14 +1,13 @@
 package com.letcafe.controller.huya;
 
 import com.letcafe.bean.HuYaUserLevel;
+import com.letcafe.service.CookieService;
 import com.letcafe.service.HuYaUserLevelService;
 import com.letcafe.util.HttpUtils;
-import com.letcafe.util.HuYaUtils;
 import com.letcafe.util.JacksonUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
-import org.openqa.selenium.Cookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,8 @@ import org.springframework.stereotype.Controller;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+
+import static com.letcafe.util.HuYaUtils.YY_ID;
 
 @Controller
 public class UserLevelAndTaskGetter {
@@ -26,30 +26,19 @@ public class UserLevelAndTaskGetter {
     private final Logger logger = LoggerFactory.getLogger(UserLevelAndTaskGetter.class);
 
     private HuYaUserLevelService huYaUserLevelService;
+    private CookieService cookieService;
 
     @Autowired
-    public UserLevelAndTaskGetter(HuYaUserLevelService huYaUserLevelService) {
+    public UserLevelAndTaskGetter(HuYaUserLevelService huYaUserLevelService, CookieService cookieService) {
         this.huYaUserLevelService = huYaUserLevelService;
+        this.cookieService = cookieService;
     }
 
-
-    // every Sunday and Wednesday update cookie in redis
-    @Scheduled(cron = "0 0 0 ? * SUN,WED")
-    public void setUserLoginCookie() {
-        String cookieInRedis = huYaUserLevelService.getLoginCookie(HuYaUtils.COOKIE_IN_REDIS);
-        while (cookieInRedis == null) {
-            // simulate login and get user task json
-            Set<Cookie> cookies = huYaUserLevelService.getAllLoginCookie();
-            cookieInRedis = HuYaUtils.cookieToString(cookies);
-            huYaUserLevelService.saveLoginCookie(HuYaUtils.COOKIE_IN_REDIS, cookieInRedis);
-        }
-        logger.info("[cookie in redis value] = " + cookieInRedis);
-    }
 
     @Scheduled(cron = "0 0 0/4 * * *")
     public void setUserTaskStatus() throws IOException {
         Map<String, String> headerMap = new HashMap<>();
-        headerMap.put("cookie", getUserLoginCookie());
+        headerMap.put("cookie", cookieService.getUserCookieInRedis(YY_ID));
         HttpResponse response = HttpUtils.doGet("https://www.huya.com/member/task.php?m=User&do=listTotal&callback=huyaNavUserCard", headerMap);
 
         int StatusCode = response.getStatusLine().getStatusCode();
@@ -68,7 +57,7 @@ public class UserLevelAndTaskGetter {
             HuYaUserLevel huYaUserLevel = JacksonUtil.readValue(levelData, HuYaUserLevel.class);
             logger.info("set user task info to mysql,entity.length() = " + entity.length());
             if(huYaUserLevel != null) {
-                huYaUserLevel.setYyId(HuYaUtils.YY_ID);
+                huYaUserLevel.setYyId(YY_ID);
                 huYaUserLevelService.save(huYaUserLevel);
             } else {
                 logger.error("huYaUserLevel object is null, so called this error");
@@ -78,8 +67,4 @@ public class UserLevelAndTaskGetter {
         }
     }
 
-    public String getUserLoginCookie() {
-        setUserLoginCookie();
-        return huYaUserLevelService.getLoginCookie(HuYaUtils.COOKIE_IN_REDIS);
-    }
 }
