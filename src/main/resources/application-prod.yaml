@@ -1,11 +1,11 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://letcafe:19941231@letcafe.cn:27017/LiveSpider
+      uri: mongodb://username:password@ip:port/db
   redis:
-    host: letcafe.cn
-    port: 8479
-    password: redisServer
+    host: ip
+    port: 6379
+    password: password
 huya:
-  CHROME_DRIVER_LOCATION: /home/tank/chrome/chromedriver
+  CHROME_DRIVER_LOCATION: chromedriverLocation
   SYSTEM_IS_OPEN_GUI: false

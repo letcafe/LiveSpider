@@ -26,7 +26,7 @@ public class HibernateConfig implements TransactionManagementConfigurer{
         localSessionFactoryBean.setDataSource(dataSource);
         localSessionFactoryBean.setPackagesToScan("com.letcafe.bean");
         Properties props = new Properties();
-//            props.setProperty("hibernate.hbm2ddl.auto", "update");//开启Hibernate自动根据Bean穿件数据表结构
+//            props.setProperty("hibernate.hbm2ddl.auto", "update");//开启Hibernate自动根据Bean创建数据表结构
         props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         localSessionFactoryBean.setHibernateProperties(props);
         return  localSessionFactoryBean;
