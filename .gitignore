@@ -20,4 +20,4 @@ logs/LiveSpider/2018-09/
 out/
 src/main/resources/static/audio/
 src/main/resources/static/video/
-src/main/resources/application-prod.yaml
+src/main/resources/application-test.yaml
