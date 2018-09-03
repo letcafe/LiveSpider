@@ -28,6 +28,7 @@
 + 0 0 0/4 * * * => UserLevelAndTaskGetter.setUserTaskStatus => 每隔4小时获取用户经验状态
 + 25/30 * * * * * => GameTypeGetter.gameTypeScheduled => 每个30s更新一次游戏列表
 + 0 0 6 * * * => TaskAutoWorker.watchNumberedLive => 每天凌晨3：00完成观看10名主播的任务
++ 0 0 6 * * * => TaskAutoWorker.watchNumberedLive => 每天凌晨3：00完成发送一条弹幕任务
 + 0 30 3 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天早上7：00观看一小时直播以获得6个宝箱
 
 ## Developing log
