@@ -3,7 +3,6 @@
 <!-- OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
 <Configuration status="WARN">
     <Appenders>
-
         <!-- 输出日志的格式 -->
         <!--
             %d{yyyy-MM-dd HH:mm:ss, SSS} : 日志生产时间

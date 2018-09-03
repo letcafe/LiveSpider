@@ -3,7 +3,9 @@ package com.letcafe.controller.huya;
 
 import com.letcafe.bean.HuYaLiveInfo;
 import com.letcafe.service.WebDriverService;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
+
 import static com.letcafe.util.HuYaUtils.YY_ID;
 @Controller
 public class TaskAutoWorker {
@@ -74,6 +78,32 @@ public class TaskAutoWorker {
         } finally {
             webDriver.quit();
         }
+        logger.info("webdirver quit");
+    }
+
+    @Scheduled(cron = "0 10 3 * * *")
+    public void sendPubMessage() throws IOException, InterruptedException {
+        WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
+        if (webDriver == null) {
+            logger.error("web driver is null");
+            return;
+        }
+        LiveInfoGetter liveInfoGetter = new LiveInfoGetter();
+        // take LOL for example, get LOL live list, if come across exception,log then recursive
+        List<HuYaLiveInfo> liveInfoList = liveInfoGetter.listHuYaLiveList(1);
+        String watchUrl = "https://www.huya.com/" + liveInfoList.get(0).getProfileRoom();
+        String message = "6666翻了";
+        webDriver.get(watchUrl);
+        WebElement chatInput = webDriver.findElement(By.id("pub_msg_input"));
+        chatInput.click();
+        Thread.sleep(2 * 1000);
+        chatInput.sendKeys(message);
+        WebElement chatSendButton = webDriver.findElement(By.id("msg_send_bt"));
+        Thread.sleep(2 * 1000);
+        chatSendButton.click();
+        Thread.sleep(2 * 1000);
+        logger.info("[send message to live(" + watchUrl +")] = " + message);
+        webDriver.quit();
         logger.info("webdirver quit");
     }
 }
