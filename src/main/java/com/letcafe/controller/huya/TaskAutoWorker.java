@@ -25,7 +25,7 @@ public class TaskAutoWorker {
     }
 
     // do watch live work:watch 10 live one day
-    @Scheduled(cron = "0 0 7 * * *")
+    @Scheduled(cron = "0 0 3 * * *")
     public void watchNumberedLive() throws IOException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
@@ -53,8 +53,8 @@ public class TaskAutoWorker {
         }
     }
 
-    // do watch live work:watch 10 live one day
-    @Scheduled(cron = "0 0 3 * * *")
+    // watch to get 6 treasure one day
+    @Scheduled(cron = "0 0 7 * * *")
     public void watchLiveGetSixTreasure() throws IOException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
