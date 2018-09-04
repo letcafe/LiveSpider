@@ -22,14 +22,17 @@
 + 6个百宝箱在早上6点刷新
 
 ## 定时任务：
-+ 0 20/30 * * * * => LiveInfoGetter.updateAllHuYaLiveInfo => 每30分钟更新直播间信息
+### 爬取数据
++ 0 20/30 * * * * => LiveInfoGetter.updateAllHuYaLiveInfo => 每30分钟更新直播间信息于MySQL
 + 0 0 0 ? * SUN,WED => UserLevelAndTaskGetter.setUserLoginCookie => 每周日、周三零点更新登录Cookie
-+ 0 20/15 * * * * => LiveInfoGetter.insertAll => 每30分钟向MongoDB中存入LOL的直播信息日志
-+ 0 0 0/4 * * * => UserLevelAndTaskGetter.setUserTaskStatus => 每隔4小时获取用户经验状态
-+ 25/30 * * * * * => GameTypeGetter.gameTypeScheduled => 每个30s更新一次游戏列表
++ 0 20/15 * * * * => LiveInfoGetter.insertAll => 每30分钟获取前20条LOL的直播信息存MongoDB
++ 0 0 0/4 * * * => UserLevelAndTaskGetter.setUserTaskStatus => 每隔4小时获取用户经验状态存MySQL
++ 25/30 * * * * * => GameTypeGetter.gameTypeScheduled => 每隔30s更新一次游戏列表于MySQL
+### 每日任务自动完成
 + 0 0 6 * * * => TaskAutoWorker.watchNumberedLive => 每天凌晨3：00完成观看10名主播的任务
-+ 0 0 6 * * * => TaskAutoWorker.watchNumberedLive => 每天凌晨3：10完成发送一条弹幕任务
-+ 0 30 3 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天早上7：00观看一小时直播以获得6个宝箱
++ 0 0 6 * * * => TaskAutoWorker.sendPubMessage => 每天凌晨3：10完成发送一条弹幕任务
++ 0 15 3 * * * => TaskAutoWorker.subscribeOneLiveRoomTask => 每天凌晨3:15订阅虎牙DNF推荐列表第一的主播并10s后取消订阅
++ 0 0 7 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天早上7：00观看一小时直播以获得6个宝箱（宝箱6点刷）
 
 ## Developing log
 ### 2018-08-05 
@@ -98,3 +101,8 @@
 + 修复：观看十场直播任务，务必设置延迟，否则因为切换太快无法计入任务
 + 突破：经测试，有了Cookie + Selenium，在虎牙可以横着走
 + 调整：修正代码布局，明确流程，进一步封装模块
+
+### 2018-09-04
++ 新增：每天早上7点，观看一小时直播（--headless），获取6个宝箱
++ 新增：每天凌晨3:15，订阅一个主播，10s后取消订阅，自动完成订阅任务
+

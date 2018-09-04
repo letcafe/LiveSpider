@@ -42,8 +42,10 @@ public abstract class HttpUtils {
     public static HttpResponse doGet(String url, Map<String, String> headerMap){
         HttpClient client = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url);
-        for (String key : headerMap.keySet()) {
-            httpGet.addHeader(key, headerMap.get(key));
+        if (headerMap != null) {
+            for (String key : headerMap.keySet()) {
+                httpGet.addHeader(key, headerMap.get(key));
+            }
         }
         HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1,
                 HttpStatus.SC_OK, "OK");
@@ -56,9 +58,14 @@ public abstract class HttpUtils {
     }
 
 
-    public static HttpResponse doPost(String url, Map<String, String> paramMap) throws UnsupportedEncodingException {
+    public static HttpResponse doPost(String url, Map<String, String> headerMap , Map<String, String> paramMap) throws UnsupportedEncodingException {
         HttpClient client = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
         HttpPost httpPost = new HttpPost(url);
+        if (headerMap != null) {
+            for (String key : headerMap.keySet()) {
+                httpPost.addHeader(key, headerMap.get(key));
+            }
+        }
         if (paramMap != null) {
             List<NameValuePair> pairs = new ArrayList<>();
             for (Map.Entry<String, String> entry : paramMap.entrySet()) {
