@@ -31,7 +31,7 @@
 ### 每日任务自动完成
 + 0 0 6 * * * => TaskAutoWorker.watchNumberedLive => 每天凌晨3：00完成观看10名主播的任务
 + 0 0 6 * * * => TaskAutoWorker.sendPubMessage => 每天凌晨3：10完成发送一条弹幕任务
-+ 0 15 3 * * * => TaskAutoWorker.subscribeOneLiveRoomTask => 每天凌晨3:15订阅虎牙DNF推荐列表第一的主播并10s后取消订阅
++ 0 15 3 * * * => TaskAutoWorker.subscribeOneLiveRoomTask => 每天凌晨3:15订阅一个DNF主播并10s后取消订阅
 + 0 0 7 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天早上7：00观看一小时直播以获得6个宝箱（宝箱6点刷）
 
 ## Developing log
