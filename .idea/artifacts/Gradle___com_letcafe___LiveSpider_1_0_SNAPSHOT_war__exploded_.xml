@@ -128,6 +128,7 @@
           <element id="library" level="project" name="Gradle: org.reactivestreams:reactive-streams:1.0.2" />
           <element id="library" level="project" name="Gradle: org.attoparser:attoparser:2.0.4.RELEASE" />
           <element id="library" level="project" name="Gradle: org.unbescape:unbescape:1.1.5.RELEASE" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.0.0.RELEASE/99c77dea1f9bcf10b51741a629c69fcfca5af21b/spring-boot-configuration-processor-2.0.0.RELEASE.jar" />
         </element>
       </element>
     </root>
