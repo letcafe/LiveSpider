@@ -5,12 +5,10 @@ import com.letcafe.bean.HuYaLiveInfo;
 import com.letcafe.service.CookieService;
 import com.letcafe.service.WebDriverService;
 import com.letcafe.util.HttpUtils;
-import com.letcafe.util.JacksonUtil;
+import lombok.Data;
+import lombok.Getter;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -25,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.letcafe.util.HuYaUtils.YY_ID;
+
 @Controller
 public class TaskAutoWorker {
 

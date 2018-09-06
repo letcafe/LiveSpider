@@ -1,7 +1,10 @@
 package com.letcafe.bean;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "huya_game_type")
 public class HuYaGameType {
@@ -17,27 +20,4 @@ public class HuYaGameType {
         this.name = name;
     }
 
-    public String getGid() {
-        return gid;
-    }
-
-    public void setGid(String gid) {
-        this.gid = gid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "HuYaGameType{" +
-                ", gid='" + gid + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }
