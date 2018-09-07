@@ -72,6 +72,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.json/json
     compile group: 'org.json', name: 'json', version: '20180130'
 
+    //Configuration YAML properties
     optional group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '2.0.0.RELEASE'
 
     // https://mvnrepository.com/artifact/org.projectlombok/lombok

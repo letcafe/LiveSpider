@@ -47,7 +47,6 @@
           <element id="library" level="project" name="Gradle: org.json:json:20180130" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter-json:2.0.0.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter:2.0.0.RELEASE" />
-          <element id="library" level="project" name="Gradle: org.yaml:snakeyaml:1.21" />
           <element id="library" level="project" name="Gradle: org.hibernate.validator:hibernate-validator:6.0.7.Final" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-webmvc:5.0.4.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-web:5.0.4.RELEASE" />
@@ -129,6 +128,7 @@
           <element id="library" level="project" name="Gradle: org.attoparser:attoparser:2.0.4.RELEASE" />
           <element id="library" level="project" name="Gradle: org.unbescape:unbescape:1.1.5.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-configuration-processor:2.0.0.RELEASE" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.19/2d998d3d674b172a588e54ab619854d073f555b5/snakeyaml-1.19.jar" />
         </element>
       </element>
     </root>

@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Component
+@ConfigurationProperties(prefix = "huya")
 public class HuYaUtils {
     private static final Logger logger = LoggerFactory.getLogger(HuYaUtils.class);
     // init my login param
