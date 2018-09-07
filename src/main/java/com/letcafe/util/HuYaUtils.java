@@ -14,13 +14,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.*;
 
 @Component
-@ConfigurationProperties(prefix = "huya")
 public class HuYaUtils {
     private static final Logger logger = LoggerFactory.getLogger(HuYaUtils.class);
     // init my login param
