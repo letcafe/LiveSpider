@@ -47,6 +47,7 @@
           <element id="library" level="project" name="Gradle: org.json:json:20180130" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter-json:2.0.0.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter:2.0.0.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.yaml:snakeyaml:1.21" />
           <element id="library" level="project" name="Gradle: org.hibernate.validator:hibernate-validator:6.0.7.Final" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-webmvc:5.0.4.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-web:5.0.4.RELEASE" />
@@ -99,7 +100,6 @@
           <element id="library" level="project" name="Gradle: com.google.guava:guava:25.0-jre" />
           <element id="library" level="project" name="Gradle: com.squareup.okhttp3:okhttp:3.10.0" />
           <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.14.1" />
-          <element id="library" level="project" name="Gradle: org.yaml:snakeyaml:1.19" />
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.4" />
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.4" />
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.module:jackson-module-parameter-names:2.9.4" />
