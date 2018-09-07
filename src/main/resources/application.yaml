@@ -1,8 +1,8 @@
 spring:
   profiles:
-#    active: dev
+    active: dev
 #    active: prod
-    active: test
+#    active: test
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
