@@ -105,8 +105,8 @@
 ### 2018-09-04
 + 新增：每天早上7点，观看一小时直播（--headless），获取6个宝箱
 + 新增：每天凌晨3:15，订阅一个主播，10s后取消订阅，自动完成订阅任务
-+ 新增：添加注解@Data,使用lombok简化代码，取消大部分模板生成，详见文档：https://www.projectlombok.org
 
 ### 2018-09-04
 + 新增：LomBok，极大简化JAVA Bean的Getter等样板式代码
++ 新增：.gitignore文件，取消上传logs/,build/,out/,gradle/等
 + 删除：SnakeYAML没有使用的依赖
