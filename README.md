@@ -110,3 +110,7 @@
 + 新增：LomBok，极大简化JAVA Bean的Getter等样板式代码
 + 新增：.gitignore文件，取消上传logs/,build/,out/,gradle/等
 + 删除：SnakeYAML没有使用的依赖
+
+### 2018-09-08
++ 新增：添加Swagger文档组件备后续开放接口使用
++ 计划：使用多线程、线程池加速LiveInfoGetter.updateHuYaLiveInfoById()方法的执行速度,目前执行一次时间20Min

@@ -43,6 +43,10 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-orm', version: '5.0.4.RELEASE'
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.12.Final'
 
+    // SpringFox for Swagger2 support
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.8.0'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.8.0'
+
     // MySQL JDBC
     compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
 

@@ -81,6 +81,7 @@ public class LiveInfoGetter {
         }
     }
 
+
     private void addHuYaLiveInfoLog(int gid, long logCurrentTime) throws Exception {
         HttpClient client = HttpClients.createDefault();
         String url="https://www.huya.com/cache10min.php?m=Live&do=getProfileRecommendList&gid=" + gid;
