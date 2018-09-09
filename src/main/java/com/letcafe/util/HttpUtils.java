@@ -57,6 +57,23 @@ public abstract class HttpUtils {
         return response;
     }
 
+    public static HttpResponse doGetWithCreatedClient(HttpClient client, String url, Map<String, String> headerMap){
+        HttpGet httpGet = new HttpGet(url);
+        if (headerMap != null) {
+            for (String key : headerMap.keySet()) {
+                httpGet.addHeader(key, headerMap.get(key));
+            }
+        }
+        HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1,
+                HttpStatus.SC_OK, "OK");
+        try {
+            response = client.execute(httpGet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
 
     public static HttpResponse doPost(String url, Map<String, String> headerMap , Map<String, String> paramMap) throws UnsupportedEncodingException {
         HttpClient client = HttpClients.custom().setDefaultCookieStore(cookieStore).build();

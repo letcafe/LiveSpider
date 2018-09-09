@@ -1,9 +1,5 @@
 package com.letcafe.http;
 
-import com.letcafe.bean.HuYaUserLevel;
-import com.letcafe.util.HuYaUtils;
-import com.letcafe.util.JacksonUtil;
-import org.json.JSONObject;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

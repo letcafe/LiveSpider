@@ -1,13 +1,15 @@
 package com.letcafe;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
 
 @ComponentScan(basePackages = "com.letcafe")
 @EnableAutoConfiguration
@@ -15,7 +17,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class Application extends SpringBootServletInitializer{
 
+    private static final Logger logger = LoggerFactory.getLogger(Application.class);
+
     public static void main(String[] args) {
+        logger.info("System core number : " + Runtime.getRuntime().availableProcessors());
         SpringApplication.run(Application.class, args);
     }
 

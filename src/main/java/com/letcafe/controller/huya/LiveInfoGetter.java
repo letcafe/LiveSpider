@@ -6,7 +6,7 @@ import com.letcafe.service.HuYaGameTypeService;
 import com.letcafe.service.HuYaLiveInfoService;
 import com.letcafe.service.LiveInfoLogService;
 import com.letcafe.util.HttpUtils;
-import com.letcafe.util.JacksonUtil;
+import com.letcafe.util.JacksonUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -48,23 +48,27 @@ public class LiveInfoGetter {
     }
 
     public List<HuYaLiveInfo> listHuYaLiveList(int gid) throws IOException {
+        HttpClient client = HttpClients.createDefault();
+        return listHuYaLiveListFromSingleHttpClient(client, gid);
+    }
+
+    public List<HuYaLiveInfo> listHuYaLiveListFromSingleHttpClient(HttpClient client, int gid) throws IOException {
         List<HuYaLiveInfo> huYaLiveInfoList = new ArrayList<>(20);
         //初始化一个httpclient
-        HttpClient client = HttpClients.createDefault();
         //我们要爬取的一个地址，这里可以从数据库中抽取数据，然后利用循环，可以爬取一个URL队列
         String url="https://www.huya.com/cache10min.php?m=Live&do=getProfileRecommendList&gid=" + gid;
         //抓取的数据
         HttpResponse response = HttpUtils.getRawHtml(client, url);
         //获取响应状态码
         int StatusCode = response.getStatusLine().getStatusCode();
-        String entity = "";
+        String entity;
         //如果状态响应码为200，则获取html实体内容或者json文件
         if(StatusCode == 200){
             entity = EntityUtils.toString (response.getEntity(),"utf-8");
             JSONObject jsonObject = new JSONObject(entity);
             JSONArray jsonArray = jsonObject.getJSONArray("data");
             for (int i = 0; i < jsonArray.length(); i ++) {
-                HuYaLiveInfo huYaLiveInfo = JacksonUtil.readValue(jsonArray.get(i).toString(), HuYaLiveInfo.class);
+                HuYaLiveInfo huYaLiveInfo = JacksonUtils.readValue(jsonArray.get(i).toString(), HuYaLiveInfo.class);
                 huYaLiveInfoList.add(huYaLiveInfo);
             }
         }else {
@@ -74,27 +78,20 @@ public class LiveInfoGetter {
         return huYaLiveInfoList;
     }
 
-    private void updateHuYaLiveInfoById(int gid) throws Exception {
-        List<HuYaLiveInfo> liveList = this.listHuYaLiveList(gid);
-        for (HuYaLiveInfo liveInfo : liveList) {
-            huYaLiveInfoService.saveOrUpdate(liveInfo);
-        }
-    }
-
 
     private void addHuYaLiveInfoLog(int gid, long logCurrentTime) throws Exception {
         HttpClient client = HttpClients.createDefault();
         String url="https://www.huya.com/cache10min.php?m=Live&do=getProfileRecommendList&gid=" + gid;
         HttpResponse response = HttpUtils.getRawHtml(client, url);
         int StatusCode = response.getStatusLine().getStatusCode();
-        String entity = "";
+        String entity;
         //如果状态响应码为200，则获取html实体内容或者json文件
         if(StatusCode == 200){
             entity = EntityUtils.toString (response.getEntity(),"utf-8");
             JSONObject jsonObject = new JSONObject(entity);
             JSONArray jsonArray = jsonObject.getJSONArray("data");
             for (int i = 0; i < jsonArray.length(); i ++) {
-                HuYaLiveInfo huya = JacksonUtil.readValue(jsonArray.get(i).toString(), HuYaLiveInfo.class);
+                HuYaLiveInfo huya = JacksonUtils.readValue(jsonArray.get(i).toString(), HuYaLiveInfo.class);
                 LiveInfoLog liveInfoLog = new LiveInfoLog(
                         huya.getUid(),
                         huya.getSex(),
@@ -117,8 +114,12 @@ public class LiveInfoGetter {
     public void updateAllHuYaLiveInfo() throws Exception {
         long startTime = System.currentTimeMillis();
         List<Integer> gidList = huYaGameTypeService.listAllGid();
+        HttpClient client = HttpClients.createDefault();
         for (Integer gid : gidList) {
-            updateHuYaLiveInfoById(gid);
+            List<HuYaLiveInfo> liveList = listHuYaLiveListFromSingleHttpClient(client, gid);
+            for (HuYaLiveInfo liveInfo : liveList) {
+                huYaLiveInfoService.saveOrUpdate(liveInfo);
+            }
         }
         long endTime = System.currentTimeMillis();
         logger.info("saveOrUpdate all Live.[cost time] = " + (endTime - startTime) / 1000 + "s");

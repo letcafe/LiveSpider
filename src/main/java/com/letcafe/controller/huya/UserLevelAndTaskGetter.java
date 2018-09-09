@@ -4,7 +4,7 @@ import com.letcafe.bean.HuYaUserLevel;
 import com.letcafe.service.CookieService;
 import com.letcafe.service.HuYaUserLevelService;
 import com.letcafe.util.HttpUtils;
-import com.letcafe.util.JacksonUtil;
+import com.letcafe.util.JacksonUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
@@ -54,7 +54,7 @@ public class UserLevelAndTaskGetter {
 
             //parse json data, and get its data-level, then make it into obj
             String levelData = userLevel.toString();
-            HuYaUserLevel huYaUserLevel = JacksonUtil.readValue(levelData, HuYaUserLevel.class);
+            HuYaUserLevel huYaUserLevel = JacksonUtils.readValue(levelData, HuYaUserLevel.class);
             logger.info("set user task info to mysql,entity.length() = " + entity.length());
             if(huYaUserLevel != null) {
                 huYaUserLevel.setYyId(YY_ID);

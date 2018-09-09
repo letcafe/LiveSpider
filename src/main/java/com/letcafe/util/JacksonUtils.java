@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
-public class JacksonUtil {
+public class JacksonUtils {
 
     private static ObjectMapper objectMapper;
 
