@@ -26,6 +26,8 @@
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter-log4j2:2.0.0.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-orm:5.0.4.RELEASE" />
           <element id="library" level="project" name="Gradle: org.hibernate:hibernate-core:5.2.12.Final" />
+          <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger2:2.8.0" />
+          <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-ui:2.8.0" />
           <element id="library" level="project" name="Gradle: mysql:mysql-connector-java:6.0.6" />
           <element id="library" level="project" name="Gradle: org.jsoup:jsoup:1.11.3" />
           <element id="library" level="project" name="Gradle: javax.mail:javax.mail-api:1.6.1" />
@@ -67,25 +69,40 @@
           <element id="library" level="project" name="Gradle: org.slf4j:jul-to-slf4j:1.7.25" />
           <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-keyvalue:2.0.5.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-tx:5.0.4.RELEASE" />
+          <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-common:2.8.0" />
+          <element id="library" level="project" name="Gradle: io.springfox:springfox-spring-web:2.8.0" />
+          <element id="library" level="project" name="Gradle: io.springfox:springfox-schema:2.8.0" />
+          <element id="library" level="project" name="Gradle: io.springfox:springfox-spi:2.8.0" />
+          <element id="library" level="project" name="Gradle: io.springfox:springfox-core:2.8.0" />
+          <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-oxm:5.0.4.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-context-support:5.0.4.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:2.0.5.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:2.0.0.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot:2.0.0.RELEASE" />
-          <element id="library" level="project" name="Gradle: org.springframework:spring-context-support:5.0.4.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-context:5.0.4.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-aop:5.0.4.RELEASE" />
-          <element id="library" level="project" name="Gradle: org.springframework:spring-oxm:5.0.4.RELEASE" />
-          <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-commons:2.0.5.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-beans:5.0.4.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-expression:5.0.4.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-core:5.0.4.RELEASE" />
           <element id="library" level="project" name="Gradle: org.hibernate.common:hibernate-commons-annotations:5.0.1.Final" />
           <element id="library" level="project" name="Gradle: org.jboss.logging:jboss-logging:3.3.0.Final" />
           <element id="library" level="project" name="Gradle: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
+          <element id="library" level="project" name="Gradle: org.reflections:reflections:0.9.11" />
           <element id="library" level="project" name="Gradle: org.thymeleaf:thymeleaf:3.0.9.RELEASE" />
           <element id="library" level="project" name="Gradle: ognl:ognl:3.1.12" />
+          <element id="library" level="project" name="Gradle: org.javassist:javassist:3.21.0-GA" />
           <element id="library" level="project" name="Gradle: antlr:antlr:2.7.7" />
           <element id="library" level="project" name="Gradle: org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.0.1.Final" />
           <element id="library" level="project" name="Gradle: org.jboss:jandex:2.0.3.Final" />
+          <element id="library" level="project" name="Gradle: com.fasterxml:classmate:1.3.4" />
           <element id="library" level="project" name="Gradle: dom4j:dom4j:1.6.1" />
+          <element id="library" level="project" name="Gradle: io.swagger:swagger-models:1.5.14" />
+          <element id="library" level="project" name="Gradle: io.swagger:swagger-annotations:1.5.14" />
+          <element id="library" level="project" name="Gradle: com.google.guava:guava:25.0-jre" />
+          <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.8.0-alpha2" />
+          <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.2.0.Final" />
           <element id="library" level="project" name="Gradle: javax.activation:activation:1.1" />
           <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpcore:4.4.10" />
           <element id="library" level="project" name="Gradle: commons-logging:commons-logging:1.2" />
@@ -94,7 +111,6 @@
           <element id="library" level="project" name="Gradle: org.seleniumhq.selenium:selenium-api:3.14.0" />
           <element id="library" level="project" name="Gradle: net.bytebuddy:byte-buddy:1.8.15" />
           <element id="library" level="project" name="Gradle: org.apache.commons:commons-exec:1.3" />
-          <element id="library" level="project" name="Gradle: com.google.guava:guava:25.0-jre" />
           <element id="library" level="project" name="Gradle: com.squareup.okhttp3:okhttp:3.10.0" />
           <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.14.1" />
           <element id="library" level="project" name="Gradle: org.yaml:snakeyaml:1.19" />
@@ -103,7 +119,6 @@
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.module:jackson-module-parameter-names:2.9.4" />
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.4" />
           <element id="library" level="project" name="Gradle: javax.validation:validation-api:2.0.1.Final" />
-          <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.8.0-alpha2" />
           <element id="library" level="project" name="Gradle: io.projectreactor:reactor-core:3.1.4.RELEASE" />
           <element id="library" level="project" name="Gradle: io.netty:netty-handler:4.1.21.Final" />
           <element id="library" level="project" name="Gradle: io.netty:netty-codec:4.1.21.Final" />
@@ -115,33 +130,18 @@
           <element id="library" level="project" name="Gradle: org.mongodb:bson:3.6.3" />
           <element id="library" level="project" name="Gradle: org.apache.logging.log4j:log4j-api:2.10.0" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-jcl:5.0.4.RELEASE" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.4" />
+          <element id="library" level="project" name="Gradle: org.apache.tomcat:tomcat-annotations-api:8.5.28" />
+          <element id="library" level="project" name="Gradle: org.reactivestreams:reactive-streams:1.0.2" />
           <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:1.3.9" />
           <element id="library" level="project" name="Gradle: org.checkerframework:checker-compat-qual:2.0.0" />
           <element id="library" level="project" name="Gradle: com.google.errorprone:error_prone_annotations:2.1.3" />
           <element id="library" level="project" name="Gradle: com.google.j2objc:j2objc-annotations:1.1" />
           <element id="library" level="project" name="Gradle: org.codehaus.mojo:animal-sniffer-annotations:1.14" />
-          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
-          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.4" />
-          <element id="library" level="project" name="Gradle: org.apache.tomcat:tomcat-annotations-api:8.5.28" />
-          <element id="library" level="project" name="Gradle: org.reactivestreams:reactive-streams:1.0.2" />
           <element id="library" level="project" name="Gradle: org.attoparser:attoparser:2.0.4.RELEASE" />
           <element id="library" level="project" name="Gradle: org.unbescape:unbescape:1.1.5.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-configuration-processor:2.0.0.RELEASE" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger2/2.8.0/27fbca30912258ce0e31cd56361f732f6c27d5ff/springfox-swagger2-2.8.0.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-ui/2.8.0/2b895560df9cd70a2e93119188981b004b4e2ad5/springfox-swagger-ui-2.8.0.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-swagger-common/2.8.0/e0fc6a0096eb8d40fac7cc8206ddbb2fe73051d2/springfox-swagger-common-2.8.0.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spring-web/2.8.0/cb2ce464b07919158dde1ad40f72cca9c364559b/springfox-spring-web-2.8.0.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-schema/2.8.0/70ed8275e2277bffe269c8dbd688f54464bf1222/springfox-schema-2.8.0.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-spi/2.8.0/efe49b45357dd9f6c27799a5f7f5ba1ce6bdc05f/springfox-spi-2.8.0.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.springfox/springfox-core/2.8.0/5f0fbaa34cc01dfca7089000c4943629d7e1c9dc/springfox-core-2.8.0.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-metadata/1.2.0.RELEASE/97223fc496b6cab31602eedbd4202aa4fff0d44f/spring-plugin-metadata-1.2.0.RELEASE.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-core/1.2.0.RELEASE/f380e7760032e7d929184f8ad8a33716b75c0657/spring-plugin-core-1.2.0.RELEASE.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.reflections/reflections/0.9.11/4c686033d918ec1727e329b7222fcb020152e32b/reflections-0.9.11.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.javassist/javassist/3.21.0-GA/598244f595db5c5fb713731eddbb1c91a58d959b/javassist-3.21.0-GA.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml/classmate/1.3.4/3d5f48f10bbe4eb7bd862f10c0583be2e0053c6/classmate-1.3.4.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-models/1.5.14/581d784b65e82cee5bf3e91d193d3f9c0c702453/swagger-models-1.5.14.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.swagger/swagger-annotations/1.5.14/989c19cd0a90768885532318ca5fd7ea16290cc8/swagger-annotations-1.5.14.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct/1.2.0.Final/8609d6eb044e9f6c73cb24c8f2f4ed5c72a249c7/mapstruct-1.2.0.Final.jar" />
         </element>
       </element>
     </root>

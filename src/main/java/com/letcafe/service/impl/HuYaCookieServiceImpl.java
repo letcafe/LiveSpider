@@ -15,12 +15,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.letcafe.util.HuYaUtils.*;
 
 @Service
+@Transactional
 public class HuYaCookieServiceImpl implements CookieService {
 
     private static final Logger logger = LogManager.getLogger(HuYaCookieServiceImpl.class);
