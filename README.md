@@ -28,11 +28,13 @@
 + 0 20/15 * * * * => LiveInfoGetter.insertAll => 每30分钟获取前20条LOL的直播信息存MongoDB
 + 0 0 0/4 * * * => UserLevelAndTaskGetter.setUserTaskStatus => 每隔4小时获取用户经验状态存MySQL
 + 25/30 * * * * * => GameTypeGetter.gameTypeScheduled => 每隔30s更新一次游戏列表于MySQL
++ 0 59 23 * * * => GameTypeGetter.gameTypeScheduled => 每天23时59分获取今天任务完成情况于MySQL
 ### 每日任务自动完成
 + 0 0 6 * * * => TaskAutoWorker.watchNumberedLive => 每天凌晨3：00完成观看10名主播的任务
 + 0 0 6 * * * => TaskAutoWorker.sendPubMessage => 每天凌晨3：10完成发送一条弹幕任务
 + 0 15 3 * * * => TaskAutoWorker.subscribeOneLiveRoomTask => 每天凌晨3:15订阅一个DNF主播并10s后取消订阅
 + 0 5 6 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天早上6：05观看55分钟直播以获得6个宝箱（宝箱6点刷）
++ 0 0 1/2 * * * => TaskPrizeGetter.getAllTaskPrize => 每天每个两个小时收取所有的任务经验
 
 ## Developing log
 ### 2018-08-05 
@@ -114,3 +116,9 @@
 ### 2018-09-08
 + 新增：添加Swagger文档组件备后续开放接口使用
 + 计划：使用多线程、线程池加速LiveInfoGetter.updateHuYaLiveInfoById()方法的执行速度,目前执行一次时间20Min
+
+### 2018-10-03
++ 新增：每天在23时59分将当天的任务完成情况存于数据库中
++ 新增：每隔两小时执行获取所有任务完成的奖励
++ 更新：修改部分Http/Https工具类调用为spring.http，后期推荐全改为Spring(方法：强制删除其他Http工具类)
++ <font color="red">意外发现</font>：似乎登录Cookie并不会过期（未检验）
