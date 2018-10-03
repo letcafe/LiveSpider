@@ -121,4 +121,4 @@
 + 新增：每天在23时59分将当天的任务完成情况存于数据库中
 + 新增：每隔两小时执行获取所有任务完成的奖励
 + 更新：修改部分Http/Https工具类调用为spring.http，后期推荐全改为Spring(方法：强制删除其他Http工具类)
-+ <font color="red">意外发现</font>：似乎登录Cookie并不会过期（未检验）
++ <font color=red>意外发现</font>：似乎登录Cookie并不会过期（未检验）
