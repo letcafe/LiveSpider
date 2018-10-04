@@ -116,7 +116,6 @@ public class TaskPrizeGetter {
             //EntityUtils.toString (responseEntity,"utf-8")
             entity = responseEntity.getBody();
             entity = entity.substring(entity.indexOf("{"), entity.lastIndexOf("}") + 1);
-            logger.info("huyaTaskInfo = " + entity);
             JSONObject rawJson = new JSONObject(entity);
 
             JSONObject huyaNavUserCard = rawJson.getJSONObject("data");

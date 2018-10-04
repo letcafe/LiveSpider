@@ -38,21 +38,21 @@
 
 ## Developing log
 ### 2018-08-05 
-+ <del>新增：爬取京东图书等信息</del>
++ <del>\+ 爬取京东图书等信息</del>
 
 ### 2018-08-10
-+ 更新：泛型传参结构
-+ 新增：HuYa游戏列表(gid + name)
-+ 新增：Spring @Scheduling定时任务(@EnableScheduling + @Scheduling)
++ \~ 泛型传参结构
++ \+ HuYa游戏列表(gid + name)
++ \+ Spring @Scheduling定时任务(@EnableScheduling + @Scheduling)
 
 ### 2018-08-13
 + ing：数据库结构持续调整中...
-+ 新增：HuYa主播信息：bean<=>pojo正确映射
++ \+ HuYa主播信息：bean<=>pojo正确映射
 
 ### 2018-08-16
-+ 新增：(mysql)30分钟定时更新Live列表（HuYaGameType.java）
-+ 新增：(mysql)5分钟定时更新所有Live大类前20直播间信息（HuYaLiveInfo.java）
-+ 新增：(mongodb)5分钟定时插入所有Live大类前20直播间日志留存（LiveInfoLog.java）
++ \+ (mysql)30分钟定时更新Live列表（HuYaGameType.java）
++ \+ (mysql)5分钟定时更新所有Live大类前20直播间信息（HuYaLiveInfo.java）
++ \+ (mongodb)5分钟定时插入所有Live大类前20直播间日志留存（LiveInfoLog.java）
 
 ### 2018-08-16(to do plan)
 #### research result：HuYa模拟登录流程：重点在于获取oath_token：
@@ -68,57 +68,59 @@
 + Selenium gradle:http://mvnrepository.com/search?q=selenium
 
 ### 2018-08-22
-+ 测试类：SeleniumStarterTest，结合chromedriver.exe实现模拟登陆操作（已实现，但需要基于GUI的浏览器/可考虑加入PhantomJS）
-+ 测试类：CookieResponseTest，通过纯HttpClient解析WebFlow，实现部分基于Http的模拟（未完全实现）
-+ 新增：成功获得所有用户任务数量，情况信息接口内容
-+ 下一步：过滤出干净的数据或者找到Selenium做WebApi得到JSON
++ \+ SeleniumStarterTest，结合chromedriver.exe实现模拟登陆操作（已实现，但需要基于GUI的浏览器/可考虑加入PhantomJS）
++ \+ CookieResponseTest，通过纯HttpClient解析WebFlow，实现部分基于Http的模拟（未完全实现）
++ \+ 成功获得所有用户任务数量，情况信息接口内容
++ TO DO：过滤出干净的数据或者找到Selenium做WebApi得到JSON
 
 ### 2018-08-23
-+ 测试类：HuYaUserLevel及其相关POJO
-+ 新增：完成对用户信息模型HuYaUserLevel的封装及操作，并定时爬取
-+ 下一步：模拟登陆的鲁棒性需要提升——成功率
++ \+ HuYaUserLevel及其相关POJO
++ \+ 完成对用户信息模型HuYaUserLevel的封装及操作，并定时爬取
++ TO DO：模拟登陆的鲁棒性需要提升——成功率
 
 ### 2018-08-26
-+ 集成Redis：单机缓存6天的cookie信息
-+ 新增：根据Redis的Cookie值,更新用户等级信息
-+ 下一步：进一步封装cookie
++ \+ 单机缓存6天的cookie信息
++ \+ 根据Redis的Cookie值,更新用户等级信息
++ TO DO：进一步封装cookie
 
 ### 2018-08-27
-+ 更新：独立出登录成功后的login web driver为一方法，并新增可选参数，是否显示界面，是否加载图片
-+ 更新：完成每天早上6点，自动点开10项直播功能
-+ 更新：调整代码结构，使其变得更加清晰
-+ 更新：使用@ConfigurationProperties，读取yaml关键信息
-+ 更新：在日志开头添加入已完成定时功能
-+ 下一步：将后台展示到前端，以便知道完成哪些工作（因为感觉开始有点难以维护了）
++ \~ 独立出登录成功后的login web driver为一方法，并新增可选参数，是否显示界面，是否加载图片
++ \~ 完成每天早上6点，自动点开10项直播功能
++ \~ 调整代码结构，使其变得更加清晰
++ \~ 使用@ConfigurationProperties，读取yaml关键信息
++ \~ 在日志开头添加入已完成定时功能
++ TO DO：将后台展示到前端，以便知道完成哪些工作（因为感觉开始有点难以维护了）
 
 ### 2018-08-28
-+ 更新：修复了所有BUG，并且在无GUI的CentOS7中成功部署（不需要装Xvfb,只需--headless和--no-sandbox）
-+ 经验：无GUI装Selenium+Chrome，可先用Python测试，所有上JAVA（Linux自带Py好上手测试环境）
-+ 调整：配置文件布局进行修改，方便以后扩充，明确Util与Service职责，进行分离
-+ 下一步：已完成所有功能测试，正确运行，进入下一步自动化完成任务的开发
++ \~ 修复了所有BUG，并且在无GUI的CentOS7中成功部署（不需要装Xvfb,只需--headless和--no-sandbox）
++ \~ 配置文件布局进行修改，方便以后扩充，明确Util与Service职责，进行分离
++ TO DO：已完成所有功能测试，正确运行，进入下一步自动化完成任务的开发
 
 ### 2018-08-29
-+ 更新：huya登录转变为优先使用虎牙APP扫描二维码，通过i.huya.com，然后点击注册，再点击登录，转回原登录流程
-+ 修复：修复任务过多，而分配Scheduled池不足，出现长时间停滞卡顿的BUG
-+ 修复：观看十场直播任务，务必设置延迟，否则因为切换太快无法计入任务
-+ 突破：经测试，有了Cookie + Selenium，在虎牙可以横着走
-+ 调整：修正代码布局，明确流程，进一步封装模块
++ \~ huya登录转变为优先使用虎牙APP扫描二维码，通过i.huya.com，然后点击注册，再点击登录，转回原登录流程
++ \~ 修复任务过多，而分配Scheduled池不足，出现长时间停滞卡顿的BUG
++ \~ 观看十场直播任务，务必设置延迟，否则因为切换太快无法计入任务
++ \~ 修正代码布局，明确流程，进一步封装模块
 
 ### 2018-09-04
-+ 新增：每天早上7点，观看一小时直播（--headless），获取6个宝箱
-+ 新增：每天凌晨3:15，订阅一个主播，10s后取消订阅，自动完成订阅任务
++ \+ 每天早上7点，观看一小时直播（--headless），获取6个宝箱
++ \+ 每天凌晨3:15，订阅一个主播，10s后取消订阅，自动完成订阅任务
 
 ### 2018-09-04
-+ 新增：LomBok，极大简化JAVA Bean的Getter等样板式代码
-+ 新增：.gitignore文件，取消上传logs/,build/,out/,gradle/等
-+ 删除：SnakeYAML没有使用的依赖
++ \+ LomBok，极大简化JAVA Bean的Getter等样板式代码
++ \+ .gitignore文件，取消上传logs/,build/,out/,gradle/等
++ \- SnakeYAML没有使用的依赖
 
 ### 2018-09-08
-+ 新增：添加Swagger文档组件备后续开放接口使用
-+ 计划：使用多线程、线程池加速LiveInfoGetter.updateHuYaLiveInfoById()方法的执行速度,目前执行一次时间20Min
++ \+ 添加Swagger文档组件备后续开放接口使用
++ TO DO：使用多线程、线程池加速LiveInfoGetter.updateHuYaLiveInfoById()方法的执行速度,目前执行一次时间20Min
 
 ### 2018-10-03
-+ 新增：每天在23时59分将当天的任务完成情况存于数据库中
-+ 新增：每隔两小时执行获取所有任务完成的奖励
-+ 更新：修改部分Http/Https工具类调用为spring.http，后期推荐全改为Spring(方法：强制删除其他Http工具类)
-+ __发现__：似乎登录Cookie并不会过期（未检验）
++ \+ 每天在23时59分将当天的任务完成情况存于数据库中
++ \+ 每隔两小时执行获取所有任务完成的奖励
++ \~ 修改部分Http/Https工具类调用为spring.http，后期推荐全改为Spring(方法：强制删除其他Http工具类)
++ \? ：似乎登录Cookie并不会过期（未检验）
+
+### 2018-10-04
++ \~ 调整了日志的存档目录为${sys:user.home}保证在用户home目录可获得日志，无论windows or linux
++ \~ 调整了开发者日志为新的风格：'+, -, ?, TO DO, ...'
