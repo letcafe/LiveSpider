@@ -16,14 +16,25 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.letcafe.util.HuYaUtils.YY_ID;
 
 @Controller
 @RequestMapping("/getter/huya/liveInfo")
@@ -47,35 +58,26 @@ public class LiveInfoGetter {
         this.liveInfoLogService = liveInfoLogService;
     }
 
-    public List<HuYaLiveInfo> listHuYaLiveList(int gid) throws IOException {
-        HttpClient client = HttpClients.createDefault();
-        return listHuYaLiveListFromSingleHttpClient(client, gid);
-    }
-
-    public List<HuYaLiveInfo> listHuYaLiveListFromSingleHttpClient(HttpClient client, int gid) throws IOException {
+    public List<HuYaLiveInfo> listHuYaLiveByGid(int gid){
+        RestTemplate restTemplate = new RestTemplate();
         List<HuYaLiveInfo> huYaLiveInfoList = new ArrayList<>(20);
-        //初始化一个httpclient
-        //我们要爬取的一个地址，这里可以从数据库中抽取数据，然后利用循环，可以爬取一个URL队列
-        String url="https://www.huya.com/cache10min.php?m=Live&do=getProfileRecommendList&gid=" + gid;
-        //抓取的数据
-        HttpResponse response = HttpUtils.getRawHtml(client, url);
-        //获取响应状态码
-        int StatusCode = response.getStatusLine().getStatusCode();
-        String entity;
-        //如果状态响应码为200，则获取html实体内容或者json文件
-        if(StatusCode == 200){
-            entity = EntityUtils.toString (response.getEntity(),"utf-8");
-            JSONObject jsonObject = new JSONObject(entity);
+        //body
+        Map<String, Object> requestBody = new HashMap<>(3);
+        requestBody.put("m", "Live");
+        requestBody.put("do", "getProfileRecommendList");
+        requestBody.put("gid", gid);
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity("https://www.huya.com/cache10min.php?m={m}&do={do}&gid={gid}", String.class, requestBody);
+        if (responseEntity.getStatusCode() == HttpStatus.OK && responseEntity.getBody() != null) {
+            JSONObject jsonObject = new JSONObject(responseEntity.getBody());
             JSONArray jsonArray = jsonObject.getJSONArray("data");
             for (int i = 0; i < jsonArray.length(); i ++) {
                 HuYaLiveInfo huYaLiveInfo = JacksonUtils.readValue(jsonArray.get(i).toString(), HuYaLiveInfo.class);
                 huYaLiveInfoList.add(huYaLiveInfo);
             }
-        }else {
-            //否则，消耗掉实体
-            EntityUtils.consume(response.getEntity());
+            return huYaLiveInfoList;
+        } else {
+            return null;
         }
-        return huYaLiveInfoList;
     }
 
 
@@ -111,12 +113,11 @@ public class LiveInfoGetter {
 
     // Every 30 minutes update all huya live information in MySQL
     @Scheduled(cron = "0 20/30 * * * *")
-    public void updateAllHuYaLiveInfo() throws Exception {
+    public void updateAllHuYaLiveInfo() {
         long startTime = System.currentTimeMillis();
         List<Integer> gidList = huYaGameTypeService.listAllGid();
-        HttpClient client = HttpClients.createDefault();
         for (Integer gid : gidList) {
-            List<HuYaLiveInfo> liveList = listHuYaLiveListFromSingleHttpClient(client, gid);
+            List<HuYaLiveInfo> liveList = listHuYaLiveByGid(gid);
             for (HuYaLiveInfo liveInfo : liveList) {
                 huYaLiveInfoService.saveOrUpdate(liveInfo);
             }

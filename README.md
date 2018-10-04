@@ -4,9 +4,10 @@
 ##### Maintainer: letcafe
 ##### Email: letcafe@outlook.com
 ## Developing environment
-+ Web Container：Spring embed tomcat
++ Web Container：Apache Tomcat
 + JDK：1.8
 + DEV IDE：Intellij IDEA
++ Project Encoding: UTF-8
 ## Framework support
 >Spring framework support:https://projects.spring.io/spring-framework/  
 >SpringFox Swagger support:https://springfox.github.io/springfox/  
@@ -14,7 +15,7 @@
 >Gradle support:https://gradle.org/
 
 ## Deploy notice
-+ Visit url：http://localhost:8080/index
++ <del>Visit url：http://localhost:8080/index</del>(On the way...)
 + Support: Intellij IDEA
 
 ## 已知信息：
@@ -30,20 +31,31 @@
 + 25/30 * * * * * => GameTypeGetter.gameTypeScheduled => 每隔30s更新一次游戏列表于MySQL
 + 0 59 23 * * * => GameTypeGetter.gameTypeScheduled => 每天23时59分获取今天任务完成情况于MySQL
 ### 每日任务自动完成
-+ 0 0 6 * * * => TaskAutoWorker.watchNumberedLive => 每天凌晨3：00完成观看10名主播的任务
-+ 0 0 6 * * * => TaskAutoWorker.sendPubMessage => 每天凌晨3：10完成发送一条弹幕任务
++ 0 0 3 * * * => TaskAutoWorker.watchNumberedLive => 每天凌晨3：00完成观看10名主播的任务
++ 0 10 3 * * * => TaskAutoWorker.sendPubMessage => 每天凌晨3：10完成发送一条弹幕任务
 + 0 15 3 * * * => TaskAutoWorker.subscribeOneLiveRoomTask => 每天凌晨3:15订阅一个DNF主播并10s后取消订阅
-+ 0 5 6 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天早上6：05观看55分钟直播以获得6个宝箱（宝箱6点刷）
-+ 0 0 1/2 * * * => TaskPrizeGetter.getAllTaskPrize => 每天每个两个小时收取所有的任务经验
++ 0 20 3 * * * => TaskPrizeGetter.sendGiftTo3LiveRoom => 每天凌晨3:20给LOL列表前三主播送礼物（默认虎粮:id = 4）
++ 0 1 6 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天上午6：05观看55分钟直播以获得6个宝箱（宝箱6点刷）
++ 0 0 7 * * * => TaskPrizeGetter.getAllTaskPrize => 每天上午7点收取所有的任务经验
+
 
 ## Developing log
+
+### 日志说明
+1. '+'：新增
+2. '-'：删除
+3. '~'：更新
+4. '?'：疑问
+5. '*'：重点
+6. 'TO DO'：目标
+7. ...
 ### 2018-08-05 
 + <del>\+ 爬取京东图书等信息</del>
 
 ### 2018-08-10
 + \~ 泛型传参结构
 + \+ HuYa游戏列表(gid + name)
-+ \+ Spring @Scheduling定时任务(@EnableScheduling + @Scheduling)
++ \+ Spring @Scheduled(@EnableScheduling + @Scheduled)
 
 ### 2018-08-13
 + ing：数据库结构持续调整中...
@@ -117,10 +129,14 @@
 
 ### 2018-10-03
 + \+ 每天在23时59分将当天的任务完成情况存于数据库中
-+ \+ 每隔两小时执行获取所有任务完成的奖励
++ \+ 每隔2小时执行获取所有任务完成的奖励
 + \~ 修改部分Http/Https工具类调用为spring.http，后期推荐全改为Spring(方法：强制删除其他Http工具类)
-+ \? ：似乎登录Cookie并不会过期（未检验）
++ \? 似乎登录Cookie并不会过期（未检验）
 
 ### 2018-10-04
++ \+ 完成给三个主播送礼物的任务:sendGiftTo3LiveRoom()
 + \~ 调整了日志的存档目录为${sys:user.home}保证在用户home目录可获得日志，无论windows or linux
-+ \~ 调整了开发者日志为新的风格：'+, -, ?, TO DO, ...'
++ \~ 调整了开发者日志为新的风格："+,-,?,~,*,TO DO"
++ \~ 阅读虎牙前端源码，优化发送弹幕任务完成的实现方式，极大程度保证弹幕发送成功率=100%
++ \~ 调整在每天早上7点收获所有任务奖励经验
++ \~ 去除大量HttpUtils改用Spring工具，简化了异常捕获

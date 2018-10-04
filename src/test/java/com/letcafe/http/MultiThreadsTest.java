@@ -13,6 +13,8 @@ public class MultiThreadsTest {
 
     static long endTimestamp = 0;
 
+    static List[] lists = new List[10];
+
     static int threadNumber = Runtime.getRuntime().availableProcessors();
 
     static List<MultiThreadsTest> testList = new ArrayList<>(capacity);
@@ -22,9 +24,14 @@ public class MultiThreadsTest {
         for (int i = 0; i < capacity; i++) {
             testList.add(multiThreadsTest);
         }
+        System.out.println("[testList.size()] = " + testList.size() + "," + capacity / 10);
+        for (int i = 0; i < 10; i ++) {
+            lists[i] = testList.subList(capacity / 10 * i, capacity / 10 * (i + 1));
+            System.out.println(lists[i].size() + "\\" + lists[i].get(0));
+        }
     }
 
-    @Test
+//    @Test
     public void multiThreads() throws InterruptedException {
         int threadNumber = Runtime.getRuntime().availableProcessors();
         MultiThreadsForHuYaLiveInsertAccelerate[] threads = new MultiThreadsForHuYaLiveInsertAccelerate[threadNumber];
@@ -81,8 +88,6 @@ public class MultiThreadsTest {
                     }
                 }
             }
-
-            System.out.println(this.getName() + " has thread count = " + threadCount);
         }
 
         @Override
