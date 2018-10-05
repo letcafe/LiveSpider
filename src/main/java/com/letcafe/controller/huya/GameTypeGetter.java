@@ -1,19 +1,22 @@
 package com.letcafe.controller.huya;
 
 import com.letcafe.bean.HuYaGameType;
-import com.letcafe.parse.HuYaParser;
 import com.letcafe.service.HuYaGameTypeService;
-import com.letcafe.util.UrlFetcher;
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -21,7 +24,6 @@ import java.util.List;
 public class GameTypeGetter {
 
     private final Logger logger = LoggerFactory.getLogger(GameTypeGetter.class);
-    private static int logShowInt = 0;
 
     private HuYaGameTypeService huYaGameTypeService;
 
@@ -30,16 +32,27 @@ public class GameTypeGetter {
         this.huYaGameTypeService = huYaGameTypeService;
     }
 
-    @Scheduled(cron = "25/30 * * * * *")
+    @Scheduled(fixedRate = 30000)
+//    @Scheduled(cron = "0 0/10 * * * *")
     public void gameTypeScheduled() throws Exception {
-        HttpClient client = HttpClients.createDefault();
-        String url="https://www.huya.com/g";
-        List<HuYaGameType> types = UrlFetcher.URLParser(client, url, new HuYaParser());
-        huYaGameTypeService.saveOrUpdateList(types);
-        // every 20 count = 1 hour,put down one log
-        if (++ logShowInt == 20) {
+        List<HuYaGameType> types = new ArrayList<>();
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://www.huya.com/g";
+        ResponseEntity<String> response =  restTemplate.getForEntity(url, String.class);
+        if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+            // 使用JSoup抓取元素并存入数据库
+            Document document = Jsoup.parse(response.getBody());
+            Elements elements = document.select("div[class=box-bd]").select(".game-list").select("li[class=game-list-item]");
+            for (Element element : elements) {
+                String gid = element.attr("gid");
+                String title = element.select(".title").text();
+                HuYaGameType huYaGameType = new HuYaGameType(gid, title);
+                types.add(huYaGameType);
+            }
+            huYaGameTypeService.saveOrUpdateList(types);
             logger.info("game type updated, fetch total = " + types.size());
-            logShowInt = 0;
+        } else {
+            logger.warn(response.getStatusCode().getReasonPhrase());
         }
     }
 

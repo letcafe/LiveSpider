@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.aspectj:aspectjrt:1.9.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.9.1/84b05e2d360c83ce9fd1780ab2b7f36565110b9c/aspectjrt-1.9.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.9.1/c58de79bf5462833455170c9f34e11c82accca36/aspectjrt-1.9.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

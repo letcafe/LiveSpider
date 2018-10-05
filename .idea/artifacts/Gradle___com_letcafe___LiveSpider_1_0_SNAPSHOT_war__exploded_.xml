@@ -46,6 +46,7 @@
           <element id="library" level="project" name="Gradle: redis.clients:jedis:2.9.0" />
           <element id="library" level="project" name="Gradle: org.webjars.bower:sockjs-client:1.1.5" />
           <element id="library" level="project" name="Gradle: org.webjars.bower:stomp-websocket:2.3.4" />
+          <element id="library" level="project" name="Gradle: org.aspectj:aspectjrt:1.9.1" />
           <element id="library" level="project" name="Gradle: org.json:json:20180130" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter-json:2.0.0.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter:2.0.0.RELEASE" />
@@ -142,6 +143,8 @@
           <element id="library" level="project" name="Gradle: org.attoparser:attoparser:2.0.4.RELEASE" />
           <element id="library" level="project" name="Gradle: org.unbescape:unbescape:1.1.5.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-configuration-processor:2.0.0.RELEASE" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-aop/2.0.0.RELEASE/9afd572ca8de272e6d919d914db5c73cd7d06ea2/spring-boot-starter-aop-2.0.0.RELEASE.jar" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.13/ad94df2a28d658a40dc27bbaff6a1ce5fbf04e9b/aspectjweaver-1.8.13.jar" />
         </element>
       </element>
     </root>

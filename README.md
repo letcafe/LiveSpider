@@ -38,6 +38,8 @@
 + 0 1 6 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天上午6：05观看55分钟直播以获得6个宝箱（宝箱6点刷）
 + 0 0 7 * * * => TaskPrizeGetter.getAllTaskPrize => 每天上午7点收取所有的任务经验
 
+## Framework (Updated in 2018-10-05)
+<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/framework.png" width="200px"></image>
 
 ## Developing log
 
@@ -140,3 +142,8 @@
 + \~ 阅读虎牙前端源码，优化发送弹幕任务完成的实现方式，极大程度保证弹幕发送成功率=100%
 + \~ 调整在每天早上7点收获所有任务奖励经验
 + \~ 去除大量HttpUtils改用Spring工具，简化了异常捕获
+
+### 2018-10-04
++ \+ AOP(com.letcafe.aop.CookieInRedisCheck)拦截定时任务使得在缓存失效时可以及时容错，用以恢复Cookie值
++ \~ 绘制项目架构图
++ \- 删除了不必要的Parser包以及相关类

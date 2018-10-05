@@ -4,13 +4,6 @@ package com.letcafe.controller.huya;
 import com.letcafe.bean.HuYaLiveInfo;
 import com.letcafe.service.CookieService;
 import com.letcafe.service.WebDriverService;
-import com.letcafe.util.HttpUtils;
-import com.letcafe.util.JacksonUtils;
-import lombok.Data;
-import lombok.Getter;
-import org.apache.http.HttpResponse;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -87,6 +80,8 @@ public class TaskAutoWorker {
             logger.error("web driver is null");
             return;
         }
+        WebDriverWait loginFrameWait = new WebDriverWait(webDriver, 20, 500);
+
         LiveInfoGetter liveInfoGetter = new LiveInfoGetter();
         // take LOL for example, get LOL live list, if come across exception,log then recursive
         List<HuYaLiveInfo> liveInfoList = liveInfoGetter.listHuYaLiveByGid(1);
@@ -99,6 +94,7 @@ public class TaskAutoWorker {
         js.executeScript("document.getElementById('msg_send_bt').className += 'enable';");
         chatInput.sendKeys(message);
         WebElement chatSendButton = webDriver.findElement(By.id("msg_send_bt"));
+        loginFrameWait.until(ExpectedConditions.elementToBeClickable(chatSendButton));
         chatSendButton.click();
         Thread.sleep(2 * 1000);
         logger.info("[send message to live(" + watchUrl + ")] = " + message);
@@ -128,21 +124,21 @@ public class TaskAutoWorker {
         }
     }
 
-    // 完成给三个主播送礼物的任务
+    // 完成给三个主播送礼物的任务 + 给自己订阅的主播送7个虎粮
     @Scheduled(cron = "0 20 3 * * *")
-    public void sendGiftTo3LiveRoom() {
+    public void sendGiftTo3LiveRoom() throws InterruptedException {
         // 虎粮代表4
         Integer giftId = 4;
         LiveInfoGetter liveInfoGetter = new LiveInfoGetter();
         // take LOL for example, get LOL live list, if come across exception,log then recursive
         List<HuYaLiveInfo> liveInfoList = liveInfoGetter.listHuYaLiveByGid(1);
-//        String watchUrl = "https://www.huya.com/941103";
         StringBuilder liveRoomIds = new StringBuilder();
         for (int i = 0; i < 3; i++) {
             String liveRoomStr = "https://www.huya.com/" + liveInfoList.get(i).getProfileRoom();
-            sendGiftToTargetLiveRoom(liveRoomStr, giftId);
+            sendGiftToTargetLiveRoom(liveRoomStr, giftId, 1);
             liveRoomIds.append(liveInfoList.get(i).getProfileRoom()).append(",");
         }
+        sendGiftToTargetLiveRoom("https://www.huya.com/941103", giftId, 7);
         logger.info("[Send gift To 3 live room successfully] roomId = " + liveRoomIds.deleteCharAt(liveRoomIds.length() - 1));
     }
 
@@ -165,7 +161,7 @@ public class TaskAutoWorker {
         logger.info("webdirver quit");
     }
 
-    private void sendGiftToTargetLiveRoom(String liveRoomStr, Integer giftId) {
+    private void sendGiftToTargetLiveRoom(String liveRoomStr, Integer giftId, Integer sendGiftNumber) throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
             logger.error("web driver is null");
@@ -180,16 +176,19 @@ public class TaskAutoWorker {
         for (WebElement targetSendGift : giftButtonList) {
             // 如果礼物ID = 目标ID
             if (targetSendGift.getAttribute("propsid").equals("" + giftId)) {
-                // 点击该礼物
-                loginFrameWait.until(ExpectedConditions.elementToBeClickable(targetSendGift));
-                targetSendGift.click();
+                for (int i = 0; i < sendGiftNumber; i ++) {
+                    // 点击该礼物
+//                    loginFrameWait.until(ExpectedConditions.elementToBeClickable(targetSendGift));
+                    targetSendGift.click();
 
-                // 点击确认发送礼物按钮
-                loginFrameWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#player-gift-dialog .confirm")));
-                WebElement ensureSendButton = webDriver.findElement(By.cssSelector("#player-gift-dialog .confirm"));
-                loginFrameWait.until(ExpectedConditions.elementToBeClickable(ensureSendButton));
-                ensureSendButton.click();
-                logger.info("[giftId = " + giftId + "] has been sent to -> " + liveRoomStr);
+                    // 点击确认发送礼物按钮
+                    loginFrameWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#player-gift-dialog .confirm")));
+                    WebElement ensureSendButton = webDriver.findElement(By.cssSelector("#player-gift-dialog .confirm"));
+                    loginFrameWait.until(ExpectedConditions.elementToBeClickable(ensureSendButton));
+                    ensureSendButton.click();
+                    Thread.sleep(2 * 1000);
+                    logger.info("[giftId = " + giftId + "] has been sent to -> " + liveRoomStr + ", number = " + sendGiftNumber);
+                }
             }
         }
         // 设置超时时间确保任务完成
