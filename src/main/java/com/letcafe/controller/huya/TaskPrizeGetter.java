@@ -43,7 +43,7 @@ public class TaskPrizeGetter {
         }
     }
 
-    // 每两个小时收一次任务奖励
+    // 每天早上7点收取任务奖励
     @Scheduled(cron = "0 0 7 * * *")
     public void getAllTaskPrize() {
         logger.info("get today's task prize");

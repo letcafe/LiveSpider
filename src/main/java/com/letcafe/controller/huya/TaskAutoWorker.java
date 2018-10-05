@@ -145,7 +145,7 @@ public class TaskAutoWorker {
 
     // 完成每天观看一小时，获取六个宝箱任务
     @Scheduled(cron = "0 1 6 * * *")
-    public void watchLiveGetSixTreasure() {
+    public void watchLiveGetSixTreasure() throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
             logger.error("web driver is null");
@@ -157,6 +157,8 @@ public class TaskAutoWorker {
         String watchUrl = "https://www.huya.com/" + liveInfoList.get(0).getProfileRoom();
         webDriver.get(watchUrl);
         logger.info("[Six Treasure:watch 60 minutes to get 6 treasure] watch url = " + watchUrl);
+        // 等待一小时达到1小时标准再关闭
+        Thread.sleep(60 * 60 * 1000);
         webDriver.quit();
         logger.info("webdirver quit");
     }
