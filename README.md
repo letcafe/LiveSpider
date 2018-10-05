@@ -145,6 +145,6 @@
 
 ### 2018-10-05
 + \+ AOP(com.letcafe.aop.CookieInRedisCheck)拦截定时任务使得在缓存失效时可以及时容错，用以恢复Cookie值
-+ \~ 绘制项目架构图
++ \+ 绘制项目简介架构图
 + \- 删除了不必要的Parser包以及相关类
 + \- 删除所有的Http工具类调用，改为Spring接口Http，进一步减少异常抛出
