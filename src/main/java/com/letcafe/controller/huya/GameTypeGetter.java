@@ -32,8 +32,7 @@ public class GameTypeGetter {
         this.huYaGameTypeService = huYaGameTypeService;
     }
 
-    @Scheduled(fixedRate = 30000)
-//    @Scheduled(cron = "0 0/10 * * * *")
+    @Scheduled(cron = "0 0/10 * * * *")
     public void gameTypeScheduled() throws Exception {
         List<HuYaGameType> types = new ArrayList<>();
         RestTemplate restTemplate = new RestTemplate();
