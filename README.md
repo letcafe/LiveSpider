@@ -26,7 +26,7 @@
 ### 爬取数据
 + 0 20/30 * * * * => LiveInfoGetter.updateAllHuYaLiveInfo => 每30分钟更新直播间信息于MySQL
 + 0 0 0 ? * SUN,WED => UserLevelAndTaskGetter.setUserLoginCookie => 每周日、周三零点更新登录Cookie
-+ 0 20/15 * * * * => LiveInfoGetter.insertAll => 每30分钟获取前20条LOL的直播信息存MongoDB
++ 0 20/15 * * * * => LiveInfoGetter.insertLiveLogsToMongo => 每30分钟获取前20条LOL的直播信息存MongoDB
 + 0 0 0/4 * * * => UserLevelAndTaskGetter.setUserTaskStatus => 每隔4小时获取用户经验状态存MySQL
 + 0 0/10 * * * * * => GameTypeGetter.gameTypeScheduled => 每隔10分钟更新一次游戏列表于MySQL
 + 0 59 23 * * * => GameTypeGetter.gameTypeScheduled => 每天23时59分获取今天任务完成情况于MySQL
@@ -143,7 +143,8 @@
 + \~ 调整在每天早上7点收获所有任务奖励经验
 + \~ 去除大量HttpUtils改用Spring工具，简化了异常捕获
 
-### 2018-10-04
+### 2018-10-05
 + \+ AOP(com.letcafe.aop.CookieInRedisCheck)拦截定时任务使得在缓存失效时可以及时容错，用以恢复Cookie值
 + \~ 绘制项目架构图
 + \- 删除了不必要的Parser包以及相关类
++ \- 删除所有的Http工具类调用，改为Spring接口Http，进一步减少异常抛出

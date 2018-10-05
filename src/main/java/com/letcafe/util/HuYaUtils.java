@@ -31,28 +31,6 @@ public class HuYaUtils {
     public static String CHROME_DRIVER_LOCATION;
     public static Boolean SYSTEM_IS_OPEN_GUI;
 
-    /**
-     * ensure can get huya task information json string
-     * @param headerMap header cookie include "yyuid" and "udb_oar"
-     * @return filter and do with huya task information
-     */
-    public static String getUserTaskInfo(Map<String, String> headerMap) {
-        HttpResponse response = HttpUtils.doGet("https://www.huya.com/member/task.php?m=User&do=listTotal&callback=huyaNavUserCard", headerMap);
-
-        int StatusCode = response.getStatusLine().getStatusCode();
-        String dataObjStr = "";
-
-        if(StatusCode == 200) {
-            try {
-                dataObjStr = EntityUtils.toString(response.getEntity(), "utf-8");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return dataObjStr.substring(dataObjStr.indexOf('{'), dataObjStr.lastIndexOf('}') + 1);
-    }
-
     public static void printWebDriverCookies(WebDriver webDriver) {
         Set<Cookie> cookies = webDriver.manage().getCookies();
         for (Cookie cookie : cookies) {

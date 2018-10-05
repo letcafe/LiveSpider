@@ -1,15 +1,8 @@
 package com.letcafe.controller.huya;
 
 import com.letcafe.bean.HuYaTask;
-import com.letcafe.bean.HuYaUserLevel;
-import com.letcafe.dao.HuYaTaskDao;
 import com.letcafe.service.CookieService;
 import com.letcafe.service.HuYaTaskService;
-import com.letcafe.util.HttpUtils;
-import com.letcafe.util.JacksonUtils;
-import org.apache.catalina.User;
-import org.apache.http.HttpResponse;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -24,7 +17,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
 import java.util.*;
 
 import static com.letcafe.util.HuYaUtils.YY_ID;

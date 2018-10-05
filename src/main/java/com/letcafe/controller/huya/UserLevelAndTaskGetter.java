@@ -3,20 +3,22 @@ package com.letcafe.controller.huya;
 import com.letcafe.bean.HuYaUserLevel;
 import com.letcafe.service.CookieService;
 import com.letcafe.service.HuYaUserLevelService;
-import com.letcafe.util.HttpUtils;
 import com.letcafe.util.JacksonUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.letcafe.util.HuYaUtils.YY_ID;
 
@@ -37,15 +39,24 @@ public class UserLevelAndTaskGetter {
 
     @Scheduled(cron = "0 0 0/4 * * *")
     public void setUserTaskStatus() throws IOException {
-        Map<String, String> headerMap = new HashMap<>();
-        headerMap.put("cookie", cookieService.getUserCookieInRedis(YY_ID));
-        HttpResponse response = HttpUtils.doGet("https://www.huya.com/member/task.php?m=User&do=listTotal&callback=huyaNavUserCard", headerMap);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.add("cookie", cookieService.getUserCookieInRedis(YY_ID));
+        //body
+        MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
+        requestBody.add("m", "User");
+        requestBody.add("do", "listTotal");
+        requestBody.add("callback", "huyaNavUserCard");
+        //HttpEntity
+        HttpEntity<MultiValueMap> requestEntity = new HttpEntity<>(requestBody, requestHeaders);
+        //post
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity("https://www.huya.com/member/task.php", requestEntity, String.class);
 
-        int StatusCode = response.getStatusLine().getStatusCode();
         String entity = "";
         //如果状态响应码为200，则获取html实体内容或者json文件
-        if(StatusCode == 200){
-            entity = EntityUtils.toString (response.getEntity(),"utf-8");
+        if (responseEntity.getStatusCode() == HttpStatus.OK && responseEntity.getBody() != null) {
+            //EntityUtils.toString (responseEntity,"utf-8")
+            entity = responseEntity.getBody();
             entity = entity.substring(entity.indexOf("{"), entity.lastIndexOf("}") + 1);
             JSONObject rawJson = new JSONObject(entity);
 
@@ -62,8 +73,8 @@ public class UserLevelAndTaskGetter {
             } else {
                 logger.error("huYaUserLevel object is null, so called this error");
             }
-        }else {
-            EntityUtils.consume(response.getEntity());
+        } else {
+            logger.warn("[Http Entity] = " + entity);
         }
     }
 
