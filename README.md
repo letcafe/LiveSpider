@@ -39,7 +39,7 @@
 + 0 0 7 * * * => TaskPrizeGetter.getAllTaskPrize => 每天上午7点收取所有的任务经验
 
 ## Framework (Updated in 2018-10-05)
-<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/framework.png" width="600px"></image>
+<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/framework.png" width="450px"></image>
 
 ## Developing log
 
