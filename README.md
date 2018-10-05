@@ -60,7 +60,7 @@
 + \+ Spring @Scheduled(@EnableScheduling + @Scheduled)
 
 ### 2018-08-13
-+ ing：数据库结构持续调整中...
++ \~ 数据库结构持续调整中...
 + \+ HuYa主播信息：bean<=>pojo正确映射
 
 ### 2018-08-16
