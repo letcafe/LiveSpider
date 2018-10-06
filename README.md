@@ -98,10 +98,10 @@
 + TO DO：进一步封装cookie
 
 ### 2018-08-27
++ \+ 使用@ConfigurationProperties，读取yaml关键信息
 + \~ 独立出登录成功后的login web driver为一方法，并新增可选参数，是否显示界面，是否加载图片
 + \~ 完成每天早上6点，自动点开10项直播功能
 + \~ 调整代码结构，使其变得更加清晰
-+ \~ 使用@ConfigurationProperties，读取yaml关键信息
 + \~ 在日志开头添加入已完成定时功能
 + TO DO：将后台展示到前端，以便知道完成哪些工作（因为感觉开始有点难以维护了）
 
@@ -146,12 +146,12 @@
 ### 2018-10-05
 + \+ AOP(com.letcafe.aop.CookieInRedisCheck)拦截定时任务使得在缓存失效时可以及时容错，用以恢复Cookie值
 + \+ 绘制项目简介架构图
-+ \- 删除了不必要的Parser包以及相关类
-+ \- 删除所有的Http工具类调用，改为Spring接口Http，进一步减少异常抛出
++ \- 不必要的Parser包以及相关类
++ \- 所有的Http工具类调用，改为Spring接口Http，进一步减少异常抛出
 
 ### 2018-10-06
 + \+ @Value和SpringEL运行时注入属性
-+ \- 删除了@ConfigurationProperties包以及相关类的束缚
++ \- @ConfigurationProperties包以及相关类的束缚
 + \~ SpringBoot 2.0.0 => 2.0.5
 + \~ Spring-ORM 5.0.4 => 5.1.0
 + \? 方法变量内对于一个等待释放的资源Thread.sleep(timeout)和Object.wait(timeout)效果一致，无法优化
