@@ -148,3 +148,10 @@
 + \+ 绘制项目简介架构图
 + \- 删除了不必要的Parser包以及相关类
 + \- 删除所有的Http工具类调用，改为Spring接口Http，进一步减少异常抛出
+
+### 2018-10-06
++ \+ @Value和SpringEL运行时注入属性
++ \- 删除了@ConfigurationProperties包以及相关类的束缚
++ \~ SpringBoot 2.0.0 => 2.0.5
++ \~ Spring-ORM 5.0.4 => 5.1.0
++ \? 方法变量内对于一个等待释放的资源Thread.sleep(timeout)和Object.wait(timeout)效果一致，无法优化

@@ -29,20 +29,20 @@ configure(allprojects) {
 
 dependencies {
     // SpringBoot support : WEB
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.0.0.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.0.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.0.0.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.0.0.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.0.5.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.5.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.0.5.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.0.5.RELEASE'
 
     // SpringBoot support : DB
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.0.0.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.0.0.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.0.0.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.0.0.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.0.5.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.0.5.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.0.5.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.0.5.RELEASE'
 
     // hibernate
-    compile group: 'org.springframework', name: 'spring-orm', version: '5.0.4.RELEASE'
-    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.12.Final'
+    compile group: 'org.springframework', name: 'spring-orm', version: '5.1.0.RELEASE'
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.3.6.Final'
 
     // SpringFox for Swagger2 support
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.8.0'
@@ -80,10 +80,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.json/json
     compile group: 'org.json', name: 'json', version: '20180130'
 
-    //Configuration YAML properties
-    optional group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '2.0.0.RELEASE'
-
-    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    // Lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
 
     testCompile group: 'junit', name: 'junit', version: '4.12'

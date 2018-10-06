@@ -17,12 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,7 +140,8 @@ public class TaskAutoWorker {
 
 
     // 完成每天观看一小时，获取六个宝箱任务
-    @Scheduled(cron = "0 1 6 * * *")
+    @Scheduled(fixedRate = 20000)
+//    @Scheduled(cron = "0 1 6 * * *")
     public void watchLiveGetSixTreasure() throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {

@@ -1,35 +1,25 @@
 package com.letcafe.util;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.util.EntityUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.*;
 
 @Component
-@ConfigurationProperties(prefix = "huya")
 public class HuYaUtils {
     private static final Logger logger = LoggerFactory.getLogger(HuYaUtils.class);
-    // init my login param
+
+    // 通过Setter方法注入值，注意setter方法不需要加static修饰
     public static String YY_ID;
     public static String PASSWORD;
     public static String COOKIE_IN_REDIS;
     public static String CHROME_DRIVER_LOCATION;
     public static Boolean SYSTEM_IS_OPEN_GUI;
+    public static Integer CPU_CORE;
 
     public static void printWebDriverCookies(WebDriver webDriver) {
         Set<Cookie> cookies = webDriver.manage().getCookies();
@@ -76,24 +66,31 @@ public class HuYaUtils {
         return cookies;
     }
 
-
-    public static void setYyId(String yyId) {
+    @Value("${huya.YY_ID}")
+    public void setYyId(String yyId) {
         YY_ID = yyId;
     }
-
-    public static void setPASSWORD(String PASSWORD) {
+    @Value("${huya.PASSWORD}")
+    public void setPASSWORD(String PASSWORD) {
         HuYaUtils.PASSWORD = PASSWORD;
     }
 
-    public static void setCookieInRedis(String cookieInRedis) {
+    @Value("${huya.COOKIE_IN_REDIS}")
+    public void setCookieInRedis(String cookieInRedis) {
         COOKIE_IN_REDIS = cookieInRedis;
     }
-
-    public static void setChromeDriverLocation(String chromeDriverLocation) {
+    @Value("${huya.CHROME_DRIVER_LOCATION}")
+    public void setChromeDriverLocation(String chromeDriverLocation) {
         CHROME_DRIVER_LOCATION = chromeDriverLocation;
     }
 
-    public static void setSystemIsOpenGui(Boolean systemIsOpenGui) {
+    @Value("${huya.SYSTEM_IS_OPEN_GUI}")
+    public void setSystemIsOpenGui(Boolean systemIsOpenGui) {
         SYSTEM_IS_OPEN_GUI = systemIsOpenGui;
+    }
+
+    @Value("#{T(Runtime).getRuntime().availableProcessors()}")
+    public void setCpuCore(Integer cpuCore) {
+        CPU_CORE = cpuCore;
     }
 }
