@@ -133,7 +133,7 @@
 + \+ 每天在23时59分将当天的任务完成情况存于数据库中
 + \+ 每隔2小时执行获取所有任务完成的奖励
 + \~ 修改部分Http/Https工具类调用为spring.http，后期推荐全改为Spring(方法：强制删除其他Http工具类)
-+ \? 似乎登录Cookie并不会过期（未检验）
++ \? 似乎虎牙登录Cookie并不会过期（未检验）
 
 ### 2018-10-04
 + \+ 完成给三个主播送礼物的任务:sendGiftTo3LiveRoom()
@@ -155,3 +155,8 @@
 + \~ SpringBoot 2.0.0 => 2.0.5
 + \~ Spring-ORM 5.0.4 => 5.1.0
 + \? 方法变量内对于一个等待释放的资源Thread.sleep(timeout)和Object.wait(timeout)效果一致，无法优化
+
+### 2018-10-07
++ \+ 自定义banner.txt(/resources/banner.txt)，以替换SpringBoot原字符画
++ \~ 给主播赠送礼物BUG修复
++ \~ 发送弹幕操作BUG修复

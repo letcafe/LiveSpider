@@ -1,14 +1,16 @@
 spring:
   profiles:
-    active: dev
+#    active: dev
 #    active: prod
-#    active: test
+    active: tjprod
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
     mode: HTML
     encoding: UTF-8
     cache: false
+  jpa:
+    open-in-view: false
   mail:
     protocol: smtp
     host: smtp.qq.com

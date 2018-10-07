@@ -81,9 +81,11 @@ public class TaskAutoWorker {
         LiveInfoGetter liveInfoGetter = new LiveInfoGetter();
         // take LOL for example, get LOL live list, if come across exception,log then recursive
         List<HuYaLiveInfo> liveInfoList = liveInfoGetter.listHuYaLiveByGid(1);
-        String watchUrl = "https://www.huya.com/" + liveInfoList.get(0).getProfileRoom();
-        String message = "6666翻了";
+        String watchUrl = "https://www.huya.com/11293861";
+//        String watchUrl = "https://www.huya.com/" + liveInfoList.get(0).getProfileRoom();
+        String message = "6666";
         webDriver.get(watchUrl);
+        Thread.sleep(2 * 1000);
         WebElement chatInput = webDriver.findElement(By.id("pub_msg_input"));
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         // 添加Enable的class使得发送按钮可以直接点击
@@ -92,7 +94,7 @@ public class TaskAutoWorker {
         WebElement chatSendButton = webDriver.findElement(By.id("msg_send_bt"));
         loginFrameWait.until(ExpectedConditions.elementToBeClickable(chatSendButton));
         chatSendButton.click();
-        Thread.sleep(2 * 1000);
+        Thread.sleep(1000);
         logger.info("[send message to live(" + watchUrl + ")] = " + message);
         webDriver.quit();
         logger.info("webdirver quit");
@@ -140,8 +142,7 @@ public class TaskAutoWorker {
 
 
     // 完成每天观看一小时，获取六个宝箱任务
-    @Scheduled(fixedRate = 20000)
-//    @Scheduled(cron = "0 1 6 * * *")
+    @Scheduled(cron = "0 1 6 * * *")
     public void watchLiveGetSixTreasure() throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
@@ -175,26 +176,25 @@ public class TaskAutoWorker {
         for (WebElement targetSendGift : giftButtonList) {
             // 如果礼物ID = 目标ID
             if (targetSendGift.getAttribute("propsid").equals("" + giftId)) {
-                for (int i = 0; i < sendGiftNumber; i ++) {
-                    // 点击该礼物
-//                    loginFrameWait.until(ExpectedConditions.elementToBeClickable(targetSendGift));
-                    targetSendGift.click();
+                // 第一次送礼物时一般会需要确认，送 1 个
+                targetSendGift.click();
+                // 点击确认发送礼物按钮
+                loginFrameWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#player-gift-dialog .confirm")));
+                WebElement ensureSendButton = webDriver.findElement(By.cssSelector("#player-gift-dialog .confirm"));
+                loginFrameWait.until(ExpectedConditions.elementToBeClickable(ensureSendButton));
+                ensureSendButton.click();
+                Thread.sleep(2 * 1000);
+                logger.info("[giftId = " + giftId + "] has been sent to -> " + liveRoomStr + ", number = " + sendGiftNumber);
 
-                    // 点击确认发送礼物按钮
-                    loginFrameWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#player-gift-dialog .confirm")));
-                    WebElement ensureSendButton = webDriver.findElement(By.cssSelector("#player-gift-dialog .confirm"));
-                    loginFrameWait.until(ExpectedConditions.elementToBeClickable(ensureSendButton));
-                    ensureSendButton.click();
-                    Thread.sleep(2 * 1000);
+                // 当第一次送完礼物后就不在需要确认，直接点击即赠送礼物，送 n-1 个
+                for (int i = 0; i < sendGiftNumber - 1; i++) {
+                    // 点击该礼物
+                    targetSendGift.click();
+                    // 等待，以让请求加载完毕
+                    Thread.sleep(1000);
                     logger.info("[giftId = " + giftId + "] has been sent to -> " + liveRoomStr + ", number = " + sendGiftNumber);
                 }
             }
-        }
-        // 设置超时时间确保任务完成
-        try {
-            Thread.sleep(5 * 1000);
-        } catch (InterruptedException e) {
-            logger.error(e.getMessage());
         }
         webDriver.quit();
         logger.info("webdirver quit");

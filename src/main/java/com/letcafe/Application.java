@@ -20,7 +20,7 @@ public class Application extends SpringBootServletInitializer{
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
-        logger.info("System core number : " + Runtime.getRuntime().availableProcessors());
+        logger.info("System CPU core number : " + Runtime.getRuntime().availableProcessors());
         SpringApplication.run(Application.class, args);
     }
 

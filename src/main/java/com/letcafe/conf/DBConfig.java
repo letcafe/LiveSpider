@@ -27,7 +27,7 @@ public class DBConfig {
         return ds;
     }
 
-    @Profile({"prod", "test"})
+    @Profile({"prod", "tjprod"})
     @Bean
     public DataSource mysqlDataSourceProduction() {
         BasicDataSource ds = new BasicDataSource();
