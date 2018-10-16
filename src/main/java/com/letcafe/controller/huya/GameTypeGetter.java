@@ -49,7 +49,7 @@ public class GameTypeGetter {
                 types.add(huYaGameType);
             }
             huYaGameTypeService.saveOrUpdateList(types);
-            logger.info("game type updated, fetch total = " + types.size());
+            logger.info("[Game Type : Update] fetch number = {}", types.size());
         } else {
             logger.warn(response.getStatusCode().getReasonPhrase());
         }

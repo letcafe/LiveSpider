@@ -6,6 +6,7 @@ import com.letcafe.util.HuYaUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.letcafe.util.HuYaUtils.*;
@@ -60,46 +62,41 @@ public class HuYaCookieServiceImpl implements CookieService {
         System.out.println(webDriver);
         // set huya login iframe and switch to it,then wait time to get its login form
         WebDriverWait loginFrameWait = new WebDriverWait(webDriver, 20, 500);
+        JavascriptExecutor js = (JavascriptExecutor) webDriver;
 
         try {
             loginFrameWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".UDBSdkLgn-box")));
-            logger.info("set huya login iframe and switch to it,then wait time to get its login form");
+            logger.info("[System : New Cookie] searching for className='.UDBSdkLgn-box'...");
 
-            loginFrameWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".UDBSdkLgn-switch > a")));
-            WebElement registerBtn = webDriver.findElement(By.cssSelector(".UDBSdkLgn-switch > a"));
+            WebElement loginMultiBox = webDriver.findElement(By.cssSelector(".UDBSdkLgn-box"));
 
-            //wait extra 3 second for register button be clickable
-            Thread.sleep(3 * 1000);
-            registerBtn.click();
-
-            logger.info("register button now click");
-            loginFrameWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".UDBSdkLgn-head > div > .login")));
-            WebElement loginBtn = webDriver.findElement(By.cssSelector(".UDBSdkLgn-head > div > .login"));
-
-            loginBtn.click();
-
+            List<WebElement> loginInnerBoxList = loginMultiBox.findElements(By.cssSelector(".UDBSdkLgn-inner")) ;
+            for (WebElement loginBox : loginInnerBoxList) {
+                String loginBoxCssClass = loginBox.getAttribute("className");
+                if (loginBoxCssClass.contains("account")) {
+                    logger.info("[System : New Cookie] the account login with password panel has shown");
+                    js.executeScript("arguments[0].className=arguments[1]", loginBox, "NaN");
+                }
+            }
             WebElement usernameInput, passwordInput, loginSubmit;
-
-            loginFrameWait.until(ExpectedConditions.presenceOfElementLocated(By.className("E_acct")));
 
             usernameInput = webDriver.findElement(By.className("E_acct"));
             passwordInput = webDriver.findElement(By.className("E_passwd"));
             loginSubmit = webDriver.findElement(By.className("E_login"));
-            // please set your own yyid and password
+            // 设置yyid和password
             usernameInput.sendKeys(username);
             passwordInput.sendKeys(password);
-            logger.info("username and password has been set");
+            logger.info("[System : New Cookie] username and password has been set");
 
             loginSubmit.click();
-            logger.info("login btn has been clicked");
+            logger.info("[System : New Cookie] login btn has been clicked");
 
-            // wait 5 second for next page cookie to set
             Thread.sleep(5 * 1000);
             String loginCookie = HuYaUtils.cookieToString(webDriver.manage().getCookies());
-            logger.info("webdriver get [cookie login] = " + loginCookie);
+            logger.info("[System : New Cookie] cookie = {}", loginCookie);
             return loginCookie;
         } catch (Exception ex) {
-            logger.warn("try to get webdriver cookie failed,over time");
+            logger.warn("[System : New Cookie] try to get webdriver cookie failed, over time");
             ex.printStackTrace(System.out);
             webDriver.quit();
             return null;
@@ -110,20 +107,20 @@ public class HuYaCookieServiceImpl implements CookieService {
     public void setUserCookieInRedis(String username, String password) {
         int tryToLoginTime = 3;
         String cookieIntoRedis = simulateLogin(username, password, false, false);
-        // try 3 time login to get cookie
+        // 三次尝试登陆以获取Cookie
         while (tryToLoginTime != 0 && cookieIntoRedis == null) {
-            logger.warn("login and then get cookie failed, try to get once more,[try time] = " + (4 - tryToLoginTime));
+            logger.warn("[Cookie : Redis] login and then get cookie failed, try to get once more,[try time] = " + (4 - tryToLoginTime));
             cookieIntoRedis = simulateLogin(username, password, false, false);
             tryToLoginTime --;
         }
-        // if 3 try failed to get cookie, log this error operation
+        // 如果尝试3次失败，都未获得到Cookie，那么日志记录故障
         if(cookieIntoRedis == null) {
-            logger.error("login and then get cookie failed, may come into some big network error");
+            logger.error("[Cookie : Redis] login and then get cookie failed, may come into some network error");
             return;
         }
-        //redis value key for 6 day
+        // Redis中的值将保留六天，配合周三周日刷新，不会失效
         redisDao.setKeyValueWithExpireTime("loginCookie_" + username, cookieIntoRedis, 6 * 24 * 60 * 60 * 1000);
-        logger.info("redis cookie is set,key = loginCookie_" + username + ",value = " + cookieIntoRedis);
+        logger.info("[Cookie : Redis] redis cookie is set,key = loginCookie_" + username + ",value = " + cookieIntoRedis);
     }
 
     @Override

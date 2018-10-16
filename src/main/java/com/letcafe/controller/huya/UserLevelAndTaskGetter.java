@@ -66,12 +66,12 @@ public class UserLevelAndTaskGetter {
             //parse json data, and get its data-level, then make it into obj
             String levelData = userLevel.toString();
             HuYaUserLevel huYaUserLevel = JacksonUtils.readValue(levelData, HuYaUserLevel.class);
-            logger.info("set user task info to mysql,entity.length() = " + entity.length());
+            logger.info("[Task Finish Status : MySQL] add number = {}", entity.length());
             if(huYaUserLevel != null) {
                 huYaUserLevel.setYyId(YY_ID);
                 huYaUserLevelService.save(huYaUserLevel);
             } else {
-                logger.error("huYaUserLevel object is null, so called this error");
+                logger.error("[Task Finish Status : MySQL] huYaUserLevel object is null");
             }
         } else {
             logger.warn("[Http Entity] = " + entity);

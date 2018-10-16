@@ -57,7 +57,7 @@ public class DispatchController {
                 bookList.add(JDProduct);
             }
             //循环输出抓取的数据
-            logger.info("bookList.size() = " + bookList.size());
+            logger.info("[Book List] size() = " + bookList.size());
             //将抓取的数据插入数据库
             model.addAttribute("bookList", bookList);
         }

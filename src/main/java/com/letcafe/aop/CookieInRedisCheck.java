@@ -30,9 +30,9 @@ public class CookieInRedisCheck {
     public void checkCookieInRedis(ProceedingJoinPoint point) throws Throwable {
         String cookie = cookieService.getUserCookieInRedis(YY_ID);
         if (cookie == null) {
-            logger.warn("cookie in redis is null, new cookie has been stored");
+            logger.warn("[Cookie Check : Redis] cookie is null, new cookie has been stored");
             cookieService.setUserCookieInRedis(YY_ID, PASSWORD);
-            logger.info("Cookie check:false and new cookie = {}", cookieService.getUserCookieInRedis(YY_ID));
+            logger.info("[Cookie Check : Redis] new cookie = {}", cookieService.getUserCookieInRedis(YY_ID));
         }
         point.proceed();
     }
