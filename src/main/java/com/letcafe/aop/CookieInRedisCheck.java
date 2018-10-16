@@ -32,7 +32,7 @@ public class CookieInRedisCheck {
         if (cookie == null) {
             logger.warn("cookie in redis is null, new cookie has been stored");
             cookieService.setUserCookieInRedis(YY_ID, PASSWORD);
-            logger.info("Cookie check:" + false + ", and new cookie = " + cookieService.getUserCookieInRedis(YY_ID));
+            logger.info("Cookie check:false and new cookie = {}", cookieService.getUserCookieInRedis(YY_ID));
         }
         point.proceed();
     }

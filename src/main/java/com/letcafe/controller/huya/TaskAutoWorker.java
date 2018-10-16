@@ -44,7 +44,7 @@ public class TaskAutoWorker {
     public void watchNumberedLive() {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
-            logger.error("web driver is null");
+            logger.error("[System] WebDriver is null");
             return;
         }
         LiveInfoGetter liveInfoGetter = new LiveInfoGetter();
@@ -56,15 +56,15 @@ public class TaskAutoWorker {
                 String watchUrl = "https://www.huya.com/" + liveInfoList.get(i).getProfileRoom();
                 webDriver.get(watchUrl);
                 Thread.sleep(5000);
-                logger.info("[Task:watch 10 live one day] No." + (i + 1) + " watch url = " + watchUrl);
+                logger.info("[Task:watch 10 live one day] No.{} watch url = {}", i + 1,  watchUrl);
             }
-            logger.info("[Task:watch 10 live one day] ended");
+            logger.info("[Watch 10 Live] end");
         } catch (Exception ex) {
-            logger.error("watch 10 failed");
+            logger.error("[Watch 10 Live] fail");
             ex.printStackTrace(System.out);
         } finally {
             webDriver.quit();
-            logger.info("webdirver quit");
+            logger.info("[System] WebDriver quit");
         }
     }
 
@@ -73,7 +73,7 @@ public class TaskAutoWorker {
     public void sendPubMessage() throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
-            logger.error("web driver is null");
+            logger.error("[System] WebDriver is null");
             return;
         }
         WebDriverWait loginFrameWait = new WebDriverWait(webDriver, 20, 500);
@@ -81,11 +81,10 @@ public class TaskAutoWorker {
         LiveInfoGetter liveInfoGetter = new LiveInfoGetter();
         // take LOL for example, get LOL live list, if come across exception,log then recursive
         List<HuYaLiveInfo> liveInfoList = liveInfoGetter.listHuYaLiveByGid(1);
-        String watchUrl = "https://www.huya.com/11293861";
-//        String watchUrl = "https://www.huya.com/" + liveInfoList.get(0).getProfileRoom();
+        String watchUrl = "https://www.huya.com/" + liveInfoList.get(0).getProfileRoom();
         String message = "6666";
         webDriver.get(watchUrl);
-        Thread.sleep(2 * 1000);
+        Thread.sleep(3 * 1000);
         WebElement chatInput = webDriver.findElement(By.id("pub_msg_input"));
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         // 添加Enable的class使得发送按钮可以直接点击
@@ -97,7 +96,7 @@ public class TaskAutoWorker {
         Thread.sleep(1000);
         logger.info("[send message to live(" + watchUrl + ")] = " + message);
         webDriver.quit();
-        logger.info("webdirver quit");
+        logger.info("[System] WebDriver quit");
     }
 
     // 完成订阅直播间任务
@@ -113,12 +112,12 @@ public class TaskAutoWorker {
         JSONObject unSubObj = unSubscribeLiveRoom(subscribeUid);
         if (subObj != null && unSubObj != null) {
             if (subObj.getInt("status") == 1 && unSubObj.getInt("status") == 3) {
-                logger.info("[subscribeOneLiveRoom task] success");
+                logger.info("[Subscribe One Live] task successfully done");
             } else {
-                logger.error("[subscribeOneLiveRoom task] failed,status code not equal the standard");
+                logger.error("[Subscribe One Live] failed,status code not equal the standard");
             }
         } else {
-            logger.error("[subscribeOneLiveRoom task] failed,return json object is/are null");
+            logger.error("[Subscribe One Live] failed,return json object is/are null");
         }
     }
 
@@ -137,16 +136,16 @@ public class TaskAutoWorker {
             liveRoomIds.append(liveInfoList.get(i).getProfileRoom()).append(",");
         }
         sendGiftToTargetLiveRoom("https://www.huya.com/941103", giftId, 7);
-        logger.info("[Send gift To 3 live room successfully] roomId = " + liveRoomIds.deleteCharAt(liveRoomIds.length() - 1));
+        logger.info("[Send Gift : To 3 Live] roomId = {}", liveRoomIds.deleteCharAt(liveRoomIds.length() - 1));
     }
 
 
     // 完成每天观看一小时，获取六个宝箱任务
-    @Scheduled(cron = "0 1 6 * * *")
+    @Scheduled(cron = "0 0 6 * * *")
     public void watchLiveGetSixTreasure() throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
-            logger.error("web driver is null");
+            logger.error("[System] WebDriver is null");
             return;
         }
         LiveInfoGetter liveInfoGetter = new LiveInfoGetter();
@@ -154,17 +153,58 @@ public class TaskAutoWorker {
         List<HuYaLiveInfo> liveInfoList = liveInfoGetter.listHuYaLiveByGid(1);
         String watchUrl = "https://www.huya.com/" + liveInfoList.get(0).getProfileRoom();
         webDriver.get(watchUrl);
-        logger.info("[Six Treasure:watch 60 minutes to get 6 treasure] watch url = " + watchUrl);
-        // 等待一小时达到1小时标准再关闭
-        Thread.sleep(60 * 60 * 1000);
+        logger.info("[Six Treasure : Watch Live] url = {}", watchUrl);
+        // 等待55分钟达到6宝箱解锁条件后后再关闭
+        Thread.sleep(55 * 60 * 1000);
+
+        // 解锁6个宝箱
+        receiveSixTreasurePrize(webDriver);
         webDriver.quit();
-        logger.info("webdirver quit");
+        logger.info("[System] WebDriver quit");
+    }
+
+    // 根据给定的webDriver,领取所有的宝箱奖励
+    private void receiveSixTreasurePrize(WebDriver webDriver) throws InterruptedException {
+        WebDriverWait waitForThisPage = new WebDriverWait(webDriver, 20, 500);
+        JavascriptExecutor js = (JavascriptExecutor) webDriver;
+
+        // 先设置player-box属性display:none -> display:block，使得其先课件（为后面点击宝箱领取做铺垫）
+        waitForThisPage.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#player-box")));
+        WebElement playBoxPanel = webDriver.findElement(By.cssSelector("#player-box"));
+
+        // 添加Enable的class使得发送按钮可以直接点击
+        js.executeScript("arguments[0].style=arguments[1]", playBoxPanel, "display:block;");
+        List<WebElement> treasureBoxList = webDriver.findElements(By.cssSelector("#player-box .player-box-list ul li"));
+        int successGetPrizeNumber = 0;
+        for (WebElement boxPrize : treasureBoxList) {
+            // 领取按钮
+            WebElement getPrizeLabel = boxPrize.findElement(By.cssSelector(".player-box-stat3"));
+            // 如果领取宝箱的按钮已经显示出来，那么点击领取
+            if (getPrizeLabel.isDisplayed()) {
+                js.executeScript("arguments[0].click()", getPrizeLabel);
+                logger.info("[Six Treasure : Auto Receive] index = {}", getPrizeLabel.getAttribute("index"));
+            }
+        }
+        // 等待3秒让服务器完成处理
+        Thread.sleep(3000);
+
+        // 读取领取数量，并加以打印到日志
+        for (WebElement boxPrize : treasureBoxList) {
+            // 奖励数量按钮
+            WebElement numberPrizeLabel = boxPrize.findElement(By.cssSelector(".player-box-stat4"));
+            // 如果领取宝箱的按钮已经显示出来，那么点击领取
+            if (numberPrizeLabel.isDisplayed()) {
+                successGetPrizeNumber ++;
+                logger.info("[Six Treasure : Receive Detail] item {}", numberPrizeLabel.getText());
+            }
+        }
+        logger.info("[Six Treasure : Receive Report] success = {}, total = {}", successGetPrizeNumber, treasureBoxList.size());
     }
 
     private void sendGiftToTargetLiveRoom(String liveRoomStr, Integer giftId, Integer sendGiftNumber) throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
-            logger.error("web driver is null");
+            logger.error("[System] WebDriver is null");
             return;
         }
         webDriver.get(liveRoomStr);
@@ -184,8 +224,6 @@ public class TaskAutoWorker {
                 loginFrameWait.until(ExpectedConditions.elementToBeClickable(ensureSendButton));
                 ensureSendButton.click();
                 Thread.sleep(2 * 1000);
-                logger.info("[giftId = " + giftId + "] has been sent to -> " + liveRoomStr + ", number = " + sendGiftNumber);
-
                 // 当第一次送完礼物后就不在需要确认，直接点击即赠送礼物，送 n-1 个
                 for (int i = 0; i < sendGiftNumber - 1; i++) {
                     // 点击该礼物
@@ -196,8 +234,9 @@ public class TaskAutoWorker {
                 }
             }
         }
+        logger.info("[giftId = " + giftId + "] has been sent to -> " + liveRoomStr + ", number = " + sendGiftNumber);
         webDriver.quit();
-        logger.info("webdirver quit");
+        logger.info("[System] WebDriver quit");
     }
 
     private JSONObject subscribeLiveRoom(long subscribeUid) {
@@ -225,7 +264,7 @@ public class TaskAutoWorker {
         if (responseEntity.getStatusCode() == HttpStatus.OK && responseEntity.getBody() != null) {
             String responseString = responseEntity.getBody();
             JSONObject jsonObject = new JSONObject(responseString.substring(responseString.indexOf('{'), responseString.lastIndexOf('}') + 1));
-            logger.info("subscribe JSON = " + jsonObject);
+            logger.info("[Subscribe One Live] JSON = {}", jsonObject);
             return jsonObject;
         } else {
             return null;
@@ -257,7 +296,7 @@ public class TaskAutoWorker {
         if (responseEntity.getStatusCode() == HttpStatus.OK && responseEntity.getBody() != null) {
             String responseString = responseEntity.getBody();
             JSONObject jsonObject = new JSONObject(responseString.substring(responseString.indexOf('{'), responseString.lastIndexOf('}') + 1));
-            logger.info("cancel subscribe JSON = " + jsonObject);
+            logger.info("[UnSubscribe One Live] JSON = {}", jsonObject);
             return jsonObject;
         } else {
             return null;

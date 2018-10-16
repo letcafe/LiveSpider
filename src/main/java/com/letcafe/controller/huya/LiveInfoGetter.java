@@ -111,7 +111,7 @@ public class LiveInfoGetter {
             }
         }
         long endTime = System.currentTimeMillis();
-        logger.info("saveOrUpdate all Live.[cost time] = " + (endTime - startTime) / 1000 + "s");
+        logger.info("[SaveOrUpdate Live Info] cost time = {}s", (endTime - startTime) / 1000);
     }
 
     // Every 30 minutes update all huya log information in MySQL
@@ -120,7 +120,7 @@ public class LiveInfoGetter {
         int addGameId = 1;
         long logCurrentTime = Long.valueOf(System.currentTimeMillis() / 1000 + "000");
         addHuYaLiveInfoLog(addGameId, logCurrentTime);
-        logger.info("[log Time] = " + new Timestamp(logCurrentTime).toLocalDateTime() + ";[total mongo count] = " + liveInfoLogService.countAll());
+        logger.info("[Log Time] = {};[Total MongoDB Count] = {}", new Timestamp(logCurrentTime).toLocalDateTime(), liveInfoLogService.countAll());
     }
 
 }
