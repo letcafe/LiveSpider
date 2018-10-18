@@ -165,4 +165,4 @@
 + \+ 自动领取所有宝箱，并作日志记录(在完成观看时间后自动执行，共享同一个WebDriver)
 + \~ 通过JS控制登陆极大简化模拟登陆获取Cookie流程和准确率（->100%）
 + \~ 调整Logger为format格式输出
-+ \~ Thread.sleep(long) => TimeUnit.[SECONDS | MILLISECONDS | MINUTES].sleep(long)
++ \~ Thread.sleep(long) => TimeUnit.[MILLISECONDS | SECONDS | MINUTES].sleep(long)
