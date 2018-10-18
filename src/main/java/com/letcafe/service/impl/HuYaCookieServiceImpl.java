@@ -20,6 +20,7 @@ import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static com.letcafe.util.HuYaUtils.*;
 
@@ -91,7 +92,7 @@ public class HuYaCookieServiceImpl implements CookieService {
             loginSubmit.click();
             logger.info("[System : New Cookie] login btn has been clicked");
 
-            Thread.sleep(5 * 1000);
+            TimeUnit.SECONDS.sleep(5);
             String loginCookie = HuYaUtils.cookieToString(webDriver.manage().getCookies());
             logger.info("[System : New Cookie] cookie = {}", loginCookie);
             return loginCookie;

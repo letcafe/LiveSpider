@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MultiThreadsTest {
 
@@ -47,7 +48,7 @@ public class MultiThreadsTest {
         for (int i = 0; i < threadNumber; i++) {
             threads[i].start();
         }
-        Thread.sleep(5 * 1000);
+        TimeUnit.SECONDS.sleep(5);
         System.out.println("addCount = " + addCount);
         System.out.println("run time = " + (endTimestamp - startTimestamp) + " ms");
     }

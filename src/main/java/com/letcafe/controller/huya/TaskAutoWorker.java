@@ -22,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static com.letcafe.util.HuYaUtils.YY_ID;
 
@@ -55,7 +56,7 @@ public class TaskAutoWorker {
             for (int i = 0; i < 12; i++) {
                 String watchUrl = "https://www.huya.com/" + liveInfoList.get(i).getProfileRoom();
                 webDriver.get(watchUrl);
-                Thread.sleep(5000);
+                TimeUnit.SECONDS.sleep(5);
                 logger.info("[Task:watch 10 live one day] No.{} watch url = {}", i + 1,  watchUrl);
             }
             logger.info("[Watch 10 Live] end");
@@ -84,7 +85,7 @@ public class TaskAutoWorker {
         String watchUrl = "https://www.huya.com/" + liveInfoList.get(0).getProfileRoom();
         String message = "6666";
         webDriver.get(watchUrl);
-        Thread.sleep(3 * 1000);
+        TimeUnit.SECONDS.sleep(3);
         WebElement chatInput = webDriver.findElement(By.id("pub_msg_input"));
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         // 添加Enable的class使得发送按钮可以直接点击
@@ -93,7 +94,7 @@ public class TaskAutoWorker {
         WebElement chatSendButton = webDriver.findElement(By.id("msg_send_bt"));
         loginFrameWait.until(ExpectedConditions.elementToBeClickable(chatSendButton));
         chatSendButton.click();
-        Thread.sleep(1000);
+        TimeUnit.SECONDS.sleep(1);
         logger.info("[send message to live(" + watchUrl + ")] = " + message);
         webDriver.quit();
         logger.info("[System] WebDriver quit");
@@ -108,7 +109,7 @@ public class TaskAutoWorker {
         // need to ensure the one you order and disorder is the same
         Long subscribeUid = liveInfoList.get(0).getUid();
         JSONObject subObj = subscribeLiveRoom(subscribeUid);
-        Thread.sleep(10 * 1000);
+        TimeUnit.SECONDS.sleep(10);
         JSONObject unSubObj = unSubscribeLiveRoom(subscribeUid);
         if (subObj != null && unSubObj != null) {
             if (subObj.getInt("status") == 1 && unSubObj.getInt("status") == 3) {
@@ -141,7 +142,7 @@ public class TaskAutoWorker {
 
 
     // 完成每天观看一小时，获取六个宝箱任务
-    @Scheduled(cron = "0 0 6 * * *")
+    @Scheduled(cron = "0 1 6 * * *")
     public void watchLiveGetSixTreasure() throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
@@ -155,7 +156,7 @@ public class TaskAutoWorker {
         webDriver.get(watchUrl);
         logger.info("[Six Treasure : Watch Live] url = {}", watchUrl);
         // 等待55分钟达到6宝箱解锁条件后后再关闭
-        Thread.sleep(55 * 60 * 1000);
+        TimeUnit.MINUTES.sleep(55);
 
         // 解锁6个宝箱
         receiveSixTreasurePrize(webDriver);
@@ -186,7 +187,7 @@ public class TaskAutoWorker {
             }
         }
         // 等待3秒让服务器完成处理
-        Thread.sleep(3000);
+        TimeUnit.SECONDS.sleep(3);
 
         // 读取领取数量，并加以打印到日志
         for (WebElement boxPrize : treasureBoxList) {
@@ -223,13 +224,13 @@ public class TaskAutoWorker {
                 WebElement ensureSendButton = webDriver.findElement(By.cssSelector("#player-gift-dialog .confirm"));
                 loginFrameWait.until(ExpectedConditions.elementToBeClickable(ensureSendButton));
                 ensureSendButton.click();
-                Thread.sleep(2 * 1000);
+                TimeUnit.SECONDS.sleep(2);
                 // 当第一次送完礼物后就不在需要确认，直接点击即赠送礼物，送 n-1 个
                 for (int i = 0; i < sendGiftNumber - 1; i++) {
                     // 点击该礼物
                     targetSendGift.click();
                     // 等待，以让请求加载完毕
-                    Thread.sleep(1000);
+                    TimeUnit.SECONDS.sleep(1);
                     logger.info("[giftId = " + giftId + "] has been sent to -> " + liveRoomStr + ", number = " + sendGiftNumber);
                 }
             }
