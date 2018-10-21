@@ -53,6 +53,7 @@
     <orderEntry type="library" name="Gradle: org.webjars.bower:stomp-websocket:2.3.4" level="project" />
     <orderEntry type="library" name="Gradle: org.aspectj:aspectjrt:1.9.1" level="project" />
     <orderEntry type="library" name="Gradle: org.json:json:20180130" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-configuration-processor:2.0.5.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-json:2.0.5.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter:2.0.5.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-webmvc:5.0.9.RELEASE" level="project" />

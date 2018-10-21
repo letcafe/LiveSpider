@@ -32,8 +32,9 @@ public class GameTypeGetter {
         this.huYaGameTypeService = huYaGameTypeService;
     }
 
-    @Scheduled(cron = "0 0/10 * * * *")
-    public void gameTypeScheduled() throws Exception {
+    // 更新数据库中游戏的列表
+    @Scheduled(cron = "${huya.task.status.time.saveOrUpdateGameType}")
+    public void saveOrUpdateGameType() throws Exception {
         List<HuYaGameType> types = new ArrayList<>();
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://www.huya.com/g";

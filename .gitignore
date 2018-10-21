@@ -8,4 +8,5 @@ logs/
 out/
 src/main/resources/static/audio/
 src/main/resources/static/video/
-src/main/resources/application-tjprod.yaml
+src/main/resources/*-dev.yaml
+src/main/resources/*-tjprod.yaml

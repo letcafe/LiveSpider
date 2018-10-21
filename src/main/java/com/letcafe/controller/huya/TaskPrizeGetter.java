@@ -35,7 +35,8 @@ public class TaskPrizeGetter {
         this.huYaTaskService = huYaTaskService;
     }
 
-    @Scheduled(cron = "0 59 23 * * *")
+    // 获取每天用户任务完成情况
+    @Scheduled(cron = "${huya.task.status.time.setUserTaskStatus}")
     public void setUserTaskStatus() {
         logger.info("[Today Task Finish Status : MySQL] save successfully");
         for (HuYaTask huYaTask : currentHuYaTaskList()) {
@@ -43,8 +44,8 @@ public class TaskPrizeGetter {
         }
     }
 
-    // 每天早上7点收取任务奖励
-    @Scheduled(cron = "0 0 7 * * *")
+    // 每天收取任务奖励
+    @Scheduled(cron = "${huya.task.prize.time.getAllTaskPrize}")
     public void getAllTaskPrize() {
         logger.info("[Task Prize : Auto Get] success");
         StringBuilder taskStringBuilder = new StringBuilder("Task = [");

@@ -1,0 +1,6 @@
+huya:
+  YY_ID: 1656777876
+  PASSWORD: gdy19941231
+  COOKIE_IN_REDIS: loginCookie_1656777876
+  CHROME_DRIVER_LOCATION: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe
+  SYSTEM_IS_OPEN_GUI: true

@@ -99,9 +99,9 @@ public class LiveInfoGetter {
         }
     }
 
-    // Every 30 minutes update all huya live information in MySQL
-    @Scheduled(cron = "0 20/30 * * * *")
-    public void updateAllHuYaLiveInfo() {
+    // 更新数据库中主播的直播间详细信息
+    @Scheduled(cron = "${huya.task.status.time.saveOrUpdateLiveInfo}")
+    public void saveOrUpdateLiveInfo() {
         long startTime = System.currentTimeMillis();
         List<Integer> gidList = huYaGameTypeService.listAllGid();
         for (Integer gid : gidList) {
@@ -114,9 +114,9 @@ public class LiveInfoGetter {
         logger.info("[SaveOrUpdate Live Info] cost time = {}s", (endTime - startTime) / 1000);
     }
 
-    // Every 30 minutes update all huya log information in MySQL
-    @Scheduled(cron = "0 20/30 * * * *")
-    public void insertLiveLogsToMongo() {
+    // 将LOL游戏的直播日志存放于MongoDB中
+    @Scheduled(cron = "${huya.task.status.time.saveLiveLogs}")
+    public void saveLiveLogs() {
         int addGameId = 1;
         long logCurrentTime = Long.valueOf(System.currentTimeMillis() / 1000 + "000");
         addHuYaLiveInfoLog(addGameId, logCurrentTime);

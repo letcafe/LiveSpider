@@ -1,8 +1,8 @@
 spring:
   profiles:
-#    active: dev
+    active: dev
 #    active: prod
-    active: tjprod
+#    active: tjprod
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
@@ -24,7 +24,6 @@ server:
     context-path: /LiveSpider
 logging:
   config: classpath:log4j2.xml
-huya:
-  YY_ID: 1656777876
-  PASSWORD: gdy19941231
-  COOKIE_IN_REDIS: loginCookie_1656777876
+
+
+

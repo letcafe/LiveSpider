@@ -6,6 +6,3 @@ spring:
     host: letcafe.cn
     port: 8479
     password: redisServer
-huya:
-  CHROME_DRIVER_LOCATION: /home/tank/chrome/chromedriver
-  SYSTEM_IS_OPEN_GUI: false

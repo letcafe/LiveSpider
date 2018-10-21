@@ -1,0 +1,37 @@
+huya:
+  task:
+    worker:
+      time:
+        # 完成每天观看10名主播任务
+        watchNumberedLive: 0 0 3 * * *
+        # 完成弹幕发送任务
+        sendPubMessage: 0 10 3 * * *
+        # 完成订阅直播间任务
+        subscribeOneLiveRoomTask: 0 15 3 * * *
+        # 完成给三个主播送礼物的任务 + 给自己订阅的主播送7个虎粮
+        sendGiftTo3LiveRoom: 0 20 3 * * *
+        # 完成每天观看一小时，获取六个宝箱任务
+        watchLiveGetSixTreasure: 0 1 7 * * *
+    prize:
+      time:
+        # 每天收取任务奖励
+        getAllTaskPrize: 0 0 8 * * *
+    status:
+      time:
+        # 获取每天用户任务完成情况
+        setUserTaskStatus: 0 59 23 * * *
+        # 更新数据库中游戏的列表
+        saveOrUpdateGameType: 0 0/10 * * * *
+        # 更新数据库中主播的直播间详细信息
+        saveOrUpdateLiveInfo: 0 20/30 * * * *
+        # 将LOL游戏的直播日志存放于MongoDB中
+        saveLiveLogs: 0 20/30 * * * *
+  user:
+    info:
+      time:
+        # 获取用户的基本信息情况
+        setUserBasicInfo: 0 0 0/4 * * *
+    cookie:
+      time:
+        # 每个周日、周三零点更新redis中的Cookie值
+        setUserLoginCookie: 0 0 0 ? * SUN,WED

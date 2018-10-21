@@ -20,7 +20,7 @@
 
 ## 已知信息：
 + 任务每天在0点刷新
-+ 6个百宝箱在早上6点刷新
++ 6个百宝箱在早上7点刷新?(正在验证...)
 
 ## 定时任务：
 ### 爬取数据
@@ -35,8 +35,8 @@
 + 0 10 3 * * * => TaskAutoWorker.sendPubMessage => 每天凌晨3：10完成发送一条弹幕任务
 + 0 15 3 * * * => TaskAutoWorker.subscribeOneLiveRoomTask => 每天凌晨3:15订阅一个DNF主播并10s后取消订阅
 + 0 20 3 * * * => TaskPrizeGetter.sendGiftTo3LiveRoom => 每天凌晨3:20给LOL列表前三主播送礼物（默认虎粮:id = 4）
-+ 0 1 6 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天上午6：01观看55分钟直播以获得6个宝箱，并领取（宝箱6点刷）
-+ 0 0 7 * * * => TaskPrizeGetter.getAllTaskPrize => 每天上午7点收取所有的任务经验
++ 0 1 7 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天上午6：01观看55分钟直播以获得6个宝箱，并领取（宝箱6点刷）
++ 0 0 8 * * * => TaskPrizeGetter.getAllTaskPrize => 每天上午8点收取所有的任务经验
 
 ## Framework (Updated in 2018-10-05)
 <img src="https://github.com/letcafe/LiveSpider/blob/master/picture/framework.png" width="450px"></image>
@@ -166,3 +166,7 @@
 + \~ 通过JS控制登陆极大简化模拟登陆获取Cookie流程和准确率（->100%）
 + \~ 调整Logger为format格式输出
 + \~ Thread.sleep(long) => TimeUnit.[MILLISECONDS | SECONDS | MINUTES].sleep(long)
+
+### 2018-10-21
++ \+ 添加YAMLConfig对自定义YAML配置属性的读取，剥离出虎牙配置文件huya.yaml等
++ \~ 所有@Scheduled(cron = "cronStr")改用Spring属性注入，以便后续统一调整

@@ -70,7 +70,7 @@ public class TaskAutoWorker {
     }
 
     // 完成弹幕发送任务
-    @Scheduled(cron = "0 10 3 * * *")
+    @Scheduled(cron = "${huya.task.worker.time.sendPubMessage}")
     public void sendPubMessage() throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
@@ -101,7 +101,7 @@ public class TaskAutoWorker {
     }
 
     // 完成订阅直播间任务
-    @Scheduled(cron = "0 15 3 * * *")
+    @Scheduled(cron = "${huya.task.worker.time.subscribeOneLiveRoomTask}")
     public void subscribeOneLiveRoomTask() throws InterruptedException {
         LiveInfoGetter liveInfoGetter = new LiveInfoGetter();
         // take DNF for example, get LOL live list, if come across exception,log then recursive
@@ -123,7 +123,7 @@ public class TaskAutoWorker {
     }
 
     // 完成给三个主播送礼物的任务 + 给自己订阅的主播送7个虎粮
-    @Scheduled(cron = "0 20 3 * * *")
+    @Scheduled(cron = "${huya.task.worker.time.sendGiftTo3LiveRoom}")
     public void sendGiftTo3LiveRoom() throws InterruptedException {
         // 虎粮代表4
         Integer giftId = 4;
@@ -142,7 +142,7 @@ public class TaskAutoWorker {
 
 
     // 完成每天观看一小时，获取六个宝箱任务
-    @Scheduled(cron = "0 1 6 * * *")
+    @Scheduled(cron = "${huya.task.worker.time.watchLiveGetSixTreasure}")
     public void watchLiveGetSixTreasure() throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {

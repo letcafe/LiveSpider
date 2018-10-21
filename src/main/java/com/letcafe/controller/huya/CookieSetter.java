@@ -18,8 +18,8 @@ public class CookieSetter {
         this.cookieService = cookieService;
     }
 
-    // every Sunday and Wednesday update cookie in redis
-    @Scheduled(cron = "0 0 0 ? * SUN,WED")
+    // 每个周日、周三零点更新redis中的Cookie值
+    @Scheduled(cron = "${huya.user.cookie.time.setUserLoginCookie}")
     public void setUserLoginCookie() {
         cookieService.setUserCookieInRedis(YY_ID, PASSWORD);
     }
