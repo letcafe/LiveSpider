@@ -11,7 +11,7 @@ huya:
         # 完成给三个主播送礼物的任务 + 给自己订阅的主播送7个虎粮
         sendGiftTo3LiveRoom: 0 20 3 * * *
         # 完成每天观看一小时，获取六个宝箱任务
-        watchLiveGetSixTreasure: 0 1 7 * * *
+        watchLiveGetSixTreasure: 0 30 6 * * *
     prize:
       time:
         # 每天收取任务奖励
