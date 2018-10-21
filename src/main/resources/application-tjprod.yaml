@@ -1,8 +1,0 @@
-spring:
-  data:
-    mongodb:
-      uri: mongodb://letcafe:19941231@letcafe.cn:27017/LiveSpider
-  redis:
-    host: letcafe.cn
-    port: 8479
-    password: redisServer
