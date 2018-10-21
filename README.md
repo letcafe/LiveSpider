@@ -170,3 +170,4 @@
 ### 2018-10-21
 + \+ 添加YAMLConfig对自定义YAML配置属性的读取，剥离出虎牙配置文件huya.yaml等
 + \~ 所有@Scheduled(cron = "cronStr")改用Spring属性注入，以便后续统一调整
+<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/huya_yaml.png"></image>

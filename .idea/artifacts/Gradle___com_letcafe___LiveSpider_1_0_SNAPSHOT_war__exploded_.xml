@@ -146,7 +146,6 @@
           <element id="library" level="project" name="Gradle: org.springframework:spring-jcl:5.1.0.RELEASE" />
           <element id="library" level="project" name="Gradle: org.attoparser:attoparser:2.0.4.RELEASE" />
           <element id="library" level="project" name="Gradle: org.unbescape:unbescape:1.1.5.RELEASE" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.0.5.RELEASE/aa2630ce70029ecd71983d82b56fa5df8fe092a2/spring-boot-configuration-processor-2.0.5.RELEASE.jar" />
         </element>
       </element>
     </root>
