@@ -1,5 +1,5 @@
 # LiveSpider
-![Logo](https://github.com/letcafe/LiveSpider/blob/master/picture/huya_logo.png=200x200 "Logo")
+![Logo](https://github.com/letcafe/LiveSpider/blob/master/picture/huya_logo.png "Logo"){:height="100px" width="400px"}
 ## Developer information
 ##### Maintainer: letcafe
 ##### Email: letcafe@outlook.com
