@@ -44,7 +44,7 @@
 ## 使用手册(Usage Manual)
 ### 一、使用流程
 1. 在Windows或者Linux中安装Chrome浏览器;
-2. 根据你的Chrome的版本选择下载对应的chromedriver，下载driver地址：[国内镜像](http://npm.taobao.org/mirrors/chromedriver/ "chromedriver国内镜像加速地址");
+2. 根据你的Chrome的版本选择下载对应的chromedriver，！[Download](http://npm.taobao.org/mirrors/chromedriver/ "chromedriver国内镜像加速地址");
 
 |chromedriver版本|支持的chrome版本|发布时间|
 |:--------------:|:-------------:|:------|
@@ -58,7 +58,7 @@
 |v2.36|v63-65|2018-03-02|
 |v2.35|v62-64|2018-01-10|
 |...|...|...|
-最新driver版本:http://npm.taobao.org/mirrors/chromedriver/LATEST_RELEASE
+
 
 3. 修改classpath://resources/huya.yaml中的huya.CHROME_DRIVER_LOCATION属性为你下载的ChromeDriver部署位置
 4. 修改classpath://resources/huya.yaml中的huya.YY_ID为你的虎牙登录账号（账号、手机号都可以）
