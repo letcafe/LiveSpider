@@ -45,12 +45,26 @@
 ### 一、使用流程
 1. 在Windows或者Linux中安装Chrome浏览器;
 2. 根据你的Chrome的版本选择下载对应的chromedriver，下载driver地址：[国内镜像](http://npm.taobao.org/mirrors/chromedriver/ "chromedriver国内镜像加速地址");
-<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/chromedriver_version.png" width="450px"></image>
+
+|chromedriver版本|支持的chrome版本|发布时间|
+|:--------------:|:-------------:|:------|
+|v2.43|v69-71|2018-10-16|
+|v2.42|v68-70|2018-09-13|
+|v2.41|v67-69|2018-07-27|
+|v2.40|v66-68|2018-06-07|
+|v2.39|v66-68|2018-05-30|
+|v2.38|v65-67|2018-04-17|
+|v2.37|v64-66|2018-03-16|
+|v2.36|v63-65|2018-03-02|
+|v2.35|v62-64|2018-01-10|
+|...|...|...|
+最新driver版本:http://npm.taobao.org/mirrors/chromedriver/LATEST_RELEASE
+
 3. 修改classpath://resources/huya.yaml中的huya.CHROME_DRIVER_LOCATION属性为你下载的ChromeDriver部署位置
 4. 修改classpath://resources/huya.yaml中的huya.YY_ID为你的虎牙登录账号（账号、手机号都可以）
 5. 修改classpath://resources/huya.yaml中的huya.PASSWORD为你的虎牙登录密码
 6. 配置classpath://resources/application.yaml中active的profile为dev（默认）
-7. 配置classpath://resources/application-dev.yaml中MySQL,mongodb和redis连接为你自己的连接
+7. 配置classpath://resources/application-dev.yaml中MySQL,MongoDB和Redis连接为你自己的连接
 8. 所有的任务完成时间如classpath://resources/huya.yaml所示，为Linux crontab形式定时器，可自行灵活调整
 9. 所有的数据表模型定义均位于：classpath://resources/schema目录下，请自行先导入（也可使用Hibernate生成）
 10. 启动SpringBoot工程
@@ -187,4 +201,4 @@
 ### 2018-10-21
 + \+ 添加YAMLConfig对自定义YAML配置属性的读取，剥离出虎牙配置文件huya.yaml等
 + \~ 所有@Scheduled(cron = "cronStr")改用Spring属性注入，以便后续统一调整
-<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/chrome_yaml_config.png"></image>
+<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/huya_yaml_config.png"></image>
