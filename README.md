@@ -42,7 +42,7 @@
 <img src="https://github.com/letcafe/LiveSpider/blob/master/picture/framework.png" width="450px"></image>
 
 ## 使用手册(Usage Manual)
-+. 使用流程
++ 使用流程
    1. 在Windows或者Linux中安装Chrome浏览器;
    2. 根据你的Chrome的版本选择下载对应的chromedriver，下载driver地址：[国内镜像](http://npm.taobao.org/mirrors/chromedriver/ "chromedriver国内镜像加速地址");
    <img src="https://github.com/letcafe/LiveSpider/blob/master/picture/chromedriver_version.png" width="450px"></image>
