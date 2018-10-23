@@ -59,7 +59,6 @@
 |v2.35|v62-64|2018-01-10|
 |...|...|...|
 
-
 3. 修改classpath://resources/huya.yaml中的huya.CHROME_DRIVER_LOCATION属性为你下载的ChromeDriver部署位置
 4. 修改classpath://resources/huya.yaml中的huya.YY_ID为你的虎牙登录账号（账号、手机号都可以）
 5. 修改classpath://resources/huya.yaml中的huya.PASSWORD为你的虎牙登录密码
