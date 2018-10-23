@@ -43,11 +43,11 @@
 
 ## 使用手册(Usage Manual)
 ### 一、使用流程
-1. 在Windows或者Linux中安装Chrome浏览器;
+1. 在Windows、Linux或者Mac中安装Chrome浏览器;
 2. 根据你的Chrome的版本选择下载对应的chromedriver，[下载链接](http://npm.taobao.org/mirrors/chromedriver/ "chromedriver国内镜像加速地址");
 
 |chromedriver版本|支持的chrome版本|发布时间|
-|:--------------:|:-------------:|:------|
+|:--------------:|:-------------:|:------:|
 |v2.43|v69-71|2018-10-16|
 |v2.42|v68-70|2018-09-13|
 |v2.41|v67-69|2018-07-27|
