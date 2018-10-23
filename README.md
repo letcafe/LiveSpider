@@ -44,7 +44,7 @@
 ## 使用手册(Usage Manual)
 ### 一、使用流程
 1. 在Windows或者Linux中安装Chrome浏览器;
-2. 根据你的Chrome的版本选择下载对应的chromedriver，！[Download](http://npm.taobao.org/mirrors/chromedriver/ "chromedriver国内镜像加速地址");
+2. 根据你的Chrome的版本选择下载对应的chromedriver，![下载链接](http://npm.taobao.org/mirrors/chromedriver/ "chromedriver国内镜像加速地址");
 
 |chromedriver版本|支持的chrome版本|发布时间|
 |:--------------:|:-------------:|:------|
@@ -67,7 +67,7 @@
 7. 配置classpath://resources/application-dev.yaml中MySQL,MongoDB和Redis连接为你自己的连接
 8. 所有的任务完成时间如classpath://resources/huya.yaml所示，为Linux crontab形式定时器，可自行灵活调整
 9. 所有的数据表模型定义均位于：classpath://resources/schema目录下，请自行先导入（也可使用Hibernate生成）
-10. 启动SpringBoot工程
+10. 启动LiveSpider工程
 
 ### 二、注意事项：
 1. 项目默认以--headless模式启动，不需要GUI，想开启GUI，设置huya.yaml中的SYSTEM_IS_OPEN_GUI为true;
