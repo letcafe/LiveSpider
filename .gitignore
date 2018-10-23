@@ -4,9 +4,7 @@
 .idea/dataSources/
 .idea/workspace.xml
 build/
-logs/
 out/
 src/main/resources/static/audio/
 src/main/resources/static/video/
-src/main/resources/*-dev.yaml
-src/main/resources/*-tjprod.yaml
+src/main/resources/*-prod.yaml

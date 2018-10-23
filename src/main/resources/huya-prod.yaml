@@ -1,6 +1,0 @@
-huya:
-  YY_ID: yourHuYaID
-  PASSWORD: yourPassword
-  COOKIE_IN_REDIS: loginCookie_{yourHuYaID}
-  CHROME_DRIVER_LOCATION: chromeDriverLocation
-  SYSTEM_IS_OPEN_GUI: false

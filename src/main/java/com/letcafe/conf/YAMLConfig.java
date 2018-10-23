@@ -17,10 +17,7 @@ public class YAMLConfig {
     public static PropertySourcesPlaceholderConfigurer properties() {
         PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
         YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
-        yaml.setResources(new ClassPathResource("huya.yaml"),
-                new ClassPathResource("huya-dev.yaml"),
-                new ClassPathResource("huya-prod.yaml"),
-                new ClassPathResource("huya-tjprod.yaml"));
+        yaml.setResources(new ClassPathResource("huya.yaml"));
         if (yaml.getObject() == null) {
             logger.error("your yaml file was not found");
             return null;

@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import static com.letcafe.util.HuYaUtils.COOKIE_IN_REDIS;
 import static com.letcafe.util.HuYaUtils.YY_ID;
 
 @Controller

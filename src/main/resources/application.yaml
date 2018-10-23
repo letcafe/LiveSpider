@@ -1,8 +1,8 @@
 spring:
   profiles:
+    # 选择启动哪一个配置类下的文件
     active: dev
 #    active: prod
-#    active: tjprod
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
@@ -24,6 +24,4 @@ server:
     context-path: /LiveSpider
 logging:
   config: classpath:log4j2.xml
-
-
 

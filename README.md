@@ -1,5 +1,5 @@
 # LiveSpider
-<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/huya_logo.png" width="200px"></image>
+![Logo](https://github.com/letcafe/LiveSpider/blob/master/picture/huya_logo.png "Logo")
 ## Developer information
 ##### Maintainer: letcafe
 ##### Email: letcafe@outlook.com
@@ -39,8 +39,25 @@
 + 0 0 8 * * * => TaskPrizeGetter.getAllTaskPrize => 每天上午8点收取所有的任务经验
 
 ## Framework (Updated in 2018-10-05)
-<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/framework.png" width="450px"></image>
+![LiveSpider全局架构](https://github.com/letcafe/LiveSpider/blob/master/picture/framework.png "LiveSpider全局架构")
 
+## 使用手册(Usage Manual)
++. 使用流程
+   1. 在Windows或者Linux中安装Chrome浏览器;
+   2. 根据你的Chrome的版本选择下载对应的chromedriver，下载driver地址：[国内镜像](http://npm.taobao.org/mirrors/chromedriver/ "chromedriver国内镜像加速地址");
+   ![国内chromedirver下载加速](https://github.com/letcafe/LiveSpider/blob/master/picture/chromedriver_version.png "国内chromedirver下载加速")
+   3. 修改classpath://resources/huya.yaml中的huya.CHROME_DRIVER_LOCATION属性为你下载的ChromeDriver部署位置
+   4. 修改classpath://resources/huya.yaml中的huya.YY_ID为你的虎牙登录账号（账号、手机号都可以）
+   5. 修改classpath://resources/huya.yaml中的huya.PASSWORD为你的虎牙登录密码
+   6. 配置classpath://resources/application.yaml中active的profile为dev（默认）
+   7. 配置classpath://resources/application-dev.yaml中MySQL,mongodb和redis连接为你自己的连接
+   8. 所有的任务完成时间如classpath://resources/huya.yaml所示，为Linux crontab形式定时器，可自行灵活调整
+   9. 所有的数据表模型定义均位于：classpath://resources/schema目录下，请自行先导入（也可使用Hibernate生成）
+   10. 启动SpringBoot工程
+
++ 注意事项：
+   1. 项目默认以--headless模式启动，不需要GUI，想开启GUI，设置huya.yaml中的SYSTEM_IS_OPEN_GUI为true;
+   2. 工程由UTF-8编码，乱码问题将文件以UTF-8形式打开;
 ## Developing log
 
 ### 日志说明
@@ -73,7 +90,7 @@
 1. POST请求：https://www.huya.com/udb_web/authorizeURL.php?do=authorizeEmbedURL&callbackURL=https://www.huya.com/udb_web/udbport2.php?do=callback
 2. 响应中包含oauth_token字段（96 char）
 3. 带着token以POST请求如下路径：https://lgn.yy.com/lgn/oauth/x2/s/login_asyn.do?username=1656777876&pwdencrypt={huya固定编码后密码，可作常量不变，具体F12去获取}&oauth_token={上述步骤token}&denyCallbackURL=&UIStyle=xelogin&appid=5216&mxc=&vk=&isRemMe=1&mmc=&vv=&hiido=1
-<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/huya_oath.png"></image>
+![huya_token](https://github.com/letcafe/LiveSpider/blob/master/picture/huya_oath.png "huya_token")
 4. 拿到token后请为所欲为...
 
 ### 2018-08-17(to do plan)
@@ -170,4 +187,4 @@
 ### 2018-10-21
 + \+ 添加YAMLConfig对自定义YAML配置属性的读取，剥离出虎牙配置文件huya.yaml等
 + \~ 所有@Scheduled(cron = "cronStr")改用Spring属性注入，以便后续统一调整
-<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/huya_yaml_config.png"></image>
+![LiveSpider自定义配置](https://github.com/letcafe/LiveSpider/blob/master/picture/huya_yaml_config.png "LiveSpider自定义配置")
