@@ -39,7 +39,7 @@ public class HuYaCookieServiceImpl implements CookieService {
 
     @Override
     public String simulateLogin(String username, String password, boolean isOpenGUI, boolean isShowPic) {
-        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
+        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH);
         ChromeOptions options = new ChromeOptions();
 
         options.addArguments("--no-sandbox");

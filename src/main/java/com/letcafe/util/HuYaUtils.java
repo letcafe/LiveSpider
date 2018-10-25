@@ -17,7 +17,7 @@ public class HuYaUtils {
     public static String YY_ID;
     public static String PASSWORD;
     public static String COOKIE_IN_REDIS;
-    public static String CHROME_DRIVER_LOCATION;
+    public static String CHROME_DRIVER_PATH;
     public static Boolean SYSTEM_IS_OPEN_GUI;
     public static Integer CPU_CORE;
 
@@ -79,9 +79,10 @@ public class HuYaUtils {
     public void setCookieInRedis(String cookieInRedis) {
         COOKIE_IN_REDIS = cookieInRedis;
     }
+
     @Value("${huya.CHROME_DRIVER_LOCATION}")
     public void setChromeDriverLocation(String chromeDriverLocation) {
-        CHROME_DRIVER_LOCATION = chromeDriverLocation;
+        CHROME_DRIVER_PATH = chromeDriverLocation;
     }
 
     @Value("${huya.SYSTEM_IS_OPEN_GUI}")

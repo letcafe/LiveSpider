@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static com.letcafe.util.HuYaUtils.CHROME_DRIVER_LOCATION;
+import static com.letcafe.util.HuYaUtils.CHROME_DRIVER_PATH;
 
 @Service
 public class WebDriverServiceImpl implements WebDriverService {
@@ -28,7 +28,7 @@ public class WebDriverServiceImpl implements WebDriverService {
 
     @Override
     public WebDriver getWebDriverWithCookie(String username) {
-        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_LOCATION);
+        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH);
         ChromeOptions options = new ChromeOptions();
 
         options.addArguments("--no-sandbox");
@@ -42,6 +42,7 @@ public class WebDriverServiceImpl implements WebDriverService {
 
         WebDriver webDriver = new ChromeDriver(options);
         webDriver.get("https://huya.com/");
+
 
         String cookieInRedis = cookieService.getUserCookieInRedis(username);
         Set<Cookie> cookies = HuYaUtils.stringToCookies(cookieInRedis);

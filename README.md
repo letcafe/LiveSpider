@@ -59,7 +59,7 @@
 |v2.35|v62-64|2018-01-10|
 |...|...|...|
 
-3. 修改classpath://resources/huya.yaml中的huya.CHROME_DRIVER_LOCATION属性为你下载的ChromeDriver部署位置
+3. 修改classpath://resources/huya.yaml中的huya.CHROME_DRIVER_PATH属性为你下载的ChromeDriver部署位置
 4. 修改classpath://resources/huya.yaml中的huya.YY_ID为你的虎牙登录账号（账号、手机号都可以）
 5. 修改classpath://resources/huya.yaml中的huya.PASSWORD为你的虎牙登录密码
 6. 配置classpath://resources/application.yaml中active的profile为dev（默认）
@@ -198,6 +198,11 @@
 + \~ Thread.sleep(long) => TimeUnit.[MILLISECONDS | SECONDS | MINUTES].sleep(long)
 
 ### 2018-10-21
-+ \+ 添加YAMLConfig对自定义YAML配置属性的读取，剥离出虎牙配置文件huya.yaml等
++ \+ YAMLConfig对自定义YAML配置属性的读取，剥离出虎牙配置文件huya.yaml等
 + \~ 所有@Scheduled(cron = "cronStr")改用Spring属性注入，以便后续统一调整
 <img src="https://github.com/letcafe/LiveSpider/blob/master/picture/huya_yaml_config.png"></image>
+
+### 2018-10-22
++ \+ 每日自动下注完成竞猜任务
++ \+ 使用Generator达到取之即用，职责分层的效果
+

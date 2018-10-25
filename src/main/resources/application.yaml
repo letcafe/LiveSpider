@@ -1,8 +1,8 @@
 spring:
   profiles:
     # 选择启动哪一个配置类下的文件
-    active: dev
-#    active: prod
+#    active: dev
+    active: prod
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html

@@ -2,11 +2,10 @@ huya:
   # 虎牙登录账号/手机号
   YY_ID: 1656777876
   # 虎牙登录密码
-  PASSWORD: ***
-  # ChromeDriver解压位置（Windows）
-  CHROME_DRIVER_LOCATION: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe
-  # ChromeDriver解压位置（Linux）
-#  CHROME_DRIVER_LOCATION: /home/tank/chrome/chromedriver
+  PASSWORD: xxx
+  # ChromeDriver解压位置
+  CHROME_DRIVER_LOCATION: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe # Windows
+#  CHROME_DRIVER_PATH: /home/tank/chrome/chromedriver # Linux
   SYSTEM_IS_OPEN_GUI: false
   task:
     worker:
@@ -19,6 +18,8 @@ huya:
         subscribeOneLiveRoomTask: 0 15 3 * * *
         # 完成给三个主播送礼物的任务 + 给自己订阅的主播送7个虎粮
         sendGiftTo3LiveRoom: 0 20 3 * * *
+        # 完成给竞猜三次胜利任务（方法：双边下注各1豆子）
+        guessInLiveRoom: 0 30 3 * * *
         # 完成每天观看一小时，获取六个宝箱任务
         watchLiveGetSixTreasure: 0 30 6 * * *
     prize:
