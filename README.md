@@ -36,7 +36,7 @@
 + 0 15 3 * * * => TaskAutoWorker.subscribeOneLiveRoomTask => 每天凌晨3:15订阅一个DNF主播并10s后取消订阅
 + 0 20 3 * * * => TaskPrizeGetter.sendGiftTo3LiveRoom => 每天凌晨3:20给LOL列表前三主播送礼物（默认虎粮:id = 4）
 + 0 1 7 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天上午6：01观看55分钟直播以获得6个宝箱，并领取（宝箱6点刷）
-+ 0 0 8 * * * => TaskPrizeGetter.getAllTaskPrize => 每天上午8点收取所有的任务经验
++ 0 30 7 * * * => TaskPrizeGetter.getAllTaskPrize => 每天上午7点半收取所有的任务经验
 
 ## Framework (Updated in 2018-10-05)
 <img src="https://github.com/letcafe/LiveSpider/blob/master/picture/framework.png" width="450px"></image>
@@ -59,13 +59,13 @@
 |v2.35|v62-64|2018-01-10|
 |...|...|...|
 
-3. 修改classpath://resources/huya.yaml中的huya.CHROME_DRIVER_PATH属性为你下载的ChromeDriver部署位置
+3. 修改classpath://resources/huya.yaml中的huya.CHROME_DRIVER_LOCATION属性为你下载的ChromeDriver部署位置
 4. 修改classpath://resources/huya.yaml中的huya.YY_ID为你的虎牙登录账号（账号、手机号都可以）
 5. 修改classpath://resources/huya.yaml中的huya.PASSWORD为你的虎牙登录密码
 6. 配置classpath://resources/application.yaml中active的profile为dev（默认）
 7. 配置classpath://resources/application-dev.yaml中MySQL,MongoDB和Redis连接为你自己的连接
 8. 所有的任务完成时间如classpath://resources/huya.yaml所示，为Linux crontab形式定时器，可自行灵活调整
-9. 所有的数据表模型定义均位于：classpath://resources/schema目录下，请自行先导入（也可使用Hibernate生成）
+9. 所有的数据表模型定义均位于：classpath://resources/schema目录下，请自行先导入DB（也可使用Hibernate生成）
 10. 启动LiveSpider工程
 
 ### 二、注意事项：

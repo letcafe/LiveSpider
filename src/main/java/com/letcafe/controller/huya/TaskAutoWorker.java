@@ -175,7 +175,7 @@ public class TaskAutoWorker {
         // 设置窗体分辨率，使得多个竞猜中的按钮可以被点击出来
         webDriver.manage().window().setSize(new Dimension(1960, 1080));
         // 每个直播间竞猜大于等于1，但是有的直播间可能存在刚开盘或者一边倒的情况导致无法两边投票，因此先预留额外几个用于下注
-        List<HuYaLiveInfo> guessRoomList = getGuessRoomList(webDriver, 10);
+        List<HuYaLiveInfo> guessRoomList = getGuessRoomList(webDriver, 8);
         for (HuYaLiveInfo huYaLiveInfo : guessRoomList) {
             String watchUrl = "https://www.huya.com/" + huYaLiveInfo.getProfileRoom();
             logger.info("[Guess Room Url] = " + watchUrl);
