@@ -2,7 +2,7 @@ huya:
   # 虎牙登录账号/手机号
   YY_ID: 1656777876
   # 虎牙登录密码
-  PASSWORD: gdy19941231
+  PASSWORD: 123456
   # ChromeDriver解压位置
 #  CHROME_DRIVER_LOCATION: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe # Windows
   CHROME_DRIVER_LOCATION: /home/tank/chrome/chromedriver # Linux
