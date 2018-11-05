@@ -1,8 +1,8 @@
 spring:
   profiles:
     # 选择启动哪一个配置类下的文件
-#    active: dev
-    active: prod
+    active: dev
+#    active: prod
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
@@ -18,10 +18,27 @@ spring:
     username: gdycn@qq.com
     password: etictvelkfbwbicf
     default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
 server:
   port: 8080
   servlet:
     context-path: /LiveSpider
 logging:
   config: classpath:log4j2.xml
-
+# 暴露所有管理相关的信息
+management:
+  endpoint:
+    env:
+      enabled: true
+    metrics:
+      enabled: true
+    scheduledtasks:
+      enabled: true
+    loggers:
+      enabled: true
+    health:
+      enabled: true

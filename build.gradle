@@ -3,6 +3,7 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'war'
+apply plugin: 'org.springframework.boot'
 
 sourceCompatibility = 1.8
 
@@ -17,6 +18,8 @@ buildscript {
     dependencies {
         // enable optional,provided,.etc
         classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
+        // 启动SpringBoot中的更多gradle插件
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.0.RELEASE'
     }
 }
 
@@ -33,6 +36,7 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.5.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.0.5.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.0.5.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.0.0.RELEASE'
 
     // SpringBoot support : DB
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.0.5.RELEASE'
@@ -79,6 +83,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.json/json
     compile group: 'org.json', name: 'json', version: '20180130'
+
+    // Actuator实现对应用的监控
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.0.0.RELEASE'
 
     // Lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.2'

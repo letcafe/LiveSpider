@@ -20,7 +20,7 @@ CREATE TABLE huya_live_info
   activity_count       INT(11)            NOT NULL,
   private_host         VARCHAR(20),
   recommend_status     VARCHAR(15),
-  nick                 VARCHAR(20),
+  nick                 VARCHAR(40),
   short_channel        INTEGER(11),
   avatar180            VARCHAR(200),
   gid                  INTEGER(11),

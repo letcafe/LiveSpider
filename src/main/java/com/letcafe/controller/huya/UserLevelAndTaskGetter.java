@@ -39,7 +39,7 @@ public class UserLevelAndTaskGetter {
 
     // 获取用户的基本信息情况
     @Scheduled(cron = "${huya.user.info.time.setUserBasicInfo}")
-    public void setUserBasicInfo() throws IOException {
+    public void setUserBasicInfo() {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.add("cookie", cookieService.getUserCookieInRedis(YY_ID));

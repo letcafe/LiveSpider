@@ -75,7 +75,7 @@ public class HuYaUtils {
         HuYaUtils.PASSWORD = PASSWORD;
     }
 
-    @Value("loginCookie_${huya.YY_ID}")
+    @Value("${huya.COOKIE_IN_REDIS}")
     public void setCookieInRedis(String cookieInRedis) {
         COOKIE_IN_REDIS = cookieInRedis;
     }

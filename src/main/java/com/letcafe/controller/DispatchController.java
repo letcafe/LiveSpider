@@ -27,7 +27,7 @@ public class DispatchController {
     private final Logger logger = LoggerFactory.getLogger(DispatchController.class);
 
     @RequestMapping("jdProduct")
-    public String index(Model model) throws Exception {
+    public String jdProduct(Model model) throws Exception {
 
         //初始化一个httpclient
         HttpClient client = HttpClients.createDefault();
@@ -67,5 +67,17 @@ public class DispatchController {
     @RequestMapping("tables/{var}")
     public String tables(Model model, @PathVariable("var") String var){
         return "tables/" + var;
+    }
+
+    @RequestMapping("{indexPages}")
+    public String indexPages(Model model, @PathVariable("indexPages") String indexPages){
+        return indexPages;
+    }
+
+    @RequestMapping("pages/{functionPages}/{subPages}")
+    public String randomPage(Model model,
+                             @PathVariable("functionPages") String functionPages,
+                             @PathVariable("subPages") String subPages){
+        return "pages/" + functionPages + "/" + subPages;
     }
 }

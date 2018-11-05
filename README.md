@@ -35,7 +35,8 @@
 + 0 10 3 * * * => TaskAutoWorker.sendPubMessage => 每天凌晨3：10完成发送一条弹幕任务
 + 0 15 3 * * * => TaskAutoWorker.subscribeOneLiveRoomTask => 每天凌晨3:15订阅一个DNF主播并10s后取消订阅
 + 0 20 3 * * * => TaskPrizeGetter.sendGiftTo3LiveRoom => 每天凌晨3:20给LOL列表前三主播送礼物（默认虎粮:id = 4）
-+ 0 1 7 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天上午6：01观看55分钟直播以获得6个宝箱，并领取（宝箱6点刷）
++ 0 30 3 * * * => TaskPrizeGetter.guessInLiveRoom => 每天凌晨3:30给完成所有竞猜相关任务
++ 0 30 6 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天上午6：30观看55分钟直播以获得6个宝箱，并领取（宝箱6点刷）
 + 0 30 7 * * * => TaskPrizeGetter.getAllTaskPrize => 每天上午7点半收取所有的任务经验
 
 ## Framework (Updated in 2018-10-05)
@@ -199,10 +200,16 @@
 
 ### 2018-10-21
 + \+ YAMLConfig对自定义YAML配置属性的读取，剥离出虎牙配置文件huya.yaml等
-+ \~ 所有@Scheduled(cron = "cronStr")改用Spring属性注入，以便后续统一调整
++ \~ 所有@Scheduled(cron = "cronStr")改用Spring YAML属性注入，以便后续统一调整
 <img src="https://github.com/letcafe/LiveSpider/blob/master/picture/huya_yaml_config.png"></image>
 
 ### 2018-10-22
 + \+ 每日自动下注完成竞猜任务
 + \+ 使用Generator达到取之即用，职责分层的效果
 
+### 2018-11-05
++ \+ 使用YAML占位符保持代码中的配置一致性
++ \+ SpringBoot的Gradle-plugin:2.0.2插件进行不依赖IDEA的构建
++ \+ Actuator进行程序监控
++ \+ 引入AdminLTE并且整合Thymeleaf模板，并修饰大量配置路径
++ \+ 引入Spring Security进行安全控制

@@ -9,12 +9,14 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 
 @ComponentScan(basePackages = "com.letcafe")
 @EnableAutoConfiguration
 @EnableCaching
 @EnableScheduling
+@EnableWebSecurity
 public class Application extends SpringBootServletInitializer{
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);

@@ -16,14 +16,8 @@ public class PathConfig implements WebMvcConfigurer {
          * 如果是/** 会覆盖默认配置，应用addResourceLocations添加所有会用到的静态资源地址，系统默认不会再起作用
          */
         registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/META-INF/resources/")
-                .addResourceLocations("classpath:/resources/")
+//                .addResourceLocations("classpath:/META-INF/resources/")
+//                .addResourceLocations("classpath:/resources/")
                 .addResourceLocations("classpath:/static/");
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/resources/static/")
-                .addResourceLocations("classpath:/resources/webjars/")
-                .addResourceLocations("classpath:/static/webjars/")
-                .addResourceLocations("classpath:/public/webjars/")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 }
