@@ -6830,7 +6830,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
  *  - Partially secure in other browsers (Firefox, Opera, Safari, Chrome, ...)
  *
  * Please note that this class can't benefit from the HTML5 sandbox attribute for the following reasons:
- *    - sandboxing doesn't work correctly with inlined content (src="javascript:'<html xmlns:th="http://www.thymeleaf.org">...</html>'")
+ *    - sandboxing doesn't work correctly with inlined content (src="javascript:'<html>...</html>'")
  *    - sandboxing of physical documents causes that the dom isn't accessible anymore from the outside (iframe.contentWindow, ...)
  *    - setting the "allow-same-origin" flag would fix that, but then still javascript and dom events refuse to fire
  *    - therefore the "allow-scripts" flag is needed, which then would deactivate any security, as the js executed inside the iframe
@@ -6946,7 +6946,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
 
       // Setting the src like this prevents ssl warnings in IE6
       if (wysihtml5.browser.throwsMixedContentWarningWhenIframeSrcIsEmpty()) {
-        iframe.src = "javascript:'<html xmlns:th="http://www.thymeleaf.org"></html>'";
+        iframe.src = "javascript:'<html></html>'";
       }
 
       iframe.onload = function() {
@@ -7040,7 +7040,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
       templateVars.stylesheets = html;
 
       return wysihtml5.lang.string(
-        '<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head>'
+        '<!DOCTYPE html><html><head>'
         + '<meta charset="#{charset}">#{stylesheets}</head>'
         + '<body></body></html>'
       ).interpolate(templateVars);

@@ -21,6 +21,7 @@
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter-web:2.0.5.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter-thymeleaf:2.0.5.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.0.5.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter-security:2.0.0.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter-data-redis:2.0.5.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter-data-mongodb:2.0.5.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter-jdbc:2.0.5.RELEASE" />
@@ -53,6 +54,8 @@
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter-json:2.0.5.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-starter:2.0.5.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-webmvc:5.0.9.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-config:5.0.3.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-web:5.0.3.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-redis:2.0.10.RELEASE" />
           <element id="library" level="project" name="Gradle: io.springfox:springfox-swagger-common:2.8.0" />
           <element id="library" level="project" name="Gradle: io.springfox:springfox-spring-web:2.8.0" />
@@ -61,6 +64,7 @@
           <element id="library" level="project" name="Gradle: io.springfox:springfox-core:2.8.0" />
           <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework.security:spring-security-core:5.0.3.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-mongodb:2.0.10.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.boot:spring-boot-actuator-autoconfigure:2.0.0.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework.data:spring-data-keyvalue:2.0.10.RELEASE" />
@@ -108,9 +112,9 @@
           <element id="library" level="project" name="Gradle: javax.activation:javax.activation-api:1.2.0" />
           <element id="library" level="project" name="Gradle: dom4j:dom4j:1.6.1" />
           <element id="library" level="project" name="Gradle: io.swagger:swagger-models:1.5.14" />
+          <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.8.0-alpha2" />
           <element id="library" level="project" name="Gradle: io.swagger:swagger-annotations:1.5.14" />
           <element id="library" level="project" name="Gradle: com.google.guava:guava:25.0-jre" />
-          <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.8.0-alpha2" />
           <element id="library" level="project" name="Gradle: org.mapstruct:mapstruct:1.2.0.Final" />
           <element id="library" level="project" name="Gradle: javax.activation:activation:1.1" />
           <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpcore:4.4.10" />
@@ -143,19 +147,15 @@
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.6" />
           <element id="library" level="project" name="Gradle: org.apache.tomcat:tomcat-annotations-api:8.5.34" />
           <element id="library" level="project" name="Gradle: org.reactivestreams:reactive-streams:1.0.2" />
+          <element id="library" level="project" name="Gradle: org.yaml:snakeyaml:1.19" />
           <element id="library" level="project" name="Gradle: com.google.code.findbugs:jsr305:1.3.9" />
           <element id="library" level="project" name="Gradle: org.checkerframework:checker-compat-qual:2.0.0" />
           <element id="library" level="project" name="Gradle: com.google.errorprone:error_prone_annotations:2.1.3" />
           <element id="library" level="project" name="Gradle: com.google.j2objc:j2objc-annotations:1.1" />
           <element id="library" level="project" name="Gradle: org.codehaus.mojo:animal-sniffer-annotations:1.14" />
-          <element id="library" level="project" name="Gradle: org.yaml:snakeyaml:1.19" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-jcl:5.1.0.RELEASE" />
           <element id="library" level="project" name="Gradle: org.attoparser:attoparser:2.0.4.RELEASE" />
           <element id="library" level="project" name="Gradle: org.unbescape:unbescape:1.1.5.RELEASE" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-security/2.0.0.RELEASE/393ab221bc9aba9c5c59808115177dc5cfaf1b4c/spring-boot-starter-security-2.0.0.RELEASE.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-config/5.0.3.RELEASE/6581e8c83eb5a08e1578fdd3093fd096e81e82ba/spring-security-config-5.0.3.RELEASE.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-web/5.0.3.RELEASE/1c688054bfe015bcd067426f5ad77c01dd6486ac/spring-security-web-5.0.3.RELEASE.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/5.0.3.RELEASE/6cc79dd1db872ff306a3c9ae9e5c047b649c84e3/spring-security-core-5.0.3.RELEASE.jar" />
         </element>
       </element>
     </root>

@@ -17,7 +17,7 @@ public class PathConfig implements WebMvcConfigurer {
          */
         registry.addResourceHandler("/**")
 //                .addResourceLocations("classpath:/META-INF/resources/")
-//                .addResourceLocations("classpath:/resources/")
+//                .addResourceLocations("classpath:/templates/")
                 .addResourceLocations("classpath:/static/");
     }
 }

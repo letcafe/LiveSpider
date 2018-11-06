@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 为匹配到的URL只需要对用户进行身份认证
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/auth/login").defaultSuccessUrl("/index", true).failureUrl("/login?error").
+                .formLogin().loginPage("/pages/auth/login").defaultSuccessUrl("/index", true).failureUrl("/login?error").
                 // 设置以上页面允许访问，即默认只允许直接登录
                 permitAll();
         http.logout()
@@ -70,6 +70,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 //        User.UserBuilder users = User.withDefaultPasswordEncoder();
+
+//        auth.
+//                inMemoryAuthentication().
+//                withUser("user").password("pwd").roles("USER").and()
+//                .withUser("admin").password("admin").roles("USER", "ADMIN");
+
         // 基于内存查询的用户登录
         auth.
                 inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).

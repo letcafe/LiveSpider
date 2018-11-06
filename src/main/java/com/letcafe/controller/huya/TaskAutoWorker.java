@@ -176,9 +176,17 @@ public class TaskAutoWorker {
         webDriver.manage().window().setSize(new Dimension(1960, 1080));
         // 每个直播间竞猜大于等于1，但是有的直播间可能存在刚开盘或者一边倒的情况导致无法两边投票，因此先预留额外几个用于下注
         List<HuYaLiveInfo> guessRoomList = getGuessRoomList(webDriver, 8);
-        for (HuYaLiveInfo huYaLiveInfo : guessRoomList) {
-            String watchUrl = "https://www.huya.com/" + huYaLiveInfo.getProfileRoom();
-            logger.info("[Guess Room Url] = " + watchUrl);
+        try{
+            for (HuYaLiveInfo huYaLiveInfo : guessRoomList) {
+                String watchUrl = "https://www.huya.com/" + huYaLiveInfo.getProfileRoom();
+                logger.info("[Guess Room Url] = " + watchUrl);
+            }
+        } catch (TimeoutException ex1) {
+            logger.error("[System: ERROR] finish three guess one day failed, reason = " + ex1.getMessage());
+        } catch (Exception ex2) {
+            logger.error("[System: ERROR] " + ex2.getMessage());
+        } finally {
+            webDriver.quit();
         }
         logger.info("[System] WebDriver quit");
     }

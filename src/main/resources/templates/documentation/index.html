@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
@@ -6,14 +5,14 @@
   <title>AdminLTE 2 | Documentation</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}">
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}">
+  <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" th:href="@{/bower_components/Ionicons/c/css/ionicons.min.css}">
+  <link rel="stylesheet" href="../bower_components/Ionicons/c/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.min.css}">
-  <link rel="stylesheet" th:href="@{/dist/css/skins/_all-skins.min.css}">
+  <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
   <link rel="stylesheet" href="style.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -24,35 +23,12 @@
   <![endif]-->
 
   <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
 </head>
 <body class="skin-blue" data-spy="scroll" data-target="#scrollspy">
 <div class="wrapper">
 
-  <header class="main-header">
-    <!-- Logo -->
-    <a th:href="@{/index2.html}" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top" role="navigation">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-      <!-- Navbar Right Menu -->
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <li><a href="https://adminlte.io">Almsaeed Studio</a></li>
-          <li><a href="https://adminlte.io/premium">Premium Templates</a></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+  <div th:replace="header::header"></div>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -225,7 +201,7 @@
         </ul>
         <div class="callout callout-danger lead">
           <h4>Tip!</h4>
-          <p>The <a th:href="@{/starter.html}">starter page</a> is a good place to start building your app if you'd like to start from scratch.</p>
+          <p>The <a href="../starter.html">starter page</a> is a good place to start building your app if you'd like to start from scratch.</p>
         </div>
 
         <h3>Layout Options</h3>
@@ -602,7 +578,7 @@
           </div>
         </div>
         <pre class="prettyprint">&LT;header class="main-header">
-        &LT;a th:href="@{/index2.html}" class="logo">
+        &LT;a href="../../index2.html" class="logo">
           &LT;!-- LOGO -->
           AdminLTE
         &LT;/a>
@@ -748,7 +724,7 @@
               <nav class="navbar navbar-static-top">
                 <div class="container-fluid">
                   <div class="navbar-header">
-                    <a th:href="@{/index2.html}" class="navbar-brand"><b>Admin</b>LTE</a>
+                    <a href="../../index2.html" class="navbar-brand"><b>Admin</b>LTE</a>
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                       <i class="fa fa-bars"></i>
                     </button>
@@ -801,7 +777,7 @@
         &LT;nav class="navbar navbar-static-top">
           &LT;div class="container-fluid">
           &LT;div class="navbar-header">
-            &LT;a th:href="@{/index2.html}" class="navbar-brand">&LT;b>Admin&LT;/b>LTE&LT;/a>
+            &LT;a href="../../index2.html" class="navbar-brand">&LT;b>Admin&LT;/b>LTE&LT;/a>
             &LT;button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
               &LT;i class="fa fa-bars">&LT;/i>
             &LT;/button>

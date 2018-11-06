@@ -20,6 +20,5 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="org.thymeleaf:thymeleaf:Release" level="project" />
   </component>
 </module>

@@ -70,7 +70,7 @@ public class DispatchController {
     }
 
     @RequestMapping("{indexPages}")
-    public String indexPages(Model model, @PathVariable("indexPages") String indexPages){
+    public String indexPages(@PathVariable("indexPages") String indexPages){
         return indexPages;
     }
 
