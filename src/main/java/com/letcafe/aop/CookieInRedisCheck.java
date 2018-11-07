@@ -29,6 +29,12 @@ public class CookieInRedisCheck {
     @Around("execution(* com.letcafe.controller.huya.*.*(..)) && @annotation(org.springframework.scheduling.annotation.Scheduled)")
     public void checkCookieInRedis(ProceedingJoinPoint point) throws Throwable {
         String cookie = cookieService.getUserCookieInRedis(YY_ID);
+        String checkLoginOrNotString = ";username=";
+        if (cookie != null && !cookie.contains(checkLoginOrNotString)) {
+            logger.error("[System ERROR] cookie in redis doesn't not contain \"" + checkLoginOrNotString + "\" which is not after login cookie.");
+            logger.error("Full Key In Redis = {}", cookie);
+            return;
+        }
         if (cookie == null) {
             logger.warn("[Cookie Check : Redis] cookie is null, new cookie has been stored");
             cookieService.setUserCookieInRedis(YY_ID, PASSWORD);

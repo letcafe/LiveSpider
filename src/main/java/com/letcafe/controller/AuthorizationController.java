@@ -11,19 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AuthorizationController {
 
     @RequestMapping(value = "login",method = RequestMethod.GET)
-    public String indexPages(Model model){
+    public String login(){
         return "pages/examples/login";
     }
 
-    @RequestMapping(value = "login",method = RequestMethod.POST)
-    public String loginAction(Model model){
+    @RequestMapping(value = "logout",method = RequestMethod.GET)
+    public String logout(){
         return "pages/examples/login";
     }
 
-    @RequestMapping("logout")
-    public String randomPage(Model model,
-                             @PathVariable("functionPages") String functionPages,
-                             @PathVariable("subPages") String subPages){
-        return "pages/" + functionPages + "/" + subPages;
-    }
 }

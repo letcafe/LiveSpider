@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 允许加载所有的静态资源而不拦截
                 .antMatchers("/dist/**", "/bower_components/**", "/plugins/**").permitAll()
                 // 允许特定路径被直接访问
-                .antMatchers("/index", "/websock", "/alipay/**").permitAll()
+//                .antMatchers("/index", "/websock", "/alipay/**").permitAll()
                 // 为匹配到的URL只需要对用户进行身份认证
                 .anyRequest().authenticated()
                 .and()
@@ -51,9 +51,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 permitAll();
         http.logout()
                 // 退出登录URL,默认为"/logout"
-                .logoutUrl("/my/logout")
+                .logoutUrl("/pages/auth/logout")
                 // 登陆成功后跳转的URL,默认为"/login?logout"
-                .logoutSuccessUrl("/my/index")
+                .logoutSuccessUrl("/pages/auth/login")
                 // 登陆成功后的跳转控制器logoutSuccessHandler,可以使用lambda或者自定义实现类
                 // Spring默认提供两种方式的实现SimpleUrlLogoutSuccessHandler,HttpStatusReturningLogoutSuccessHandler
 //                .logoutSuccessHandler(logoutSuccessHandler)

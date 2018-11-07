@@ -70,12 +70,18 @@ public class DispatchController {
     }
 
     @RequestMapping("{indexPages}")
-    public String indexPages(@PathVariable("indexPages") String indexPages){
+    public String randomPage1(@PathVariable("indexPages") String indexPages){
         return indexPages;
     }
 
+    @RequestMapping("pages/{subPages}")
+    public String randomPage2(Model model,
+                             @PathVariable("subPages") String subPages){
+        return "pages/" + subPages;
+    }
+
     @RequestMapping("pages/{functionPages}/{subPages}")
-    public String randomPage(Model model,
+    public String randomPage3(Model model,
                              @PathVariable("functionPages") String functionPages,
                              @PathVariable("subPages") String subPages){
         return "pages/" + functionPages + "/" + subPages;
