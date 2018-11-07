@@ -31,7 +31,7 @@ public class CookieInRedisCheck {
         String cookie = cookieService.getUserCookieInRedis(YY_ID);
         String checkLoginOrNotString = ";username=";
         if (cookie != null && !cookie.contains(checkLoginOrNotString)) {
-            logger.error("[System ERROR] cookie in redis doesn't not contain \"" + checkLoginOrNotString + "\" which is not after login cookie.");
+            logger.error("[System ERROR] cookie in redis doesn't not contain \"" + checkLoginOrNotString + "\" which means login failed.");
             logger.error("Full Key In Redis = {}", cookie);
             return;
         }
