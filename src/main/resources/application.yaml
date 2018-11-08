@@ -31,14 +31,9 @@ logging:
   config: classpath:log4j2.xml
 # 暴露所有管理相关的信息
 management:
-  endpoint:
-    env:
-      enabled: true
-    metrics:
-      enabled: true
-    scheduledtasks:
-      enabled: true
-    loggers:
-      enabled: true
-    health:
-      enabled: true
+  endpoints:
+    enabled-by-default: true
+    web:
+      base-path: /system
+      exposure:
+        include: "*"
