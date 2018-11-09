@@ -213,3 +213,8 @@
 + \+ Actuator进行程序监控
 + \+ 引入AdminLTE并且整合Thymeleaf模板，并修饰大量配置路径
 + \+ 引入Spring Security进行安全控制
+
+### 2018-11-09
++ \~ 统一JPA和Hibernate Session于一个配置文件中并不产生冲突，JpaConfig.java
++ \+ 少量接口测试
++ \~ 修复Actuator信息metrics显示不全的问题

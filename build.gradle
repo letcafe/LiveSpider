@@ -36,12 +36,14 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.5.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.0.5.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.0.5.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.0.0.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.0.5.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.0.5.RELEASE'
 
     // SpringBoot support : DB
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.0.5.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.0.5.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.0.5.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.0.5.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.0.5.RELEASE'
 
     // hibernate
@@ -83,9 +85,6 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.json/json
     compile group: 'org.json', name: 'json', version: '20180130'
-
-    // Actuator实现对应用的监控
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.0.0.RELEASE'
 
     // Lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.2'

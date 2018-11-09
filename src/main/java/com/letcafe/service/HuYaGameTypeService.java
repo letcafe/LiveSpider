@@ -13,4 +13,6 @@ public interface HuYaGameTypeService {
     List<HuYaGameType> listHuYaGameType();
 
     List<Integer> listAllGid();
+
+    Long count();
 }

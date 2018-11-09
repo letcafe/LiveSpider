@@ -28,14 +28,38 @@
             <li class="header">导航</li>
             <li class="active treeview">
                 <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>面板</span>
+                    <i class="fa fa-dashboard"></i> <span>服务器信息</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                    <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    <li><a th:href="@{/pages/system/hardware/basic.html}"><i class="fa fa-circle-o"></i> 基本信息</a></li>
+                    <li><a th:href="@{/pages/system/hardware/monitor.html}"><i class="fa fa-circle-o"></i> 运行监控</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>定时任务</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a th:href="@{/pages/system/hardware/tasks.html}"><i class="fa fa-circle-o"></i> 定时任务信息</a></li>
+                    <li><a th:href="@{#}"><i class="fa fa-circle-o"></i> 运行监控</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>展示面板</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="active"><a th:href="@{index.html}"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                    <li><a th:href="@{/index2.html}"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                 </ul>
             </li>
             <li class="treeview">

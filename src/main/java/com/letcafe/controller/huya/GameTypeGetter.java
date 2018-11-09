@@ -44,7 +44,7 @@ public class GameTypeGetter {
             Document document = Jsoup.parse(response.getBody());
             Elements elements = document.select("div[class=box-bd]").select(".game-list").select("li[class=game-list-item]");
             for (Element element : elements) {
-                String gid = element.attr("gid");
+                Integer gid = Integer.parseInt(element.attr("gid"));
                 String title = element.select(".title").text();
                 HuYaGameType huYaGameType = new HuYaGameType(gid, title);
                 types.add(huYaGameType);

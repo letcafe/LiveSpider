@@ -3,6 +3,15 @@ spring:
     # 选择启动哪一个配置类下的文件
     active: dev
 #    active: prod
+  datasource:
+    hikari:
+      maximum-pool-size: 10
+      auto-commit: true
+      minimum-idle: 2
+      pool-name: MyHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
@@ -11,6 +20,10 @@ spring:
     cache: false
   jpa:
     open-in-view: false
+    generate-ddl: false
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
   mail:
     protocol: smtp
     host: smtp.qq.com
@@ -37,3 +50,6 @@ management:
       base-path: /system
       exposure:
         include: "*"
+  endpoint:
+    health:
+      show-details: always

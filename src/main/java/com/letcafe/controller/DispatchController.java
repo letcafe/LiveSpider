@@ -64,6 +64,11 @@ public class DispatchController {
         return "jdProduct";
     }
 
+    @RequestMapping("api")
+    public String api(Model model){
+        return "api/index";
+    }
+
     @RequestMapping("tables/{var}")
     public String tables(Model model, @PathVariable("var") String var){
         return "tables/" + var;
@@ -85,5 +90,13 @@ public class DispatchController {
                              @PathVariable("functionPages") String functionPages,
                              @PathVariable("subPages") String subPages){
         return "pages/" + functionPages + "/" + subPages;
+    }
+
+    @RequestMapping("pages/{functionPages}/{subPages}/{subSubPages}")
+    public String randomPage4(Model model,
+                              @PathVariable("functionPages") String functionPages,
+                              @PathVariable("subPages") String subPages,
+                              @PathVariable("subSubPages") String subSubPages){
+        return "pages/" + functionPages + "/" + subPages + "/" + subSubPages;
     }
 }

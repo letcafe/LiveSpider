@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,9 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // 允许加载所有的静态资源而不拦截
-                .antMatchers("/dist/**", "/bower_components/**", "/plugins/**").permitAll()
+                .antMatchers("/dist/**", "/bower_components/**", "/plugins/**", "/api/**", "/v2/api-docs").permitAll()
                 // 允许特定路径被直接访问
-//                .antMatchers("/index", "/websock", "/alipay/**").permitAll()
+//                .antMatchers("/api/**", "/websock").permitAll()
                 // 为匹配到的URL只需要对用户进行身份认证
                 .anyRequest().authenticated()
                 .and()

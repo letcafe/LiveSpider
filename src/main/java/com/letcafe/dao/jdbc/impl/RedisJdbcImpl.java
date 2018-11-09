@@ -1,4 +1,4 @@
-package com.letcafe.dao.impl;
+package com.letcafe.dao.jdbc.impl;
 
 import com.letcafe.dao.RedisDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.concurrent.TimeUnit;
 
 @Repository
-public class RedisDaoImpl implements RedisDao{
+public class RedisJdbcImpl implements RedisDao{
 
     @Autowired
     RedisTemplate<String, String> stringRedisTemplate;

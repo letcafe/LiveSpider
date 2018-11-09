@@ -35,11 +35,16 @@ public class HuYaGameTypeServiceImpl implements HuYaGameTypeService{
 
     @Override
     public List<HuYaGameType> listHuYaGameType() {
-        return huYaGameTypeDao.listHuYaGameType();
+        return huYaGameTypeDao.findAll();
     }
 
     @Override
     public List<Integer> listAllGid() {
         return huYaGameTypeDao.listAllGid();
+    }
+
+    @Override
+    public Long count() {
+        return huYaGameTypeDao.count();
     }
 }

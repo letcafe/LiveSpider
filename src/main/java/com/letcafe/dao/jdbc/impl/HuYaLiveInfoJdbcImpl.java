@@ -1,20 +1,19 @@
-package com.letcafe.dao.impl;
+package com.letcafe.dao.jdbc.impl;
 
-import com.letcafe.bean.HuYaTask;
-import com.letcafe.dao.HuYaTaskDao;
-import com.letcafe.service.HuYaTaskService;
+import com.letcafe.bean.HuYaLiveInfo;
+import com.letcafe.dao.jdbc.HuYaLiveInfoJdbc;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public class HuYaTasksDaoImpl implements HuYaTaskDao {
 
+@Repository
+public class HuYaLiveInfoJdbcImpl implements HuYaLiveInfoJdbc {
     private SessionFactory sessionFactory;
 
     @Autowired
-    public HuYaTasksDaoImpl(SessionFactory sessionFactory) {
+    public HuYaLiveInfoJdbcImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -23,7 +22,8 @@ public class HuYaTasksDaoImpl implements HuYaTaskDao {
     }
 
     @Override
-    public void save(HuYaTask huYaTask) {
-        currentSession().save(huYaTask);
+    public void saveOrUpdate(HuYaLiveInfo huYaLiveInfo) {
+        currentSession().saveOrUpdate(huYaLiveInfo);
     }
+
 }
