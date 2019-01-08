@@ -52,24 +52,50 @@
         <!-- Main content -->
         <section class="content">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-6">
                     <!-- interactive chart -->
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <i class="fa fa-bar-chart-o"></i>
 
-                            <h3 class="box-title">Interactive Area Chart</h3>
+                            <h3 class="box-title">系统CPU使用率</h3>
 
                             <div class="box-tools pull-right">
                                 Real time
                                 <div class="btn-group" id="realtime" data-toggle="btn-toggle">
-                                    <button type="button" class="btn btn-default btn-xs active" data-toggle="on">On</button>
+                                    <button type="button" class="btn btn-default btn-xs active" data-toggle="on">On
+                                    </button>
                                     <button type="button" class="btn btn-default btn-xs" data-toggle="off">Off</button>
                                 </div>
                             </div>
                         </div>
                         <div class="box-body">
-                            <div id="interactive" style="height: 300px;"></div>
+                            <div id="cpuRate" style="height: 300px;"></div>
+                        </div>
+                        <!-- /.box-body-->
+                    </div>
+                    <!-- /.box -->
+
+                </div>
+                <div class="col-xs-6">
+                    <!-- interactive chart -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <i class="fa fa-bar-chart-o"></i>
+
+                            <h3 class="box-title">进程CPU使用率</h3>
+
+                            <div class="box-tools pull-right">
+                                Real time
+                                <div class="btn-group" id="processRealtime" data-toggle="btn-toggle">
+                                    <button type="button" class="btn btn-default btn-xs active" data-toggle="on">On
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-xs" data-toggle="off">Off</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div id="processCpuRate" style="height: 300px;"></div>
                         </div>
                         <!-- /.box-body-->
                     </div>
@@ -90,9 +116,11 @@
                             <h3 class="box-title">Line Chart</h3>
 
                             <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                                 </button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                             </div>
                         </div>
                         <div class="box-body">
@@ -110,9 +138,11 @@
                             <h3 class="box-title">Full Width Area Chart</h3>
 
                             <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                                 </button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                             </div>
                         </div>
                         <div class="box-body">
@@ -134,9 +164,11 @@
                             <h3 class="box-title">Bar Chart</h3>
 
                             <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                                 </button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                             </div>
                         </div>
                         <div class="box-body">
@@ -154,9 +186,11 @@
                             <h3 class="box-title">Donut Chart</h3>
 
                             <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                                 </button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                             </div>
                         </div>
                         <div class="box-body">
@@ -205,84 +239,81 @@
 <script th:src="@{/bower_components/Flot/jquery.flot.categories.js}"></script>
 <!-- Page script -->
 <!--禁用Thymeleaf内联语法导致的[[符号错误干扰二维数组-->
-<script th:inline="none">
+<script th:inline="javascript">
     $(function () {
-        /*
-         * Flot Interactive Chart
-         * -----------------------
-         */
-        // We use an inline data source in the example, usually data would
-        // be fetched from a server
-        var data = [], totalPoints = 100
+        // 绘制系统CPU使用率
+        var totalPoints = 100;
+        var cpuData = [];
+        var contextPath = /*[[@{/}]]*/;
 
-        function getRandomData() {
+        function getCpuInfoData() {
 
-            if (data.length > 0)
-                data = data.slice(1)
-
+            if (cpuData.length > 0)
+                cpuData = cpuData.slice(1);
             // Do a random walk
-            while (data.length < totalPoints) {
-
-                var prev = data.length > 0 ? data[data.length - 1] : 50,
-                    y    = prev + Math.random() * 10 - 5
-
-                if (y < 0) {
-                    y = 0
-                } else if (y > 100) {
-                    y = 100
-                }
-
-                data.push(y)
+            while (cpuData.length < totalPoints) {
+                var cpuUsage;
+                // Thymeleaf获取上下文路径
+                callUrl = contextPath + 'system/metrics/system.cpu.usage';
+                $.ajax({
+                    url: callUrl,
+                    async : false,
+                    success: function (jsonData, textStatus, xhr) {
+                        cpuDataObj = jsonData;
+                        measurements = cpuDataObj.measurements;
+                        cpuUsage = measurements[0].value;
+                        console.log('cpu Rate = ' + cpuUsage);
+                    }
+                });
+                cpuData.push(cpuUsage);
             }
-
             // Zip the generated y values with the x values
-            var res = []
-            for (var i = 0; i < data.length; ++i) {
-                res.push([i, data[i]])
+            var res = [];
+            for (var i = 0; i < cpuData.length; ++i) {
+                res.push([i, cpuData[i]])
             }
-
-            return res
+            return res;
         }
 
-        var interactive_plot = $.plot('#interactive', [getRandomData()], {
-            grid  : {
+        var cpuRate_plot = $.plot('#cpuRate', [getCpuInfoData()], {
+            grid: {
                 borderColor: '#f3f3f3',
                 borderWidth: 1,
-                tickColor  : '#f3f3f3'
+                tickColor: '#f3f3f3'
             },
             series: {
                 shadowSize: 0, // Drawing is faster without shadows
-                color     : '#3c8dbc'
-            },
-            lines : {
-                fill : true, //Converts the line chart to area chart
                 color: '#3c8dbc'
             },
-            yaxis : {
-                min : 0,
-                max : 100,
-                show: true
+            lines: {
+                fill: true, //Converts the line chart to area chart
+                color: '#3c8dbc'
             },
-            xaxis : {
+            yaxis: {
+                min: 0,
+                max: 1,
+                show: true,
+            },
+            xaxis: {
                 show: true
             }
-        })
+        });
 
         var updateInterval = 500 //Fetch data ever x milliseconds
-        var realtime       = 'on' //If == to on then fetch data every x seconds. else stop fetching
-        function update() {
+        var realtime = 'on' //If == to on then fetch data every x seconds. else stop fetching
+        function cpuRateUpdate() {
 
-            interactive_plot.setData([getRandomData()])
+            cpuRate_plot.setData([getCpuInfoData()])
 
             // Since the axes don't change, we don't need to call plot.setupGrid()
-            interactive_plot.draw()
+            cpuRate_plot.draw()
             if (realtime === 'on')
-                setTimeout(update, updateInterval)
+                setTimeout(cpuRateUpdate, updateInterval)
         }
 
         //INITIALIZE REALTIME DATA FETCHING
         if (realtime === 'on') {
-            update()
+            cpuRateUpdate()
         }
         //REALTIME TOGGLE
         $('#realtime .btn').click(function () {
@@ -292,63 +323,138 @@
             else {
                 realtime = 'off'
             }
-            update()
-        })
-        /*
-         * END INTERACTIVE CHART
-         */
+            cpuRateUpdate()
+        });
+        // 绘制进程CPU使用率
+        var processTotalPoints = 100;
+        var processCpuData = [];
 
-        /*
-         * LINE CHART
-         * ----------
-         */
-        //LINE randomly generated data
+        function getProcessCpuInfoData() {
 
+            if (processCpuData.length > 0)
+                processCpuData = processCpuData.slice(1);
+            // Do a random walk
+            while (processCpuData.length < processTotalPoints) {
+                var processCpuUsage;
+                // Thymeleaf获取上下文路径
+                callUrl = contextPath + 'system/metrics/process.cpu.usage';
+                $.ajax({
+                    url: callUrl,
+                    async : false,
+                    success: function (jsonData, textStatus, xhr) {
+                        cpuDataObj = jsonData;
+                        measurements = cpuDataObj.measurements;
+                        processCpuUsage = measurements[0].value;
+                        console.log('process Cpu Rate = ' + processCpuUsage);
+                    }
+                });
+                processCpuData.push(processCpuUsage);
+            }
+            // Zip the generated y values with the x values
+            var processRes = [];
+            for (var i = 0; i < processCpuData.length; ++i) {
+                processRes.push([i, processCpuData[i]])
+            }
+            return processRes;
+        }
+
+        var processCpuRate_plot = $.plot('#processCpuRate', [getProcessCpuInfoData()], {
+            grid: {
+                borderColor: '#f3f3f3',
+                borderWidth: 1,
+                tickColor: '#f3f3f3'
+            },
+            series: {
+                shadowSize: 0, // Drawing is faster without shadows
+                color: '#3c8dbc'
+            },
+            lines: {
+                fill: true, //Converts the line chart to area chart
+                color: '#3c8dbc'
+            },
+            yaxis: {
+                min: 0,
+                max: 1,
+                show: true,
+            },
+            xaxis: {
+                show: true
+            }
+        });
+
+        var processUpdateInterval = 500 //Fetch data ever x milliseconds
+        var processRealtime = 'on' //If == to on then fetch data every x seconds. else stop fetching
+        function processCpuRateUpdate() {
+
+            processCpuRate_plot.setData([getProcessCpuInfoData()]);
+
+            // Since the axes don't change, we don't need to call plot.setupGrid()
+            processCpuRate_plot.draw();
+            if (processRealtime === 'on')
+                setTimeout(processCpuRateUpdate, processUpdateInterval)
+        }
+
+        //INITIALIZE REALTIME DATA FETCHING
+        if (processRealtime === 'on') {
+            processCpuRateUpdate();
+        }
+        //REALTIME TOGGLE
+        $('#processRealtime .btn').click(function () {
+            if ($(this).data('toggle') === 'on') {
+                processRealtime = 'on'
+            }
+            else {
+                processRealtime = 'off'
+            }
+            getProcessCpuInfoData()
+        });
+
+        // 绘制正弦曲线
         var sin = [], cos = []
         for (var i = 0; i < 14; i += 0.5) {
             sin.push([i, Math.sin(i)])
             cos.push([i, Math.cos(i)])
         }
         var line_data1 = {
-            data : sin,
+            data: sin,
             color: '#3c8dbc'
         }
         var line_data2 = {
-            data : cos,
+            data: cos,
             color: '#00c0ef'
         }
         $.plot('#line-chart', [line_data1, line_data2], {
-            grid  : {
-                hoverable  : true,
+            grid: {
+                hoverable: true,
                 borderColor: '#f3f3f3',
                 borderWidth: 1,
-                tickColor  : '#f3f3f3'
+                tickColor: '#f3f3f3'
             },
             series: {
                 shadowSize: 0,
-                lines     : {
+                lines: {
                     show: true
                 },
-                points    : {
+                points: {
                     show: true
                 }
             },
-            lines : {
-                fill : false,
+            lines: {
+                fill: false,
                 color: ['#3c8dbc', '#f56954']
             },
-            yaxis : {
+            yaxis: {
                 show: true
             },
-            xaxis : {
+            xaxis: {
                 show: true
             }
         })
         //Initialize tooltip on hover
         $('<div class="tooltip-inner" id="line-chart-tooltip"></div>').css({
             position: 'absolute',
-            display : 'none',
-            opacity : 0.8
+            display: 'none',
+            opacity: 0.8
         }).appendTo('body')
         $('#line-chart').bind('plothover', function (event, pos, item) {
 
@@ -357,7 +463,7 @@
                     y = item.datapoint[1].toFixed(2)
 
                 $('#line-chart-tooltip').html(item.series.label + ' of ' + x + ' = ' + y)
-                    .css({ top: item.pageY + 5, left: item.pageX + 5 })
+                    .css({top: item.pageY + 5, left: item.pageX + 5})
                     .fadeIn(200)
             } else {
                 $('#line-chart-tooltip').hide()
@@ -370,24 +476,24 @@
          * FULL WIDTH STATIC AREA CHART
          * -----------------
          */
-        var areaData = [[2, 88.0], [3, 93.3], [4, 102.0], [5, 108.5], [6, 115.7], [7, 115.6],
+        var areaData = [ [2, 88.0], [3, 93.3], [4, 102.0], [5, 108.5], [6, 115.7], [7, 115.6],
             [8, 124.6], [9, 130.3], [10, 134.3], [11, 141.4], [12, 146.5], [13, 151.7], [14, 159.9],
             [15, 165.4], [16, 167.8], [17, 168.7], [18, 169.5], [19, 168.0]]
         $.plot('#area-chart', [areaData], {
-            grid  : {
+            grid: {
                 borderWidth: 0
             },
             series: {
                 shadowSize: 0, // Drawing is faster without shadows
-                color     : '#00c0ef'
+                color: '#00c0ef'
             },
-            lines : {
+            lines: {
                 fill: true //Converts the line chart to area chart
             },
-            yaxis : {
+            yaxis: {
                 show: false
             },
-            xaxis : {
+            xaxis: {
                 show: false
             }
         })
@@ -400,24 +506,24 @@
          */
 
         var bar_data = {
-            data : [['January', 10], ['February', 8], ['March', 4], ['April', 13], ['May', 17], ['June', 9]],
+            data: [ ['January', 10], ['February', 8], ['March', 4], ['April', 13], ['May', 17], ['June', 9]],
             color: '#3c8dbc'
         }
         $.plot('#bar-chart', [bar_data], {
-            grid  : {
+            grid: {
                 borderWidth: 1,
                 borderColor: '#f3f3f3',
-                tickColor  : '#f3f3f3'
+                tickColor: '#f3f3f3'
             },
             series: {
                 bars: {
-                    show    : true,
+                    show: true,
                     barWidth: 0.5,
-                    align   : 'center'
+                    align: 'center'
                 }
             },
-            xaxis : {
-                mode      : 'categories',
+            xaxis: {
+                mode: 'categories',
                 tickLength: 0
             }
         })
@@ -429,19 +535,19 @@
          */
 
         var donutData = [
-            { label: 'Series2', data: 30, color: '#3c8dbc' },
-            { label: 'Series3', data: 20, color: '#0073b7' },
-            { label: 'Series4', data: 50, color: '#00c0ef' }
+            {label: 'Series2', data: 30, color: '#3c8dbc'},
+            {label: 'Series3', data: 20, color: '#0073b7'},
+            {label: 'Series4', data: 50, color: '#00c0ef'}
         ]
         $.plot('#donut-chart', donutData, {
             series: {
                 pie: {
-                    show       : true,
-                    radius     : 1,
+                    show: true,
+                    radius: 1,
                     innerRadius: 0.5,
-                    label      : {
-                        show     : true,
-                        radius   : 2 / 3,
+                    label: {
+                        show: true,
+                        radius: 2 / 3,
                         formatter: labelFormatter,
                         threshold: 0.1
                     }

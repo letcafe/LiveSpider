@@ -75,8 +75,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 基于内存查询的用户登录
         auth.
-                inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).
-                withUser("user").password(new BCryptPasswordEncoder().encode("pwd")).roles("USER").and()
+                inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder())
+                .withUser("user").password(new BCryptPasswordEncoder().encode("pwd")).roles("USER").and()
+                .withUser("user1").password(new BCryptPasswordEncoder().encode("123456")).roles("USER").and()
                 .withUser("admin").password(new BCryptPasswordEncoder().encode("admin")).roles("USER", "ADMIN");
 
 //         基于JDBC的用户登录查询

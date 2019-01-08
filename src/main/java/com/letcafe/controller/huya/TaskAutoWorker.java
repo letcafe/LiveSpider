@@ -77,27 +77,29 @@ public class TaskAutoWorker {
             logger.error("[System] WebDriver is null");
             return;
         }
-        WebDriverWait loginFrameWait = new WebDriverWait(webDriver, 20, 500);
-
-        LiveInfoGetter liveInfoGetter = new LiveInfoGetter();
-        // take LOL for example, get LOL live list, if come across exception,log then recursive
-        List<HuYaLiveInfo> liveInfoList = liveInfoGetter.listHuYaLiveByGid(1);
-        String watchUrl = "https://www.huya.com/" + liveInfoList.get(0).getProfileRoom();
-        String message = "6666";
-        webDriver.get(watchUrl);
-        TimeUnit.SECONDS.sleep(3);
-        WebElement chatInput = webDriver.findElement(By.id("pub_msg_input"));
-        JavascriptExecutor js = (JavascriptExecutor) webDriver;
-        // 添加Enable的class使得发送按钮可以直接点击
-        js.executeScript("document.getElementById('msg_send_bt').className += 'enable';");
-        chatInput.sendKeys(message);
-        WebElement chatSendButton = webDriver.findElement(By.id("msg_send_bt"));
-        loginFrameWait.until(ExpectedConditions.elementToBeClickable(chatSendButton));
-        chatSendButton.click();
-        TimeUnit.SECONDS.sleep(1);
-        logger.info("[send message to live(" + watchUrl + ")] = " + message);
-        webDriver.quit();
-        logger.info("[System] WebDriver quit");
+        try {
+            WebDriverWait loginFrameWait = new WebDriverWait(webDriver, 20, 500);
+            LiveInfoGetter liveInfoGetter = new LiveInfoGetter();
+            // take LOL for example, get LOL live list, if come across exception,log then recursive
+            List<HuYaLiveInfo> liveInfoList = liveInfoGetter.listHuYaLiveByGid(1);
+            String watchUrl = "https://www.huya.com/" + liveInfoList.get(0).getProfileRoom();
+            String message = "6666";
+            webDriver.get(watchUrl);
+            TimeUnit.SECONDS.sleep(3);
+            WebElement chatInput = webDriver.findElement(By.id("pub_msg_input"));
+            JavascriptExecutor js = (JavascriptExecutor) webDriver;
+            // 添加Enable的class使得发送按钮可以直接点击
+            js.executeScript("document.getElementById('msg_send_bt').className += 'enable';");
+            chatInput.sendKeys(message);
+            WebElement chatSendButton = webDriver.findElement(By.id("msg_send_bt"));
+            loginFrameWait.until(ExpectedConditions.elementToBeClickable(chatSendButton));
+            chatSendButton.click();
+            TimeUnit.SECONDS.sleep(1);
+            logger.info("[send message to live(" + watchUrl + ")] = " + message);
+        } finally {
+            webDriver.quit();
+            logger.info("[System] WebDriver quit");
+        }
     }
 
     // 完成订阅直播间任务
@@ -149,19 +151,22 @@ public class TaskAutoWorker {
             logger.error("[System] WebDriver is null");
             return;
         }
-        LiveInfoGetter liveInfoGetter = new LiveInfoGetter();
-        // take LOL for example, get LOL live list, if come across exception,log then recursive
-        List<HuYaLiveInfo> liveInfoList = liveInfoGetter.listHuYaLiveByGid(1);
-        String watchUrl = "https://www.huya.com/" + liveInfoList.get(0).getProfileRoom();
-        webDriver.get(watchUrl);
-        logger.info("[Six Treasure : Watch Live] url = {}", watchUrl);
-        // 等待55分钟达到6宝箱解锁条件后后再关闭
-        TimeUnit.MINUTES.sleep(55);
+        try {
+            LiveInfoGetter liveInfoGetter = new LiveInfoGetter();
+            // take LOL for example, get LOL live list, if come across exception,log then recursive
+            List<HuYaLiveInfo> liveInfoList = liveInfoGetter.listHuYaLiveByGid(1);
+            String watchUrl = "https://www.huya.com/" + liveInfoList.get(0).getProfileRoom();
+            webDriver.get(watchUrl);
+            logger.info("[Six Treasure : Watch Live] url = {}", watchUrl);
+            // 等待55分钟达到6宝箱解锁条件后后再关闭
+            TimeUnit.MINUTES.sleep(55);
 
-        // 解锁6个宝箱
-        receiveSixTreasurePrize(webDriver);
-        webDriver.quit();
-        logger.info("[System] WebDriver quit");
+            // 解锁6个宝箱
+            receiveSixTreasurePrize(webDriver);
+        } finally {
+            webDriver.quit();
+            logger.info("[System] WebDriver quit");
+        }
     }
 
     // 完成每日三次竞猜任务
@@ -172,11 +177,11 @@ public class TaskAutoWorker {
             logger.error("[System] WebDriver is null");
             return;
         }
-        // 设置窗体分辨率，使得多个竞猜中的按钮可以被点击出来
-        webDriver.manage().window().setSize(new Dimension(1960, 1080));
-        // 每个直播间竞猜大于等于1，但是有的直播间可能存在刚开盘或者一边倒的情况导致无法两边投票，因此先预留额外几个用于下注
-        List<HuYaLiveInfo> guessRoomList = getGuessRoomList(webDriver, 8);
-        try{
+        try {
+            // 设置窗体分辨率，使得多个竞猜中的按钮可以被点击出来
+            webDriver.manage().window().setSize(new Dimension(1960, 1080));
+            // 每个直播间竞猜大于等于1，但是有的直播间可能存在刚开盘或者一边倒的情况导致无法两边投票，因此先预留额外几个用于下注
+            List<HuYaLiveInfo> guessRoomList = getGuessRoomList(webDriver, 8);
             for (HuYaLiveInfo huYaLiveInfo : guessRoomList) {
                 String watchUrl = "https://www.huya.com/" + huYaLiveInfo.getProfileRoom();
                 logger.info("[Guess Room Url] = " + watchUrl);
@@ -187,8 +192,8 @@ public class TaskAutoWorker {
             logger.error("[System: ERROR] " + ex2.getMessage());
         } finally {
             webDriver.quit();
+            logger.info("[System] WebDriver quit");
         }
-        logger.info("[System] WebDriver quit");
     }
 
     // 根据给定的webDriver,领取所有的宝箱奖励
@@ -235,36 +240,39 @@ public class TaskAutoWorker {
             logger.error("[System] WebDriver is null");
             return;
         }
-        webDriver.get(liveRoomStr);
-        WebDriverWait loginFrameWait = new WebDriverWait(webDriver, 20, 500);
-        loginFrameWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#player-face ul li[propsid]")));
-        List<WebElement> giftButtonList = webDriver.findElements(By.cssSelector("#player-face ul li[propsid]"));
+        try {
+            webDriver.get(liveRoomStr);
+            WebDriverWait loginFrameWait = new WebDriverWait(webDriver, 20, 500);
+            loginFrameWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#player-face ul li[propsid]")));
+            List<WebElement> giftButtonList = webDriver.findElements(By.cssSelector("#player-face ul li[propsid]"));
 
-        // 从众多的礼物中选择出目标礼物，送给该名主播
-        for (WebElement targetSendGift : giftButtonList) {
-            // 如果礼物ID = 目标ID
-            if (targetSendGift.getAttribute("propsid").equals("" + giftId)) {
-                // 第一次送礼物时一般会需要确认，送 1 个
-                targetSendGift.click();
-                // 点击确认发送礼物按钮
-                loginFrameWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#player-gift-dialog .confirm")));
-                WebElement ensureSendButton = webDriver.findElement(By.cssSelector("#player-gift-dialog .confirm"));
-                loginFrameWait.until(ExpectedConditions.elementToBeClickable(ensureSendButton));
-                ensureSendButton.click();
-                TimeUnit.SECONDS.sleep(2);
-                // 当第一次送完礼物后就不在需要确认，直接点击即赠送礼物，送 n-1 个
-                for (int i = 0; i < sendGiftNumber - 1; i++) {
-                    // 点击该礼物
+            // 从众多的礼物中选择出目标礼物，送给该名主播
+            for (WebElement targetSendGift : giftButtonList) {
+                // 如果礼物ID = 目标ID
+                if (targetSendGift.getAttribute("propsid").equals("" + giftId)) {
+                    // 第一次送礼物时一般会需要确认，送 1 个
                     targetSendGift.click();
-                    // 等待，以让请求加载完毕
-                    TimeUnit.SECONDS.sleep(1);
-                    logger.info("[giftId = " + giftId + "] has been sent to -> " + liveRoomStr + ", number = " + sendGiftNumber);
+                    // 点击确认发送礼物按钮
+                    loginFrameWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#player-gift-dialog .confirm")));
+                    WebElement ensureSendButton = webDriver.findElement(By.cssSelector("#player-gift-dialog .confirm"));
+                    loginFrameWait.until(ExpectedConditions.elementToBeClickable(ensureSendButton));
+                    ensureSendButton.click();
+                    TimeUnit.SECONDS.sleep(2);
+                    // 当第一次送完礼物后就不在需要确认，直接点击即赠送礼物，送 n-1 个
+                    for (int i = 0; i < sendGiftNumber - 1; i++) {
+                        // 点击该礼物
+                        targetSendGift.click();
+                        // 等待，以让请求加载完毕
+                        TimeUnit.SECONDS.sleep(1);
+                        logger.info("[giftId = " + giftId + "] has been sent to -> " + liveRoomStr + ", number = " + sendGiftNumber);
+                    }
                 }
             }
+            logger.info("[giftId = " + giftId + "] has been sent to -> " + liveRoomStr + ", number = " + sendGiftNumber);
+        } finally {
+            webDriver.quit();
+            logger.info("[System] WebDriver quit");
         }
-        logger.info("[giftId = " + giftId + "] has been sent to -> " + liveRoomStr + ", number = " + sendGiftNumber);
-        webDriver.quit();
-        logger.info("[System] WebDriver quit");
     }
 
     private JSONObject subscribeLiveRoom(long subscribeUid) {
@@ -345,7 +353,7 @@ public class TaskAutoWorker {
                 numberedRoomList.add(liveInfo);
                 count++;
                 logger.info(watchUrl + " has guess event");
-                int success2SideGuessCount = guess2SideInOneLiveRoom(webDriver, watchUrl);
+                guess2SideInOneLiveRoom(webDriver, watchUrl);
             }
         }
         return numberedRoomList;
@@ -428,9 +436,12 @@ public class TaskAutoWorker {
             logger.error("[System] WebDriver is null");
             return false;
         }
-        boolean result = hasGuessInLiveRoom(webDriver, url);
-        webDriver.quit();
-        logger.info("[System] WebDriver quit");
-        return result;
+        try {
+            return hasGuessInLiveRoom(webDriver, url);
+        } finally {
+            webDriver.quit();
+            logger.info("[System] WebDriver quit");
+        }
+
     }
 }

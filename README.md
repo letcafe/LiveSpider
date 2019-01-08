@@ -218,3 +218,7 @@
 + \~ 统一JPA和Hibernate Session于一个配置文件中并不产生冲突，JpaConfig.java
 + \+ 少量接口测试
 + \~ 修复Actuator信息metrics显示不全的问题
+
+### 2019-01-08
++ \~ 修复webDriver在未成功初始化，溢出导致Server崩溃的情况
++ \~ 修复了由于Cookie域的原因所导致的无法初始化WebDriver的问题

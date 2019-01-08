@@ -34,12 +34,10 @@ public class HuYaUserLevelServiceImpl implements HuYaUserLevelService {
     private static final Logger logger = LoggerFactory.getLogger(HuYaUserLevelServiceImpl.class);
 
     private HuYaUserLevelDao userLevelDao;
-    private RedisDao redisDao;
 
     @Autowired
-    public HuYaUserLevelServiceImpl(HuYaUserLevelDao userLevelDao, RedisDao redisDao) {
+    public HuYaUserLevelServiceImpl(HuYaUserLevelDao userLevelDao) {
         this.userLevelDao = userLevelDao;
-        this.redisDao = redisDao;
     }
 
     @Override

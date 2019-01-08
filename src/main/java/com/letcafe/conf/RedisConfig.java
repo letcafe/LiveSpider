@@ -1,7 +1,6 @@
 package com.letcafe.conf;
 
 import com.letcafe.controller.DefaultMessageDelegate;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;

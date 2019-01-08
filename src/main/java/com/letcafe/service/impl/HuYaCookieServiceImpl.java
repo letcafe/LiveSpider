@@ -60,7 +60,6 @@ public class HuYaCookieServiceImpl implements CookieService {
         WebDriver webDriver = new ChromeDriver(options);
         webDriver.get("https://i.huya.com/");
 
-        System.out.println(webDriver);
         // set huya login iframe and switch to it,then wait time to get its login form
         WebDriverWait loginFrameWait = new WebDriverWait(webDriver, 20, 500);
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
@@ -93,14 +92,13 @@ public class HuYaCookieServiceImpl implements CookieService {
             logger.info("[System : New Cookie] login btn has been clicked");
 
             TimeUnit.SECONDS.sleep(5);
-            String loginCookie = HuYaUtils.cookieToString(webDriver.manage().getCookies());
-            logger.info("[System : New Cookie] cookie = {}", loginCookie);
-            return loginCookie;
+            return HuYaUtils.cookieToString(webDriver.manage().getCookies());
         } catch (Exception ex) {
             logger.warn("[System : New Cookie] try to get webdriver cookie failed, over time");
             ex.printStackTrace(System.out);
-            webDriver.quit();
             return null;
+        } finally {
+            webDriver.quit();
         }
     }
 
@@ -120,12 +118,11 @@ public class HuYaCookieServiceImpl implements CookieService {
             return;
         }
         // Redis中的值将保留六天，配合周三周日刷新，不会失效
-        redisDao.setKeyValueWithExpireTime("loginCookie_" + username, cookieIntoRedis, 6 * 24 * 60 * 60 * 1000);
-        logger.info("[Cookie : Redis] redis cookie is set,key = loginCookie_" + username + ",value = " + cookieIntoRedis);
+        redisDao.setKeyValueWithExpireTime("loginCookie:" + username, cookieIntoRedis, 6 * 24 * 60 * 60 * 1000);
     }
 
     @Override
     public String getUserCookieInRedis(String username) {
-        return redisDao.getStringValue("loginCookie_" + username);
+        return redisDao.getStringValue("loginCookie:" + username);
     }
 }

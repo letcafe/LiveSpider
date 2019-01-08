@@ -2,12 +2,12 @@ huya:
   # 虎牙登录账号/手机号
   YY_ID: 1656777876
   # 虎牙登录密码
-  PASSWORD: 123456
+  PASSWORD: gdy19941231
   # ChromeDriver解压位置
-  CHROME_DRIVER_LOCATION: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe # Windows
-#  CHROME_DRIVER_LOCATION: /home/tank/chrome/chromedriver # Linux
+#  CHROME_DRIVER_LOCATION: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe # Windows
+  CHROME_DRIVER_LOCATION: /home/tank/chrome/chromedriver # Linux
   SYSTEM_IS_OPEN_GUI: false
-  COOKIE_IN_REDIS: loginCookie_${huya.YY_ID}
+  COOKIE_IN_REDIS: loginCookie:${huya.YY_ID}
   task:
     worker:
       time:
@@ -22,11 +22,11 @@ huya:
         # 完成给竞猜三次胜利任务（方法：双边下注各1豆子）
         guessInLiveRoom: 0 30 3 * * *
         # 完成每天观看一小时，获取六个宝箱任务
-        watchLiveGetSixTreasure: 0 30 6 * * *
+        watchLiveGetSixTreasure: 0 0 7 * * *
     prize:
       time:
         # 每天收取任务奖励
-        getAllTaskPrize: 0 30 7 * * *
+        getAllTaskPrize: 0 0 8 * * *
     status:
       time:
         # 获取每天用户任务完成情况

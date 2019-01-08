@@ -20,4 +20,5 @@ public class PathConfig implements WebMvcConfigurer {
 //                .addResourceLocations("classpath:/templates/")
                 .addResourceLocations("classpath:/static/");
     }
+
 }
