@@ -23,7 +23,11 @@ public class RedisConfig {
 
         void handleMessage(Serializable message);
 
-        // pass the channel/pattern as well
+        /**
+         * pass the channel/pattern as well
+         * @param message 消息
+         * @param channel 信道
+         */
         void handleMessage(Serializable message, String channel);
     }
 
@@ -32,7 +36,12 @@ public class RedisConfig {
         return new MessageListenerAdapter(new DefaultMessageDelegate());
     }
 
-    // 通过Yaml注入RedisConnectionFactory
+    /**
+     * 通过Yaml注入RedisConnectionFactory
+     * @param connectionFactory Redis 的连接工厂
+     * @param messageListenerAdapter 消息监听适配器
+     * @return Redis连接监听的容器
+     */
     @Bean
     RedisMessageListenerContainer redisMessageListenerContainer(RedisConnectionFactory connectionFactory, MessageListenerAdapter messageListenerAdapter) {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();

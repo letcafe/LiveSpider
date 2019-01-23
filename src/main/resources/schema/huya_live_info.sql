@@ -16,7 +16,7 @@ CREATE TABLE huya_live_info
   live_channel         VARCHAR(15),
   buss_type            INTEGER(11),
   yyid                 VARCHAR(15),
-  screenshot           VARCHAR(200)       NOT NULL,
+  screenshot           VARCHAR(250)       NOT NULL,
   activity_count       INT(11)            NOT NULL,
   private_host         VARCHAR(20),
   recommend_status     VARCHAR(15),

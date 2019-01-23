@@ -21,6 +21,8 @@ import java.util.Properties;
 @EnableJpaRepositories(basePackages = "com.letcafe.dao")
 public class JpaConfig {
 
+
+
     @Bean
     public PlatformTransactionManager transactionManager(SessionFactory sessionFactory) {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();

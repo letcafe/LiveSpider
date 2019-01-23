@@ -46,6 +46,9 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.0.5.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.0.5.RELEASE'
 
+    // 配置OAuth2安全认证
+    compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.3.4.RELEASE'
+
     // hibernate
     compile group: 'org.springframework', name: 'spring-orm', version: '5.1.0.RELEASE'
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.3.6.Final'
