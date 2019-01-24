@@ -39,13 +39,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/oauth/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic()
-                .and()
-                .csrf()
-                .disable();
+                .antMatchers("/oauth/**", "/dist/**", "/bower_components/**", "/plugins/**", "/api/**", "/v2/api-docs").permitAll()
+                .anyRequest().authenticated();
+//                .and()
+//                .httpBasic()
+//                .and()
+//                .csrf()
+//                .disable();
 
 //        http.authorizeRequests()
 //                // 允许加载所有的静态资源而不拦截

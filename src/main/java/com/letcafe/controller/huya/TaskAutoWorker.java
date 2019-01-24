@@ -41,7 +41,7 @@ public class TaskAutoWorker {
     }
 
     // 完成每天观看10名主播任务
-    @Scheduled(cron = "0 0 3 * * *")
+    @Scheduled(cron = "${huya.task.worker.time.watchNumberedLive}")
     public void watchNumberedLive() {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
@@ -70,7 +70,8 @@ public class TaskAutoWorker {
     }
 
     // 完成弹幕发送任务
-    @Scheduled(cron = "${huya.task.worker.time.sendPubMessage}")
+    @Scheduled(fixedRate = 5 * 60 * 1000)
+//    @Scheduled(cron = "${huya.task.worker.time.sendPubMessage}")
     public void sendPubMessage() throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
@@ -96,6 +97,8 @@ public class TaskAutoWorker {
             chatSendButton.click();
             TimeUnit.SECONDS.sleep(1);
             logger.info("[send message to live(" + watchUrl + ")] = " + message);
+            Thread.sleep(60 * 60 * 1000);
+
         } finally {
             webDriver.quit();
             logger.info("[System] WebDriver quit");

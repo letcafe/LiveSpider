@@ -18,6 +18,14 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
+      <webServer id="dc98ae9b-1c6b-4d4c-947f-04c6ea94c376" name="电信闲置爬虫服务器1" url="http://219.150.56.235">
+        <fileTransfer host="219.150.56.235" port="22" rootFolder="/usr/local/apache-tomcat-9.0.14/webapps" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
+
 @Configuration
 @EnableAuthorizationServer
 public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
@@ -42,8 +43,8 @@ public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient("android")
-                .scopes("xx")
                 .secret("{bcrypt}" + new BCryptPasswordEncoder().encode("android"))
+                .scopes("xx")
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token", "client_credentials")
                 .authorities("oauth2")
                 .and()

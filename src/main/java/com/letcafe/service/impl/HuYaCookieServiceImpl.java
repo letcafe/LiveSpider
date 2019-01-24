@@ -1,5 +1,6 @@
 package com.letcafe.service.impl;
 
+import com.letcafe.bean.WebDriverFactory;
 import com.letcafe.service.CookieService;
 import com.letcafe.dao.RedisDao;
 import com.letcafe.util.HuYaUtils;
@@ -39,27 +40,8 @@ public class HuYaCookieServiceImpl implements CookieService {
 
     @Override
     public String simulateLogin(String username, String password, boolean isOpenGUI, boolean isShowPic) {
-        System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH);
-        ChromeOptions options = new ChromeOptions();
-
-        options.addArguments("--no-sandbox");
-        // start chrome without GUI
-        if (!SYSTEM_IS_OPEN_GUI) {
-            options.addArguments("--headless");
-        } else if (!isOpenGUI) {
-            options.addArguments("--headless");
-        }
-
-        if (!isShowPic) {
-            Map<String, Object> prefs = new HashMap<>();
-            prefs.put("profile.managed_default_content_settings.images", 2);
-            options.addArguments("--disable-images");
-            options.setExperimentalOption("prefs", prefs);
-        }
-
-        WebDriver webDriver = new ChromeDriver(options);
+        WebDriver webDriver = WebDriverFactory.getInstance();
         webDriver.get("https://i.huya.com/");
-
         // set huya login iframe and switch to it,then wait time to get its login form
         WebDriverWait loginFrameWait = new WebDriverWait(webDriver, 20, 500);
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
@@ -91,7 +73,7 @@ public class HuYaCookieServiceImpl implements CookieService {
             loginSubmit.click();
             logger.info("[System : New Cookie] login btn has been clicked");
 
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(8);
             return HuYaUtils.cookieToString(webDriver.manage().getCookies());
         } catch (Exception ex) {
             logger.warn("[System : New Cookie] try to get webdriver cookie failed, over time");
