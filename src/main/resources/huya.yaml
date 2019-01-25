@@ -5,13 +5,13 @@ huya:
   PASSWORD: gdy19941231
   # ChromeDriver解压位置
   # Windows Chrome
-#  BROWSER_TYPE: chrome
-#  BROWSER_BINARY_LOCATION: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
-#  BROWSER_DRIVER_LOCATION: C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe
+  BROWSER_TYPE: chrome
+  BROWSER_BINARY_LOCATION: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+  BROWSER_DRIVER_LOCATION: C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe
   # Windows Firefox
-  BROWSER_TYPE: firefox
-  BROWSER_BINARY_LOCATION: /usr/bin/firefox
-  BROWSER_DRIVER_LOCATION: /home/chinanet/driver/geckodriver
+#  BROWSER_TYPE: firefox
+#  BROWSER_BINARY_LOCATION: /usr/bin/firefox
+#  BROWSER_DRIVER_LOCATION: /home/chinanet/driver/geckodriver
   SYSTEM_IS_OPEN_GUI: false
   COOKIE_IN_REDIS: loginCookie:${huya.YY_ID}
   task:

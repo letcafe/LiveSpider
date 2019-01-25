@@ -4,100 +4,66 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.Random;
+import java.util.concurrent.*;
 
 public class MultiThreadsTest {
 
-    private static int capacity = 30 * 10000;
+    static final int worker = 5;
 
-    private static int addCount = 0;
+    static final int taskSize = 10000;
 
-    static long endTimestamp = 0;
+    List<Integer> multiThreadList = new CopyOnWriteArrayList<>();
 
-    static List[] lists = new List[10];
+    CountDownLatch latch;
 
-    static int threadNumber = Runtime.getRuntime().availableProcessors();
+    class MultiThreadAdder implements Runnable{
+        private int id;
+        private int start;
+        private int end;
 
-    static List<MultiThreadsTest> testList = new ArrayList<>(capacity);
-
-    static {
-        MultiThreadsTest multiThreadsTest = new MultiThreadsTest();
-        for (int i = 0; i < capacity; i++) {
-            testList.add(multiThreadsTest);
-        }
-        System.out.println("[testList.size()] = " + testList.size() + "," + capacity / 10);
-        for (int i = 0; i < 10; i ++) {
-            lists[i] = testList.subList(capacity / 10 * i, capacity / 10 * (i + 1));
-            System.out.println(lists[i].size() + "\\" + lists[i].get(0));
-        }
-    }
-
-//    @Test
-    public void multiThreads() throws InterruptedException {
-        int threadNumber = Runtime.getRuntime().availableProcessors();
-        MultiThreadsForHuYaLiveInsertAccelerate[] threads = new MultiThreadsForHuYaLiveInsertAccelerate[threadNumber];
-        System.out.println(testList.size());
-        // initialize thread array
-        for (int i = 0; i < threadNumber; i++) {
-            threads[i] = new MultiThreadsForHuYaLiveInsertAccelerate(i);
-            threads[i].setName("Thread-" + i);
-        }
-        // start to count
-        long startTimestamp = System.currentTimeMillis();
-        // start threads
-        for (int i = 0; i < threadNumber; i++) {
-            threads[i].start();
-        }
-        TimeUnit.SECONDS.sleep(5);
-        System.out.println("addCount = " + addCount);
-        System.out.println("run time = " + (endTimestamp - startTimestamp) + " ms");
-    }
-
-    @Test
-    public void singleThread() throws InterruptedException {
-        long startTimestamp = System.currentTimeMillis();
-        for (int i = 0; i < testList.size(); i++) {
-//            System.out.println(i);
-            addCount++;
-            if (addCount == capacity) {
-                endTimestamp = System.currentTimeMillis();
-            }
-        }
-        System.out.println("addCount = " + addCount);
-        System.out.println("run time = " + (endTimestamp - startTimestamp) + " ms");
-    }
-
-    class MultiThreadsForHuYaLiveInsertAccelerate extends Thread {
-        int startIndex;
-        int endIndex;
-        int roundNumber;
-        int threadCount;
-
-        public MultiThreadsForHuYaLiveInsertAccelerate(int roundNumber) {
-            this.roundNumber = roundNumber;
-            this.startIndex = capacity / threadNumber * roundNumber;
-            this.endIndex = (capacity / threadNumber) * (roundNumber + 1) - 1;
+        public MultiThreadAdder(int id, int start, int end) {
+            this.id = id;
+            this.start = start;
+            this.end = end;
         }
 
         @Override
         public void run() {
-            synchronized (testList) {
-                for (int i = startIndex; i <= endIndex; i++) {
-                    addCount++;
-                    if (addCount == capacity) {
-                        endTimestamp = System.currentTimeMillis();
-                    }
-                }
+            System.out.printf("[Worker %d] from %d to %d\n", id, start, end);
+            for (int i = start; i < end; i ++) {
+                multiThreadList.add(i);
             }
+            latch.countDown();
         }
+    }
 
-        @Override
-        public String toString() {
-            return "MultiThreadsForHuYaLiveInsertAccelerate{" +
-                    "startIndex=" + startIndex +
-                    ", endIndex=" + endIndex +
-                    ", roundNumber=" + roundNumber +
-                    '}';
+//    @Test
+    public void MultiThreadInsert() throws InterruptedException {
+        latch = new CountDownLatch(worker);
+        ExecutorService service = Executors.newCachedThreadPool();
+        for (int i = 0; i < worker; i ++) {
+            service.execute(new MultiThreadAdder(i, i * taskSize, (i + 1) * taskSize));
         }
+        long startTime = System.currentTimeMillis();
+        latch.await();
+        long endTime = System.currentTimeMillis();
+        long costTime = endTime - startTime;
+        System.out.println("MultiThreadAdder shut down. CostTime= " + costTime + "us");
+        System.out.println("[multiThreadList.size()] = " + multiThreadList.size());
+        service.shutdown();
+    }
+
+    @Test
+    public void SingleThreadTest() throws InterruptedException {
+        latch = new CountDownLatch(1);
+        ExecutorService service = Executors.newCachedThreadPool();
+        service.execute(new MultiThreadAdder(1, 0, worker * taskSize));
+        long startTime = System.currentTimeMillis();
+        latch.await();
+        long endTime = System.currentTimeMillis();
+        long costTime = endTime - startTime;
+        System.out.println("SingleThreadTest shut down. CostTime= " + costTime + "us");
+        System.out.println("[SingleThreadTest.size()] = " + multiThreadList.size());
     }
 }

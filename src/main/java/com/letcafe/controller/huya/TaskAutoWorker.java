@@ -70,8 +70,7 @@ public class TaskAutoWorker {
     }
 
     // 完成弹幕发送任务
-    @Scheduled(fixedRate = 5 * 60 * 1000)
-//    @Scheduled(cron = "${huya.task.worker.time.sendPubMessage}")
+    @Scheduled(cron = "${huya.task.worker.time.sendPubMessage}")
     public void sendPubMessage() throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
