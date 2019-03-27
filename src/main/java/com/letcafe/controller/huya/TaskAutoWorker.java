@@ -56,7 +56,7 @@ public class TaskAutoWorker {
             for (int i = 0; i < 12; i++) {
                 String watchUrl = "https://www.huya.com/" + liveInfoList.get(i).getProfileRoom();
                 webDriver.get(watchUrl);
-                TimeUnit.SECONDS.sleep(5);
+                Thread.sleep(10);
                 logger.info("[Task:watch 10 live one day] No.{} watch url = {}", i + 1, watchUrl);
             }
             logger.info("[Watch 10 Live] end");
@@ -192,6 +192,7 @@ public class TaskAutoWorker {
             logger.error("[System: ERROR] finish three guess one day failed, reason = " + ex1.getMessage());
         } catch (Exception ex2) {
             logger.error("[System: ERROR] " + ex2.getMessage());
+            ex2.printStackTrace();
         } finally {
             webDriver.quit();
             logger.info("[System] WebDriver quit");
