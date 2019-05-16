@@ -12,7 +12,7 @@
 >Spring framework support:https://projects.spring.io/spring-framework/  
 >SpringFox Swagger support:https://springfox.github.io/springfox/  
 >Hibernate support:http://hibernate.org/  
->Gradle support:https://gradle.org/
+>Maven support:http://maven.apache.org/
 
 ## Deploy notice
 + <del>Visit url：http://localhost:8080/index</del>(On the way...)
@@ -228,3 +228,7 @@
 + \+ 提供支持Selenium各类浏览器的结构框架
 + \+ 在原有对Chrome的支持上，新增Firefox支持
 + \~ webdriver获取的结构
+
+
+### 2019-05-16
++ \~ 项目由gradle改用Maven构建

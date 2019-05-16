@@ -1,10 +1,7 @@
 package com.letcafe.bean;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name = "huya_game_type")
 public class HuYaGameType {

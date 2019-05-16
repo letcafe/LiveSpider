@@ -2,11 +2,15 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="LiveSpider" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="LiveSpider_main" target="1.8" />
-      <module name="LiveSpider_test" target="1.8" />
+      <module name="LiveSpider" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
