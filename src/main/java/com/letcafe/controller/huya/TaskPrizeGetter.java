@@ -1,10 +1,10 @@
 package com.letcafe.controller.huya;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.letcafe.bean.HuYaTask;
 import com.letcafe.service.CookieService;
 import com.letcafe.service.HuYaTaskService;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,8 +81,8 @@ public class TaskPrizeGetter {
         String responseResult = responseEntity.getBody();
         if (responseResult != null) {
             responseResult = responseResult.substring(responseResult.indexOf("{"), responseResult.lastIndexOf("}") + 1);
-            JSONObject jsonObject = new JSONObject(responseResult);
-            return jsonObject.getInt("status");
+            JSONObject jsonObject = JSONObject.parseObject(responseResult);
+            return jsonObject.getInteger("status");
         }
         return -1;
     }
@@ -109,24 +109,24 @@ public class TaskPrizeGetter {
             //EntityUtils.toString (responseEntity,"utf-8")
             entity = responseEntity.getBody();
             entity = entity.substring(entity.indexOf("{"), entity.lastIndexOf("}") + 1);
-            JSONObject rawJson = new JSONObject(entity);
+            JSONObject rawJson = JSONObject.parseObject(entity);
 
             JSONObject huyaNavUserCard = rawJson.getJSONObject("data");
             JSONArray tasksArrayJson = huyaNavUserCard.getJSONArray("tasks");
-            for (int i = 0; i < tasksArrayJson.length(); i++) {
+            for (int i = 0; i < tasksArrayJson.size(); i++) {
                 JSONObject taskJson = tasksArrayJson.getJSONObject(i);
-                HuYaTask task = new HuYaTask(taskJson.getInt("id"),
+                HuYaTask task = new HuYaTask(taskJson.getInteger("id"),
                         taskJson.getString("name"),
                         taskJson.getString("desc"),
                         taskJson.getString("enable"),
-                        taskJson.getInt("exper"),
+                        taskJson.getInteger("exper"),
                         taskJson.getString("icon"),
                         taskJson.getString("className"),
                         "" + taskJson.get("awardPrize"),
-                        taskJson.getInt("progress"),
-                        taskJson.getInt("progressMode"),
-                        taskJson.getInt("targetLevel"),
-                        taskJson.getInt("type"));
+                        taskJson.getInteger("progress"),
+                        taskJson.getInteger("progressMode"),
+                        taskJson.getInteger("targetLevel"),
+                        taskJson.getInteger("type"));
                 tasksList.add(task);
             }
             Collections.sort(tasksList);

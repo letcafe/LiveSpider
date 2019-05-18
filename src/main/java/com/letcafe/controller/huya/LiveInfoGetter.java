@@ -1,13 +1,12 @@
 package com.letcafe.controller.huya;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.letcafe.bean.HuYaLiveInfo;
 import com.letcafe.bean.mongo.LiveInfoLog;
 import com.letcafe.service.HuYaGameTypeService;
 import com.letcafe.service.HuYaLiveInfoService;
 import com.letcafe.service.LiveInfoLogService;
-import com.letcafe.util.JacksonUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,11 +54,12 @@ public class LiveInfoGetter {
         requestBody.put("do", "getProfileRecommendList");
         requestBody.put("gid", gid);
         ResponseEntity<String> responseEntity = restTemplate.getForEntity("https://www.huya.com/cache10min.php?m={m}&do={do}&gid={gid}", String.class, requestBody);
+        System.out.println("[responseEntity.getBody()] = " + responseEntity.getBody());
         if (responseEntity.getStatusCode() == HttpStatus.OK && responseEntity.getBody() != null) {
-            JSONObject jsonObject = new JSONObject(responseEntity.getBody());
+            JSONObject jsonObject = JSONObject.parseObject(responseEntity.getBody());
             JSONArray jsonArray = jsonObject.getJSONArray("data");
-            for (int i = 0; i < jsonArray.length(); i ++) {
-                HuYaLiveInfo huYaLiveInfo = JacksonUtils.readValue(jsonArray.get(i).toString(), HuYaLiveInfo.class);
+            for (int i = 0; i < jsonArray.size(); i ++) {
+                HuYaLiveInfo huYaLiveInfo = jsonArray.getObject(i, HuYaLiveInfo.class);
                 huYaLiveInfoList.add(huYaLiveInfo);
             }
             return huYaLiveInfoList;
@@ -78,10 +78,10 @@ public class LiveInfoGetter {
         requestBody.put("gid", gid);
         ResponseEntity<String> responseEntity = restTemplate.getForEntity("https://www.huya.com/cache10min.php?m={m}&do={do}&gid={gid}", String.class, requestBody);
         if (responseEntity.getStatusCode() == HttpStatus.OK && responseEntity.getBody() != null) {
-            JSONObject jsonObject = new JSONObject(responseEntity.getBody());
+            JSONObject jsonObject = JSONObject.parseObject(responseEntity.getBody());
             JSONArray jsonArray = jsonObject.getJSONArray("data");
-            for (int i = 0; i < jsonArray.length(); i ++) {
-                HuYaLiveInfo huya = JacksonUtils.readValue(jsonArray.get(i).toString(), HuYaLiveInfo.class);
+            for (int i = 0; i < jsonArray.size(); i ++) {
+                HuYaLiveInfo huya = jsonArray.getObject(i, HuYaLiveInfo.class);
                 LiveInfoLog liveInfoLog = new LiveInfoLog(
                         huya.getUid(),
                         huya.getSex(),

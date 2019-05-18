@@ -1,12 +1,12 @@
 package com.letcafe.controller.huya;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.letcafe.bean.HuYaLiveInfo;
 import com.letcafe.generator.GameIdGen;
 import com.letcafe.generator.HuYaLiveInfoGen;
 import com.letcafe.service.CookieService;
 import com.letcafe.service.WebDriverService;
-import org.json.JSONObject;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -116,7 +116,7 @@ public class TaskAutoWorker {
         TimeUnit.SECONDS.sleep(10);
         JSONObject unSubObj = unSubscribeLiveRoom(subscribeUid);
         if (subObj != null && unSubObj != null) {
-            if (subObj.getInt("status") == 1 && unSubObj.getInt("status") == 3) {
+            if (subObj.getInteger("status") == 1 && unSubObj.getInteger("status") == 3) {
                 logger.info("[Subscribe One Live] task successfully done");
             } else {
                 logger.error("[Subscribe One Live] failed,status code not equal the standard");
@@ -126,7 +126,11 @@ public class TaskAutoWorker {
         }
     }
 
-    // 完成给三个主播送礼物的任务 + 给自己订阅的主播送7个虎粮
+    /**
+     * 完成给三个主播送礼物的任务 + 给自己订阅的主播送7个虎粮
+     * @throws InterruptedException 线程被打断
+     */
+    @Scheduled(fixedRate = 10 * 60 * 1000)
     @Scheduled(cron = "${huya.task.worker.time.sendGiftTo3LiveRoom}")
     public void sendGiftTo3LiveRoom() throws InterruptedException {
         // 虎粮代表4
@@ -145,7 +149,10 @@ public class TaskAutoWorker {
     }
 
 
-    // 完成每天观看一小时，获取六个宝箱任务
+    /**
+     * 完成每天观看一小时，获取六个宝箱任务
+     * @throws InterruptedException 线程被打断
+     */
     @Scheduled(cron = "${huya.task.worker.time.watchLiveGetSixTreasure}")
     public void watchLiveGetSixTreasure() throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
@@ -171,7 +178,10 @@ public class TaskAutoWorker {
         }
     }
 
-    // 完成每日三次竞猜任务
+    /**
+     * 完成每日三次竞猜任务
+     * @throws InterruptedException 线程被打断
+     */
     @Scheduled(cron = "${huya.task.worker.time.guessInLiveRoom}")
     public void guessInLiveRoom() throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
@@ -199,7 +209,11 @@ public class TaskAutoWorker {
         }
     }
 
-    // 根据给定的webDriver,领取所有的宝箱奖励
+    /**
+     * 根据给定的webDriver,领取所有的宝箱奖励
+     * @param webDriver web浏览器
+     * @throws InterruptedException 线程被打断
+     */
     private void receiveSixTreasurePrize(WebDriver webDriver) throws InterruptedException {
         WebDriverWait waitForThisPage = new WebDriverWait(webDriver, 20, 500);
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
@@ -302,7 +316,7 @@ public class TaskAutoWorker {
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class, requestBody);
         if (responseEntity.getStatusCode() == HttpStatus.OK && responseEntity.getBody() != null) {
             String responseString = responseEntity.getBody();
-            JSONObject jsonObject = new JSONObject(responseString.substring(responseString.indexOf('{'), responseString.lastIndexOf('}') + 1));
+            JSONObject jsonObject = JSONObject.parseObject(responseString.substring(responseString.indexOf('{'), responseString.lastIndexOf('}') + 1));
             logger.info("[Subscribe One Live] JSON = {}", jsonObject);
             return jsonObject;
         } else {
@@ -334,7 +348,7 @@ public class TaskAutoWorker {
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class, requestBody);
         if (responseEntity.getStatusCode() == HttpStatus.OK && responseEntity.getBody() != null) {
             String responseString = responseEntity.getBody();
-            JSONObject jsonObject = new JSONObject(responseString.substring(responseString.indexOf('{'), responseString.lastIndexOf('}') + 1));
+            JSONObject jsonObject = JSONObject.parseObject(responseString.substring(responseString.indexOf('{'), responseString.lastIndexOf('}') + 1));
             logger.info("[UnSubscribe One Live] JSON = {}", jsonObject);
             return jsonObject;
         } else {

@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,7 +18,7 @@ public class HuYaLiveInfo {
     @Column(name = "game_host_name")
     private Integer gameHostName;
     @Column(name = "start_time")
-    private LocalDateTime startTime;
+    private Long startTime;
     @Column(name = "activity_id")
     private Integer activityId;
     private Integer level;
@@ -80,7 +79,7 @@ public class HuYaLiveInfo {
     private String game;
     private Integer user_count;
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-    private LocalDateTime live_time;
+    private Long live_time;
 
     public Long getUid() {
         return uid;
@@ -112,14 +111,6 @@ public class HuYaLiveInfo {
 
     public void setGameHostName(Integer gameHostName) {
         this.gameHostName = gameHostName;
-    }
-
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
     }
 
     public Integer getActivityId() {
@@ -402,20 +393,20 @@ public class HuYaLiveInfo {
         this.user_count = user_count;
     }
 
-    public LocalDateTime getLive_time() {
+    public Long getLive_time() {
         return live_time;
     }
 
-    public void setLive_time(LocalDateTime live_time) {
+    public void setLive_time(Long live_time) {
         this.live_time = live_time;
     }
 
-    public void setStartTime(Long startTime) {
-        this.startTime = new Timestamp(startTime * 1000).toLocalDateTime();
+    public Long getStartTime() {
+        return startTime;
     }
 
-    public void setLive_time(Long live_time) {
-        this.live_time = new Timestamp(live_time * 1000).toLocalDateTime();
+    public void setStartTime(Long startTime) {
+        this.startTime = startTime;
     }
 
 

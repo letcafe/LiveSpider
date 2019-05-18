@@ -1,10 +1,9 @@
 package com.letcafe.controller.huya;
 
+import com.alibaba.fastjson.JSONObject;
 import com.letcafe.bean.HuYaUserLevel;
 import com.letcafe.service.CookieService;
 import com.letcafe.service.HuYaUserLevelService;
-import com.letcafe.util.JacksonUtils;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
-import java.io.IOException;
 
 import static com.letcafe.util.HuYaUtils.YY_ID;
 
@@ -37,7 +34,9 @@ public class UserLevelAndTaskGetter {
     }
 
 
-    // 获取用户的基本信息情况
+    /**
+     * 
+     */
     @Scheduled(cron = "${huya.user.info.time.setUserBasicInfo}")
     public void setUserBasicInfo() {
         RestTemplate restTemplate = new RestTemplate();
@@ -59,14 +58,14 @@ public class UserLevelAndTaskGetter {
             //EntityUtils.toString (responseEntity,"utf-8")
             entity = responseEntity.getBody();
             entity = entity.substring(entity.indexOf("{"), entity.lastIndexOf("}") + 1);
-            JSONObject rawJson = new JSONObject(entity);
+            JSONObject rawJson = JSONObject.parseObject(entity);
 
             JSONObject huyaNavUserCard = rawJson.getJSONObject("data");
             JSONObject userLevel = huyaNavUserCard.getJSONObject("level");
 
             //parse json data, and get its data-level, then make it into obj
             String levelData = userLevel.toString();
-            HuYaUserLevel huYaUserLevel = JacksonUtils.readValue(levelData, HuYaUserLevel.class);
+            HuYaUserLevel huYaUserLevel = JSONObject.parseObject(levelData, HuYaUserLevel.class);
             logger.info("[Task Finish Status : MySQL] add number = {}", entity.length());
             if(huYaUserLevel != null) {
                 huYaUserLevel.setYyId(YY_ID);
