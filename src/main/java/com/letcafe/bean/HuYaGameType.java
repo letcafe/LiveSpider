@@ -9,6 +9,9 @@ public class HuYaGameType {
     private Integer gid;
     private String name;
 
+    public HuYaGameType() {
+    }
+
     public HuYaGameType(Integer gid, String name) {
         this.gid = gid;
         this.name = name;

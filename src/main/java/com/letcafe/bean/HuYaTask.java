@@ -31,6 +31,9 @@ public class HuYaTask implements Comparable<HuYaTask>{
     private Integer subTaskTargetLevel;
     private Integer type;
 
+    public HuYaTask() {
+    }
+
     public HuYaTask(Integer task_id, String name, String description, String enable, Integer exper, String icon, String className, String awardPrize, Integer progress, Integer progressMode, Integer targetLevel, Integer type) {
         this.task_id = task_id;
         this.name = name;

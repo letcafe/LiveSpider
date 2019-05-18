@@ -34,7 +34,7 @@ public class HuYaCookieServiceImpl implements CookieService {
     }
 
     @Override
-    public String simulateLogin(String username, String password, boolean isOpenGUI, boolean isShowPic) {
+    public String simulateLogin(String username, String password) {
         WebDriver webDriver = WebDriverFactory.getInstance();
         webDriver.get("https://i.huya.com/");
         // set huya login iframe and switch to it,then wait time to get its login form
@@ -82,11 +82,11 @@ public class HuYaCookieServiceImpl implements CookieService {
     @Override
     public void setUserCookieInRedis(String username, String password) {
         int tryToLoginTime = 3;
-        String cookieIntoRedis = simulateLogin(username, password, false, false);
+        String cookieIntoRedis = simulateLogin(username, password);
         // 三次尝试登陆以获取Cookie
         while (tryToLoginTime != 0 && cookieIntoRedis == null) {
             logger.warn("[Cookie : Redis] login and then get cookie failed, try to get once more,[try time] = " + (4 - tryToLoginTime));
-            cookieIntoRedis = simulateLogin(username, password, false, false);
+            cookieIntoRedis = simulateLogin(username, password);
             tryToLoginTime --;
         }
         // 如果尝试3次失败，都未获得到Cookie，那么日志记录故障
