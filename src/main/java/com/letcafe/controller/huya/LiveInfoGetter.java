@@ -107,6 +107,7 @@ public class LiveInfoGetter {
         for (Integer gid : gidList) {
             List<HuYaLiveInfo> liveList = listHuYaLiveByGid(gid);
             for (HuYaLiveInfo liveInfo : liveList) {
+                System.out.println("[liveInfo] = " + liveInfo);
                 huYaLiveInfoService.saveOrUpdate(liveInfo);
             }
         }
