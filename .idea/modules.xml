@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/LiveSpider.iml" filepath="$PROJECT_DIR$/LiveSpider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LiveSpider.iml" filepath="$PROJECT_DIR$/LiveSpider.iml" group="LiveSpider" />
     </modules>
   </component>
 </project>

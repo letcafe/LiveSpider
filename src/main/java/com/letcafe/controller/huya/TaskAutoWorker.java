@@ -130,7 +130,6 @@ public class TaskAutoWorker {
      * 完成给三个主播送礼物的任务 + 给自己订阅的主播送7个虎粮
      * @throws InterruptedException 线程被打断
      */
-    @Scheduled(fixedRate = 10 * 60 * 1000)
     @Scheduled(cron = "${huya.task.worker.time.sendGiftTo3LiveRoom}")
     public void sendGiftTo3LiveRoom() throws InterruptedException {
         // 虎粮代表4

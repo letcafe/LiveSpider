@@ -82,7 +82,7 @@ public class HuYaCookieServiceImpl implements CookieService {
     @Override
     public void setUserCookieInRedis(String username, String password) {
         int tryToLoginTime = 3;
-        String cookieIntoRedis = simulateLogin(username, password, true, false);
+        String cookieIntoRedis = simulateLogin(username, password, false, false);
         // 三次尝试登陆以获取Cookie
         while (tryToLoginTime != 0 && cookieIntoRedis == null) {
             logger.warn("[Cookie : Redis] login and then get cookie failed, try to get once more,[try time] = " + (4 - tryToLoginTime));

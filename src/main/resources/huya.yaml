@@ -2,7 +2,7 @@ huya:
   # 虎牙登录账号/手机号
   YY_ID: 17822000706
   # 虎牙登录密码
-  PASSWORD: gdy19941231
+  PASSWORD: Aa123456
   # ChromeDriver解压位置
   # Windows Chrome
   BROWSER_TYPE: chrome
