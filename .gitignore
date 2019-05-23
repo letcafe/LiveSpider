@@ -1,10 +1,1 @@
 # Created by .ignore support plugin (hsz.mobi)
-.gradle/
-.idea/dataSources.local.xml
-.idea/dataSources/
-.idea/workspace.xml
-build/
-out/
-src/main/resources/static/audio/
-src/main/resources/static/video/
-src/main/resources/*-prod.yaml
