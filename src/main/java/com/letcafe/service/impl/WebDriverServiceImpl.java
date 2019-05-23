@@ -3,6 +3,7 @@ package com.letcafe.service.impl;
 import com.letcafe.bean.WebDriverFactory;
 import com.letcafe.service.CookieService;
 import com.letcafe.service.WebDriverService;
+import com.letcafe.util.CookieUtils;
 import com.letcafe.util.HuYaUtils;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
@@ -35,7 +36,7 @@ public class WebDriverServiceImpl implements WebDriverService {
             if (cookieInRedis == null) {
                 return null;
             }
-            Set<Cookie> cookies = HuYaUtils.stringToCookies(cookieInRedis);
+            Set<Cookie> cookies = CookieUtils.stringToCookies(cookieInRedis);
             for (Cookie cookie : cookies) {
                 webDriver.manage().addCookie(cookie);
             }

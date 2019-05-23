@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "huya_live_info")
@@ -12,15 +12,17 @@ public class HuYaLiveInfo {
 
     @Id
     private Long uid;
+    @Column(name = "sex")
     private Integer sex;
     @Column(name = "game_full_name")
     private String gameFullName;
     @Column(name = "game_host_name")
     private Integer gameHostName;
     @Column(name = "start_time")
-    private Long startTime;
+    private Timestamp startTime;
     @Column(name = "activity_id")
     private Integer activityId;
+    @Column(name = "level")
     private Integer level;
     @Column(name = "total_count")
     private Integer totalCount;
@@ -34,7 +36,9 @@ public class HuYaLiveInfo {
     private Long liveChannel;
     @Column(name = "buss_type")
     private Integer bussType;
+    @Column(name = "yyid")
     private String yyid;
+    @Column(name = "screenshot")
     private String screenshot;
     @Column(name = "activity_count")
     private Integer activityCount;
@@ -42,11 +46,15 @@ public class HuYaLiveInfo {
     private String privateHost;
     @Column(name = "recommend_status")
     private Integer recommendStatus;
+    @Column(name = "nick")
     private String nick;
     @Column(name = "short_channel")
     private Integer shortChannel;
+    @Column(name = "avatar180")
     private String avatar180;
+    @Column(name = "gid")
     private Integer gid;
+    @Column(name = "channel")
     private Long channel;
     private String introduction;
     @Column(name = "profile_home_host")
@@ -75,11 +83,17 @@ public class HuYaLiveInfo {
     private String rankLabel;
     @Column(name = "live_host")
     private String liveHost;
+    @Column(name = "avatar")
     private String avatar;
+    @Column(name = "game")
     private String game;
-    private Integer user_count;
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-    private Long live_time;
+    @Column(name = "user_count")
+    private Integer userCount;
+    @Column(name = "live_time")
+    private Timestamp liveTime;
+
+    public HuYaLiveInfo() {
+    }
 
     public Long getUid() {
         return uid;
@@ -111,6 +125,14 @@ public class HuYaLiveInfo {
 
     public void setGameHostName(Integer gameHostName) {
         this.gameHostName = gameHostName;
+    }
+
+    public Timestamp getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
     }
 
     public Integer getActivityId() {
@@ -385,30 +407,21 @@ public class HuYaLiveInfo {
         this.game = game;
     }
 
-    public Integer getUser_count() {
-        return user_count;
+    public Integer getUserCount() {
+        return userCount;
     }
 
-    public void setUser_count(Integer user_count) {
-        this.user_count = user_count;
+    public void setUserCount(Integer userCount) {
+        this.userCount = userCount;
     }
 
-    public Long getLive_time() {
-        return live_time;
+    public Timestamp getLiveTime() {
+        return liveTime;
     }
 
-    public void setLive_time(Long live_time) {
-        this.live_time = live_time;
+    public void setLiveTime(Timestamp liveTime) {
+        this.liveTime = liveTime;
     }
-
-    public Long getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Long startTime) {
-        this.startTime = startTime;
-    }
-
 
     @Override
     public String toString() {
@@ -452,8 +465,8 @@ public class HuYaLiveInfo {
                 ", liveHost='" + liveHost + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", game='" + game + '\'' +
-                ", user_count=" + user_count +
-                ", live_time=" + live_time +
+                ", userCount=" + userCount +
+                ", liveTime=" + liveTime +
                 '}';
     }
 }

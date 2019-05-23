@@ -1,6 +1,7 @@
 package com.letcafe.aop;
 
 import com.letcafe.service.CookieService;
+import com.letcafe.util.HuYaUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -25,18 +26,15 @@ public class CookieInRedisCheck {
         this.cookieService = cookieService;
     }
 
-    //切点出去所有的关于API Token的API
-    @Around("execution(* com.letcafe.controller.huya.*.*(..)) && @annotation(org.springframework.scheduling.annotation.Scheduled)")
+    /**
+     * 切点出去所有的关于API Token的API
+     */
+    @Around("execution(* com.letcafe.controller.huya.*.*(..)) " +
+            "&& @annotation(org.springframework.scheduling.annotation.Scheduled)")
     public void checkCookieInRedis(ProceedingJoinPoint point) throws Throwable {
         String cookie = cookieService.getUserCookieInRedis(YY_ID);
-        String checkLoginOrNotString = ";username=";
-        if (cookie != null && !cookie.contains(checkLoginOrNotString)) {
-            logger.error("[System ERROR] cookie in redis doesn't not contain \"" + checkLoginOrNotString + "\" which means login failed.");
-            logger.error("Full Key In Redis = {}", cookie);
-            return;
-        }
         if (cookie == null) {
-            logger.warn("[Cookie Check : Redis] cookie is null, new cookie has been stored");
+            logger.warn("[Cookie Check : Redis] cookie is null, new cookie will be stored");
             cookieService.setUserCookieInRedis(YY_ID, PASSWORD);
             logger.info("[Cookie Check : Redis] new cookie = {}", cookieService.getUserCookieInRedis(YY_ID));
         }

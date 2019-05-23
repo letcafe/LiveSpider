@@ -3,6 +3,7 @@ package com.letcafe.service.impl;
 import com.letcafe.bean.WebDriverFactory;
 import com.letcafe.service.CookieService;
 import com.letcafe.dao.RedisDao;
+import com.letcafe.util.CookieUtils;
 import com.letcafe.util.HuYaUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -47,7 +48,7 @@ public class HuYaCookieServiceImpl implements CookieService {
 
             WebElement loginMultiBox = webDriver.findElement(By.cssSelector(".UDBSdkLgn-box"));
 
-            List<WebElement> loginInnerBoxList = loginMultiBox.findElements(By.cssSelector(".UDBSdkLgn-inner")) ;
+            List<WebElement> loginInnerBoxList = loginMultiBox.findElements(By.cssSelector(".UDBSdkLgn-inner"));
             for (WebElement loginBox : loginInnerBoxList) {
                 String loginBoxCssClass = loginBox.getAttribute("className");
                 if (loginBoxCssClass.contains("account")) {
@@ -69,7 +70,7 @@ public class HuYaCookieServiceImpl implements CookieService {
             logger.info("[System : New Cookie] login btn has been clicked");
 
             TimeUnit.SECONDS.sleep(8);
-            return HuYaUtils.cookieToString(webDriver.manage().getCookies());
+            return CookieUtils.cookieToString(webDriver.manage().getCookies());
         } catch (Exception ex) {
             logger.warn("[System : New Cookie] try to get webdriver cookie failed, over time");
             ex.printStackTrace(System.out);
@@ -81,25 +82,23 @@ public class HuYaCookieServiceImpl implements CookieService {
 
     @Override
     public void setUserCookieInRedis(String username, String password) {
-        int tryToLoginTime = 3;
-        String cookieIntoRedis = simulateLogin(username, password);
-        // 三次尝试登陆以获取Cookie
-        while (tryToLoginTime != 0 && cookieIntoRedis == null) {
-            logger.warn("[Cookie : Redis] login and then get cookie failed, try to get once more,[try time] = " + (4 - tryToLoginTime));
-            cookieIntoRedis = simulateLogin(username, password);
-            tryToLoginTime --;
+        for (int i = 1; i <= HuYaUtils.ATTEMPT_TIMES; i++) {
+            String cookieIntoRedis = simulateLogin(username, password);
+            // 如果找到了正确的Cookie
+            if (cookieIntoRedis != null && cookieIntoRedis.contains(HuYaUtils.CHECK_LOGIN_STRING)) {
+                // Redis中的值将保留六天，配合周三周日刷新，不会失效(后面的计算6天的值，会由编译器进行优化编译)
+                redisDao.setKeyValueWithExpireTime("loginCookie:" + username, cookieIntoRedis, 6 * 24 * 60 * 60 * 1000);
+                return;
+            }
+            // 如果没找到，开始重试
+            logger.warn("[Cookie Setter] login failed, try for " + i + " times");
         }
-        // 如果尝试3次失败，都未获得到Cookie，那么日志记录故障
-        if(cookieIntoRedis == null) {
-            logger.error("[Cookie : Redis] login and then get cookie failed, may come into some network error");
-            return;
-        }
-        // Redis中的值将保留六天，配合周三周日刷新，不会失效
-        redisDao.setKeyValueWithExpireTime("loginCookie:" + username, cookieIntoRedis, 6 * 24 * 60 * 60 * 1000);
+        // 重试超过失败次数，打印错误日志
+        logger.error("[Cookie Setter] finally failed, may come into some network error");
     }
 
     @Override
     public String getUserCookieInRedis(String username) {
-        return redisDao.getStringValue("loginCookie:" + username);
+        return redisDao.getStringValue(HuYaUtils.COOKIE_IN_REDIS);
     }
 }

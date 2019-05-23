@@ -16,6 +16,7 @@ huya:
 #  BROWSER_DRIVER_LOCATION: /usr/bin/chromedriver
   SYSTEM_IS_OPEN_GUI: false
   COOKIE_IN_REDIS: loginCookie:${huya.YY_ID}
+  ATTEMPT_TIMES: 3
   task:
     worker:
       time:
