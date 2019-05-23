@@ -9,5 +9,8 @@
         <module name="LiveSpider" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="LiveSpider" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
