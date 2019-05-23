@@ -99,7 +99,9 @@ public class LiveInfoGetter {
         }
     }
 
-    // 更新数据库中主播的直播间详细信息
+    /**
+     * 更新数据库中主播的直播间详细信息
+     */
     @Scheduled(cron = "${huya.task.status.time.saveOrUpdateLiveInfo}")
     public void saveOrUpdateLiveInfo() {
         long startTime = System.currentTimeMillis();
@@ -107,7 +109,6 @@ public class LiveInfoGetter {
         for (Integer gid : gidList) {
             List<HuYaLiveInfo> liveList = listHuYaLiveByGid(gid);
             for (HuYaLiveInfo liveInfo : liveList) {
-                System.out.println("[liveInfo] = " + liveInfo);
                 huYaLiveInfoService.saveOrUpdate(liveInfo);
             }
         }
@@ -115,7 +116,9 @@ public class LiveInfoGetter {
         logger.info("[SaveOrUpdate Live Info] cost time = {}s", (endTime - startTime) / 1000);
     }
 
-    // 将LOL游戏的直播日志存放于MongoDB中
+    /**
+     * 将LOL游戏的直播日志存放于MongoDB中
+     */
     @Scheduled(cron = "${huya.task.status.time.saveLiveLogs}")
     public void saveLiveLogs() {
         int addGameId = 1;
