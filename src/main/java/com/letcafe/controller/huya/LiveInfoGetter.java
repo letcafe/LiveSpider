@@ -54,7 +54,6 @@ public class LiveInfoGetter {
         requestBody.put("do", "getProfileRecommendList");
         requestBody.put("gid", gid);
         ResponseEntity<String> responseEntity = restTemplate.getForEntity("https://www.huya.com/cache10min.php?m={m}&do={do}&gid={gid}", String.class, requestBody);
-        System.out.println("[responseEntity.getBody()] = " + responseEntity.getBody());
         if (responseEntity.getStatusCode() == HttpStatus.OK && responseEntity.getBody() != null) {
             JSONObject jsonObject = JSONObject.parseObject(responseEntity.getBody());
             JSONArray jsonArray = jsonObject.getJSONArray("data");
