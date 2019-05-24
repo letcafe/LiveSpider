@@ -40,7 +40,9 @@ public class TaskAutoWorker {
         this.cookieService = cookieService;
     }
 
-    // 完成每天观看10名主播任务
+    /**
+     * 完成每天观看10名主播任务
+     */
     @Scheduled(cron = "${huya.task.worker.time.watchNumberedLive}")
     public void watchNumberedLive() {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
@@ -69,7 +71,10 @@ public class TaskAutoWorker {
         }
     }
 
-    // 完成弹幕发送任务
+    /**
+     * 完成弹幕发送任务
+     * @throws InterruptedException sleep中断异常
+     */
     @Scheduled(cron = "${huya.task.worker.time.sendPubMessage}")
     public void sendPubMessage() throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
@@ -104,7 +109,10 @@ public class TaskAutoWorker {
         }
     }
 
-    // 完成订阅直播间任务
+    /**
+     * 完成订阅直播间任务
+     * @throws InterruptedException sleep中断异常
+     */
     @Scheduled(cron = "${huya.task.worker.time.subscribeOneLiveRoomTask}")
     public void subscribeOneLiveRoomTask() throws InterruptedException {
         LiveInfoGetter liveInfoGetter = new LiveInfoGetter();
@@ -445,7 +453,12 @@ public class TaskAutoWorker {
         return guessBox.isDisplayed();
     }
 
-    // 单参数重载
+    /**
+     * 单参数重载
+     * @param url 竞猜的地址
+     * @return 是否成功
+     * @throws InterruptedException sleep中断异常
+     */
     private boolean hasGuessInLiveRoom(String url) throws InterruptedException {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {

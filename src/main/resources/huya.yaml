@@ -14,7 +14,7 @@ huya:
 #  BROWSER_BINARY_LOCATION: /usr/bin/firefox
 #  BROWSER_DRIVER_LOCATION: /home/chinanet/driver/geckodriver
 #  BROWSER_DRIVER_LOCATION: /usr/bin/chromedriver
-  SYSTEM_IS_OPEN_GUI: false
+  SYSTEM_IS_OPEN_GUI: TRUE
   COOKIE_IN_REDIS: loginCookie:${huya.YY_ID}
   ATTEMPT_TIMES: 3
   task:

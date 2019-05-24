@@ -33,9 +33,6 @@ public class WebDriverServiceImpl implements WebDriverService {
         try {
             webDriver.get("https://www.huya.com/");
             String cookieInRedis = cookieService.getUserCookieInRedis(username);
-            if (cookieInRedis == null) {
-                return null;
-            }
             Set<Cookie> cookies = CookieUtils.stringToCookies(cookieInRedis);
             for (Cookie cookie : cookies) {
                 webDriver.manage().addCookie(cookie);
@@ -43,8 +40,6 @@ public class WebDriverServiceImpl implements WebDriverService {
         } catch (Exception ex) {
             logger.error("[WebDriver Error] = " + ex.getMessage());
             ex.printStackTrace(System.err);
-            return null;
-        } finally {
             webDriver.quit();
         }
         return webDriver;
