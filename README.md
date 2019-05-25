@@ -23,21 +23,7 @@
 + 6个百宝箱在早上7点刷新?(正在验证...)
 
 ## 定时任务：
-### 爬取数据
-+ 0 20/30 * * * * => LiveInfoGetter.updateAllHuYaLiveInfo => 每30分钟更新直播间信息于MySQL
-+ 0 0 0 ? * SUN,WED => UserLevelAndTaskGetter.setUserLoginCookie => 每周日、周三零点更新登录Cookie
-+ 0 20/15 * * * * => LiveInfoGetter.insertLiveLogsToMongo => 每30分钟获取前20条LOL的直播信息存MongoDB
-+ 0 0 0/4 * * * => UserLevelAndTaskGetter.setUserTaskStatus => 每隔4小时获取用户经验状态存MySQL
-+ 0 0/10 * * * * * => GameTypeGetter.gameTypeScheduled => 每隔10分钟更新一次游戏列表于MySQL
-+ 0 59 23 * * * => GameTypeGetter.gameTypeScheduled => 每天23时59分获取今天任务完成情况于MySQL
-### 每日任务自动完成
-+ 0 0 3 * * * => TaskAutoWorker.watchNumberedLive => 每天凌晨3：00完成观看10名主播的任务
-+ 0 10 3 * * * => TaskAutoWorker.sendPubMessage => 每天凌晨3：10完成发送一条弹幕任务
-+ 0 15 3 * * * => TaskAutoWorker.subscribeOneLiveRoomTask => 每天凌晨3:15订阅一个DNF主播并10s后取消订阅
-+ 0 20 3 * * * => TaskPrizeGetter.sendGiftTo3LiveRoom => 每天凌晨3:20给LOL列表前三主播送礼物（默认虎粮:id = 4）
-+ 0 30 3 * * * => TaskPrizeGetter.guessInLiveRoom => 每天凌晨3:30给完成所有竞猜相关任务
-+ 0 30 6 * * * => TaskAutoWorker.watchLiveGetSixTreasure => 每天上午6：30观看55分钟直播以获得6个宝箱，并领取（宝箱6点刷）
-+ 0 30 7 * * * => TaskPrizeGetter.getAllTaskPrize => 每天上午7点半收取所有的任务经验
+<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/structure.png" width="450px"></image>
 
 ## Framework (Updated in 2018-10-05)
 <img src="https://github.com/letcafe/LiveSpider/blob/master/picture/framework.png" width="450px"></image>
