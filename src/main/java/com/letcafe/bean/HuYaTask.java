@@ -5,12 +5,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "huya_tasks")
-public class HuYaTask implements Comparable<HuYaTask>{
+public class HuYaTask implements Comparable<HuYaTask> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer task_id;
+    @Column(name = "task_id")
+    private Integer taskId;
     private String name;
     private String description;
     private String enable;
@@ -34,8 +35,8 @@ public class HuYaTask implements Comparable<HuYaTask>{
     public HuYaTask() {
     }
 
-    public HuYaTask(Integer task_id, String name, String description, String enable, Integer exper, String icon, String className, String awardPrize, Integer progress, Integer progressMode, Integer targetLevel, Integer type) {
-        this.task_id = task_id;
+    public HuYaTask(Integer taskId, String name, String description, String enable, Integer exper, String icon, String className, String awardPrize, Integer progress, Integer progressMode, Integer targetLevel, Integer type) {
+        this.taskId = taskId;
         this.name = name;
         this.description = description;
         this.enable = enable;
@@ -57,12 +58,12 @@ public class HuYaTask implements Comparable<HuYaTask>{
         this.id = id;
     }
 
-    public Integer getTask_id() {
-        return task_id;
+    public Integer getTaskId() {
+        return taskId;
     }
 
-    public void setTask_id(Integer task_id) {
-        this.task_id = task_id;
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
     }
 
     public String getName() {
@@ -169,16 +170,18 @@ public class HuYaTask implements Comparable<HuYaTask>{
         this.type = type;
     }
 
+
     @Override
     public int compareTo(HuYaTask o) {
-        return this.task_id > o.task_id ? 1 : this.task_id.equals(o.task_id)? 0 : -1;
+        // 注意不直接写减法在于Integer潜在超出范围
+        return this.taskId > o.taskId ? 1 : this.taskId.equals(o.taskId) ? 0 : -1;
     }
 
     @Override
     public String toString() {
         return "HuYaTask{" +
                 "id=" + id +
-                ", task_id=" + task_id +
+                ", taskId=" + taskId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", enable='" + enable + '\'' +

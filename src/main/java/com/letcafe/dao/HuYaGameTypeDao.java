@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface HuYaGameTypeDao extends JpaRepository<HuYaGameType, String>, HuYaGameTypeJdbc {
 
+    @Override
     void saveOrUpdate(HuYaGameType huYaGameType);
 
     @Query(value = "SELECT gid FROM huya_game_type", nativeQuery = true)

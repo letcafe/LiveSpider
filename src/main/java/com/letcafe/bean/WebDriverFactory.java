@@ -1,5 +1,6 @@
 package com.letcafe.bean;
 
+import com.letcafe.exception.BrowserTypeUnsupportedException;
 import com.letcafe.util.HuYaUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,9 +10,10 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.constraints.NotNull;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import static com.letcafe.util.HuYaUtils.BROWSER_BINARY_LOCATION;
 import static com.letcafe.util.HuYaUtils.BROWSER_DRIVER_LOCATION;
@@ -21,45 +23,50 @@ public class WebDriverFactory {
 
     private static final Logger logger = LoggerFactory.getLogger(WebDriverFactory.class);
 
+    /**
+     * 如果遍历了所有的浏览器类型，都没有和huya.yaml里的BROWSER_DRIVER_LOCATION匹配，
+     * 则表明不支持改浏览器类型或者yaml里填写错误
+     */
+    static {
+        // 找到第一个匹配驱动类型的，设置驱动的环境变量
+        System.setProperty(HuYaUtils.BROWSER_TYPE.systemPropertyName, BROWSER_DRIVER_LOCATION);
+    }
+
+    /**
+     * 获取对应的WebDriver
+     * @return 获取对应的WebDriver(目前获得的是非单例的，即每次new)
+     */
     public static WebDriver getInstance() {
-        BrowserType browserType = null;
-        WebDriver webDriver = null;
-        for (BrowserType tmp : BrowserType.values()) {
-            if (HuYaUtils.BROWSER_TYPE.equals(tmp.id)) {
-                browserType = tmp;
-                // 设置各个驱动的环境变量
-                System.setProperty(tmp.systemPropertyName, BROWSER_DRIVER_LOCATION);
-                break;
-            }
-        }
-        if (Objects.isNull(browserType)) {
-            logger.error("Log Type = \"" + HuYaUtils.BROWSER_TYPE + "\" is not supported now");
-            return null;
-        }
-        switch (browserType) {
-            case CHROME:
-                webDriver = getChromeDriver();break;
-            case FIRE_FOX:
-                webDriver = getFireFoxDriver();break;
-            case EVENT_FIRING:
-                webDriver = getEventFiringDriver();break;
-            case EDGE:
-                webDriver = getEdgeDriver();break;
-            case INTERNET_EXPLORER:
-                webDriver = getInternetExplorerDriver();break;
-            case OPERA:
-                webDriver = getOperaDriver();break;
-            case SAFARI:
-                webDriver = getSafariDriver();break;
-            case REMOTE_WEB:
-                webDriver = getRemoteDriver();break;
-            default:
-                logger.error("Log Type = \"" + browserType + "\" is not supported now");
-        }
-        if (webDriver != null) {
-            webDriver.manage().window().maximize();
-        }
+        WebDriver webDriver = getDriverByType(HuYaUtils.BROWSER_TYPE);
+        webDriver.manage().window().maximize();
         return webDriver;
+    }
+
+    @NotNull
+    private static WebDriver getDriverByType(BrowserType type) {
+        // 根据YAML初始化WebDriver的环境变量
+        // 根据类型进行实例化
+        switch (type) {
+            case CHROME:
+                return getChromeDriver();
+            case FIRE_FOX:
+                return getFireFoxDriver();
+            case EVENT_FIRING:
+                return getEventFiringDriver();
+            case EDGE:
+                return getEdgeDriver();
+            case INTERNET_EXPLORER:
+                return getInternetExplorerDriver();
+            case OPERA:
+                return getOperaDriver();
+            case SAFARI:
+                return getSafariDriver();
+            case REMOTE_WEB:
+                return getRemoteDriver();
+            default:
+                throw new BrowserTypeUnsupportedException(HuYaUtils.BROWSER_TYPE + " is not in supported browser list("
+                        + Arrays.toString(BrowserType.values()) + ")");
+        }
     }
 
     private static WebDriver getChromeDriver() {

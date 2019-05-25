@@ -1,6 +1,5 @@
 package com.letcafe.controller.huya;
 
-
 import com.alibaba.fastjson.JSONObject;
 import com.letcafe.bean.HuYaLiveInfo;
 import com.letcafe.generator.GameIdGen;
@@ -73,6 +72,7 @@ public class TaskAutoWorker {
 
     /**
      * 完成弹幕发送任务
+     *
      * @throws InterruptedException sleep中断异常
      */
     @Scheduled(cron = "${huya.task.worker.time.sendPubMessage}")
@@ -111,6 +111,7 @@ public class TaskAutoWorker {
 
     /**
      * 完成订阅直播间任务
+     *
      * @throws InterruptedException sleep中断异常
      */
     @Scheduled(cron = "${huya.task.worker.time.subscribeOneLiveRoomTask}")
@@ -136,6 +137,7 @@ public class TaskAutoWorker {
 
     /**
      * 完成给三个主播送礼物的任务 + 给自己订阅的主播送7个虎粮
+     *
      * @throws InterruptedException 线程被打断
      */
     @Scheduled(cron = "${huya.task.worker.time.sendGiftTo3LiveRoom}")
@@ -158,6 +160,7 @@ public class TaskAutoWorker {
 
     /**
      * 完成每天观看一小时，获取六个宝箱任务
+     *
      * @throws InterruptedException 线程被打断
      */
     @Scheduled(cron = "${huya.task.worker.time.watchLiveGetSixTreasure}")
@@ -187,10 +190,9 @@ public class TaskAutoWorker {
 
     /**
      * 完成每日三次竞猜任务
-     * @throws InterruptedException 线程被打断
      */
     @Scheduled(cron = "${huya.task.worker.time.guessInLiveRoom}")
-    public void guessInLiveRoom() throws InterruptedException {
+    public void guessInLiveRoom() {
         WebDriver webDriver = webDriverService.getWebDriverWithCookie(YY_ID);
         if (webDriver == null) {
             logger.error("[System] WebDriver is null");
@@ -218,6 +220,7 @@ public class TaskAutoWorker {
 
     /**
      * 根据给定的webDriver,领取所有的宝箱奖励
+     *
      * @param webDriver web浏览器
      * @throws InterruptedException 线程被打断
      */
@@ -419,7 +422,7 @@ public class TaskAutoWorker {
                             js.executeScript("arguments[0].click()", guess2SideButtons.get(i));
                             WebElement guessPlan = webDriver.findElement(By.cssSelector(".guess-plan input"));
                             // 下注豆子保护，防止原来已有豆子导致String不断append
-                            if (!guessPlan.getAttribute("value").equals("")) {
+                            if (!"".equals(guessPlan.getAttribute("value"))) {
                                 logger.error("[Doing Guess] fail, because the guess number is not empty before send");
                                 break;
                             }
@@ -455,6 +458,7 @@ public class TaskAutoWorker {
 
     /**
      * 单参数重载
+     *
      * @param url 竞猜的地址
      * @return 是否成功
      * @throws InterruptedException sleep中断异常

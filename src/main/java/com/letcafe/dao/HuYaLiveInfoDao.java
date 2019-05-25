@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface HuYaLiveInfoDao extends JpaRepository<HuYaLiveInfo, Long>, HuYaLiveInfoJdbc {
+    @Override
     void saveOrUpdate(HuYaLiveInfo huYaLiveInfo);
 
     @Query(value = "SELECT * FROM huya_live_info ORDER BY update_time DESC LIMIT :number", nativeQuery = true)

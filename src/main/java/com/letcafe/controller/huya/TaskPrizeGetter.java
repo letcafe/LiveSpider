@@ -44,16 +44,18 @@ public class TaskPrizeGetter {
         }
     }
 
-    // 每天收取任务奖励
+    /**
+     * 每天收取任务奖励
+     */
     @Scheduled(cron = "${huya.task.prize.time.getAllTaskPrize}")
     public void getAllTaskPrize() {
         logger.info("[Task Prize : Auto Get] success");
         StringBuilder taskStringBuilder = new StringBuilder("Task = [");
         int successNumber = 0;
         for (HuYaTask huYaTask : currentHuYaTaskList()) {
-            int code = getTaskPrizeByTaskId(huYaTask.getTask_id());
+            int code = getTaskPrizeByTaskId(huYaTask.getTaskId());
             if (code == 200) {
-                taskStringBuilder.append(huYaTask.getTask_id()).append(",");
+                taskStringBuilder.append(huYaTask.getTaskId()).append(",");
                 successNumber ++;
             }
         }
@@ -102,10 +104,10 @@ public class TaskPrizeGetter {
         //post
         ResponseEntity<String> responseEntity = restTemplate.postForEntity("https://www.huya.com/member/task.php", requestEntity, String.class);
 
-        int StatusCode = responseEntity.getStatusCode().value();
+        int statusCode = responseEntity.getStatusCode().value();
         String entity = "";
         //如果状态响应码为200，则获取html实体内容或者json文件
-        if (StatusCode == 200) {
+        if (statusCode == 200) {
             //EntityUtils.toString (responseEntity,"utf-8")
             entity = responseEntity.getBody();
             entity = entity.substring(entity.indexOf("{"), entity.lastIndexOf("}") + 1);

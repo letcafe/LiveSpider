@@ -1,5 +1,6 @@
 package com.letcafe;
 
+import com.letcafe.util.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -17,7 +18,7 @@ public class Application extends SpringBootServletInitializer{
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
-        logger.info("[System : CPU] core number : {}", Runtime.getRuntime().availableProcessors());
+        logger.info("[System : CPU] core number : {}", SystemUtils.SYSTEM_CPU_CORE);
         SpringApplication.run(Application.class, args);
     }
 

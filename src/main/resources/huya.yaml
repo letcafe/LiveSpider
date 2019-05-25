@@ -5,7 +5,7 @@ huya:
   PASSWORD: Aa123456
   # ChromeDriver解压位置
   # Windows Chrome
-  BROWSER_TYPE: chrome
+  BROWSER_TYPE: CHROME
 #  BROWSER_BINARY_LOCATION: /opt/google/chrome/chrome
   BROWSER_BINARY_LOCATION: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
   BROWSER_DRIVER_LOCATION: C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe

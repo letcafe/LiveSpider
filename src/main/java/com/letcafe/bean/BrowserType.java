@@ -19,11 +19,11 @@ public enum BrowserType {
     REMOTE_WEB("remoteWeb", "webdriver.remoteWeb.driver");
 
     String id;
-
     String systemPropertyName;
 
     BrowserType(String id, String systemPropertyName) {
         this.id = id;
         this.systemPropertyName = systemPropertyName;
     }
+
 }

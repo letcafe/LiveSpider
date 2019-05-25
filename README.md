@@ -236,3 +236,8 @@
 ### 2019-05-23
 + \~ 修复了POM中的maven-compiler-plugin插件，以后无需每次打开项目重新配置路径
 + \~ 简化了登录中Cookie获取的流程和代码
+
+### 2019-05-23
++ \~ 优化WebDriver底层获取流程
++ \~ 将浏览器内核环境变量配置放入static{}块中，避免不必要的多创建
++ \~ 修复定期任务中刷新Cookie到Redis中WebDriver为空的BUG
