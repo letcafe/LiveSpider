@@ -23,7 +23,7 @@
 + 6个百宝箱在早上7点刷新?(正在验证...)
 
 ## 定时任务：
-<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/structure.png" width="450px"></image>
+<img src="https://github.com/letcafe/LiveSpider/blob/master/picture/structure.png"></image>
 
 ## Framework (Updated in 2018-10-05)
 <img src="https://github.com/letcafe/LiveSpider/blob/master/picture/framework.png" width="450px"></image>
