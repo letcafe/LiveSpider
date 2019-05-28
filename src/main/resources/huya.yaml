@@ -22,11 +22,11 @@ huya:
         # 完成给竞猜三次胜利任务（方法：双边下注各1豆子）
         guessInLiveRoom: 0 30 3 * * *
         # 完成每天观看一小时，获取六个宝箱任务
-        watchLiveGetSixTreasure: 0 0 10 * * *
+        watchLiveGetSixTreasure: 0 0 8 * * *
     prize:
       time:
         # 每天收取任务奖励
-        getAllTaskPrize: 0 0 12 * * *
+        getAllTaskPrize: 0 0 10 * * *
     status:
       time:
         # 获取每天用户任务完成情况
