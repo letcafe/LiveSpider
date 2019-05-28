@@ -1,21 +1,22 @@
 package com.letcafe.controller.huya;
 
+import com.letcafe.bean.HuYaProperties;
 import com.letcafe.service.CookieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
-import static com.letcafe.util.HuYaUtils.PASSWORD;
-import static com.letcafe.util.HuYaUtils.YY_ID;
 
 @Controller
 public class CookieSetter {
 
     private CookieService cookieService;
+    private HuYaProperties huYaProperties;
 
     @Autowired
-    public CookieSetter(CookieService cookieService) {
+    public CookieSetter(CookieService cookieService, HuYaProperties huYaProperties) {
         this.cookieService = cookieService;
+        this.huYaProperties = huYaProperties;
     }
 
     /**
@@ -23,6 +24,6 @@ public class CookieSetter {
      */
     @Scheduled(cron = "${huya.user.cookie.time.setUserLoginCookie}")
     public void setUserLoginCookie() {
-        cookieService.setUserCookieInRedis(YY_ID, PASSWORD);
+        cookieService.setUserCookieInRedis(huYaProperties.getYyId(), huYaProperties.getPassword());
     }
 }

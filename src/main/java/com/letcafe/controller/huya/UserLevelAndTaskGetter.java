@@ -1,6 +1,7 @@
 package com.letcafe.controller.huya;
 
 import com.alibaba.fastjson.JSONObject;
+import com.letcafe.bean.HuYaProperties;
 import com.letcafe.bean.HuYaUserLevel;
 import com.letcafe.service.CookieService;
 import com.letcafe.service.HuYaUserLevelService;
@@ -17,7 +18,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import static com.letcafe.util.HuYaUtils.YY_ID;
 
 @Controller
 public class UserLevelAndTaskGetter {
@@ -26,22 +26,21 @@ public class UserLevelAndTaskGetter {
 
     private HuYaUserLevelService huYaUserLevelService;
     private CookieService cookieService;
+    private HuYaProperties huYaProperties;
 
     @Autowired
-    public UserLevelAndTaskGetter(HuYaUserLevelService huYaUserLevelService, CookieService cookieService) {
+    public UserLevelAndTaskGetter(HuYaUserLevelService huYaUserLevelService, CookieService cookieService, HuYaProperties huYaProperties) {
         this.huYaUserLevelService = huYaUserLevelService;
         this.cookieService = cookieService;
+        this.huYaProperties = huYaProperties;
     }
 
 
-    /**
-     * 
-     */
     @Scheduled(cron = "${huya.user.info.time.setUserBasicInfo}")
     public void setUserBasicInfo() {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders requestHeaders = new HttpHeaders();
-        requestHeaders.add("cookie", cookieService.getUserCookieInRedis(YY_ID));
+        requestHeaders.add("cookie", cookieService.getUserCookieInRedis(huYaProperties.getYyId()));
         //body
         MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
         requestBody.add("m", "User");
@@ -68,7 +67,7 @@ public class UserLevelAndTaskGetter {
             HuYaUserLevel huYaUserLevel = JSONObject.parseObject(levelData, HuYaUserLevel.class);
             logger.info("[Task Finish Status : MySQL] add number = {}", entity.length());
             if(huYaUserLevel != null) {
-                huYaUserLevel.setYyId(YY_ID);
+                huYaUserLevel.setYyId(huYaProperties.getYyId());
                 huYaUserLevelService.save(huYaUserLevel);
             } else {
                 logger.error("[Task Finish Status : MySQL] huYaUserLevel object is null");

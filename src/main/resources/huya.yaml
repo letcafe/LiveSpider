@@ -1,22 +1,13 @@
 huya:
-  # 虎牙登录账号/手机号
-  YY_ID: 17822000706
-  # 虎牙登录密码
-  PASSWORD: Aa123456
-  # ChromeDriver解压位置
-  # Windows Chrome
-  BROWSER_TYPE: CHROME
-#  BROWSER_BINARY_LOCATION: /opt/google/chrome/chrome
-  BROWSER_BINARY_LOCATION: C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
-  BROWSER_DRIVER_LOCATION: C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe
-  # Windows Firefox
-#  BROWSER_TYPE: firefox
-#  BROWSER_BINARY_LOCATION: /usr/bin/firefox
-#  BROWSER_DRIVER_LOCATION: /home/chinanet/driver/geckodriver
-#  BROWSER_DRIVER_LOCATION: /usr/bin/chromedriver
-  SYSTEM_IS_OPEN_GUI: false
-  COOKIE_IN_REDIS: loginCookie:${huya.YY_ID}
-  ATTEMPT_TIMES: 3
+  yy-id: 17822000706
+  password: Aa123456
+  cookie-in-redis: loginCookie:${huya.yy-id}
+  browser-type: CHROME
+  browser-binary-location: 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
+  browser-driver-location: 'C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe'
+  open-gui: false
+  attempt-times: 3
+  check-login-str: ';username='
   task:
     worker:
       time:

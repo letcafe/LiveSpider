@@ -26,4 +26,11 @@ public enum BrowserType {
         this.systemPropertyName = systemPropertyName;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getSystemPropertyName() {
+        return systemPropertyName;
+    }
 }

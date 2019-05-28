@@ -2,6 +2,7 @@ package com.letcafe.controller.huya;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.letcafe.bean.HuYaProperties;
 import com.letcafe.bean.HuYaTask;
 import com.letcafe.service.CookieService;
 import com.letcafe.service.HuYaTaskService;
@@ -19,7 +20,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
-import static com.letcafe.util.HuYaUtils.YY_ID;
 
 @Controller
 public class TaskPrizeGetter {
@@ -28,11 +28,13 @@ public class TaskPrizeGetter {
 
     private CookieService cookieService;
     private HuYaTaskService huYaTaskService;
+    private HuYaProperties huYaProperties;
 
     @Autowired
-    public TaskPrizeGetter(CookieService cookieService, HuYaTaskService huYaTaskService) {
+    public TaskPrizeGetter(CookieService cookieService, HuYaTaskService huYaTaskService, HuYaProperties huYaProperties) {
         this.cookieService = cookieService;
         this.huYaTaskService = huYaTaskService;
+        this.huYaProperties = huYaProperties;
     }
 
     // 获取每天用户任务完成情况
@@ -67,7 +69,7 @@ public class TaskPrizeGetter {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders requestHeaders = new HttpHeaders();
-        requestHeaders.add("cookie", cookieService.getUserCookieInRedis(YY_ID));
+        requestHeaders.add("cookie", cookieService.getUserCookieInRedis(huYaProperties.getYyId()));
         //body
         MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
         requestBody.add("m", "User");
@@ -93,7 +95,7 @@ public class TaskPrizeGetter {
         List<HuYaTask> tasksList = new ArrayList<>();
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders requestHeaders = new HttpHeaders();
-        requestHeaders.add("cookie", cookieService.getUserCookieInRedis(YY_ID));
+        requestHeaders.add("cookie", cookieService.getUserCookieInRedis(huYaProperties.getYyId()));
         //body
         MultiValueMap<String, Object> requestBody = new LinkedMultiValueMap<>();
         requestBody.add("m", "User");

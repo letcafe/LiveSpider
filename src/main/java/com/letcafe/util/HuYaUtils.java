@@ -1,7 +1,5 @@
 package com.letcafe.util;
 
-import com.letcafe.bean.BrowserType;
-import com.letcafe.bean.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -10,85 +8,23 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-@Component
 public class HuYaUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(HuYaUtils.class);
 
     /**
-     * 通过Setter方法注入值，注意setter方法不需要加static修饰
-     */
-    public static String YY_ID;
-    public static String PASSWORD;
-    public static String COOKIE_IN_REDIS;
-    public static BrowserType BROWSER_TYPE;
-    public static String BROWSER_BINARY_LOCATION;
-    public static String BROWSER_DRIVER_LOCATION;
-    public static Boolean SYSTEM_IS_OPEN_GUI;
-    public static Integer CPU_CORE;
-    public static Integer ATTEMPT_TIMES;
-    public static final String CHECK_LOGIN_STRING = ";username=";
-
-    @Value("${huya.YY_ID}")
-    public void setYyId(String yyId) {
-        YY_ID = yyId;
-    }
-
-    @Value("${huya.PASSWORD}")
-    public void setPASSWORD(String password) {
-        PASSWORD = password;
-    }
-
-    @Value("${huya.COOKIE_IN_REDIS}")
-    public void setCookieInRedis(String cookieInRedis) {
-        COOKIE_IN_REDIS = cookieInRedis;
-    }
-
-    @Value("${huya.BROWSER_TYPE}")
-    public void setBrowserType(String browserType) {
-        BROWSER_TYPE = BrowserType.valueOf(browserType);
-    }
-
-    @Value("${huya.BROWSER_BINARY_LOCATION}")
-    public void setBrowserBinaryLocation(String browserBinaryLocation) {
-        BROWSER_BINARY_LOCATION = browserBinaryLocation;
-    }
-
-    @Value("${huya.BROWSER_DRIVER_LOCATION}")
-    public void setBrowserDriverLocation(String browserDriverLocation) {
-        BROWSER_DRIVER_LOCATION = browserDriverLocation;
-    }
-
-    @Value("${huya.SYSTEM_IS_OPEN_GUI}")
-    public void setSystemIsOpenGui(Boolean systemIsOpenGui) {
-        SYSTEM_IS_OPEN_GUI = systemIsOpenGui;
-    }
-
-    @Value("#{T(Runtime).getRuntime().availableProcessors()}")
-    public void setCpuCore(Integer cpuCore) {
-        CPU_CORE = cpuCore;
-    }
-
-    @Value("${huya.ATTEMPT_TIMES}")
-    public void setAttemptTime(Integer attemptTime) {
-        ATTEMPT_TIMES = attemptTime;
-    }
-
-    /**
      * 通过WebDriver登录，当登录完成后，返回用户Cookie
      *
+     * @param webDriver 浏览器驱动
      * @param username 虎牙用户名
      * @param password 虎牙密码
-     * @return 登录后获得的Cookie字符串，用于存储于Redis中
+     * @return 登录后获得的Cookie字符串，返回null说明模拟登陆失败
      */
-    public static String login(String username, String password) {
-        WebDriver webDriver = WebDriverFactory.getInstance();
+    public static String login(WebDriver webDriver, String username, String password) {
         webDriver.get("https://i.huya.com/");
         // set huya login iframe and switch to it,then wait time to get its login form
         WebDriverWait loginFrameWait = new WebDriverWait(webDriver, 20, 500);
